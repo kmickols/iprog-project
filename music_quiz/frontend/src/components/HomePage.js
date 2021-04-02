@@ -5,7 +5,7 @@ export default function HomePage(props){
     return (
         <Router>
             <switch>
-                <Route exact path='/'><p> This is the homepage! </p> </Route>
+                <Route exact path='/'><p> This is the homepage! :)</p> </Route>
             </switch>
         </Router>
     );
