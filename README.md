@@ -12,7 +12,7 @@ Run the server by using the command
   or
   $python manage.py runserver
   depending on your python installation.
-in the music_quiz/music_quiz folder.
+in the music_quiz folder.
 
 To automatically recompile react, run
   $npm run dev
