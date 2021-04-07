@@ -26,3 +26,8 @@ Whenever an update is made to the database, run
   $python manage.py migrate
   depending on your python installation
 in the music_quiz/music_quiz folder to apply changes.
+
+To handle HTTPS request we use axios. 
+https://github.com/axios/axios
+do $npm install axios in root map. So the map that is the base of your local git 
+reepo.
