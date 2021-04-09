@@ -8,26 +8,35 @@ Django REST Framework (Install with '$pip install django djangorestframework')
 
 ## Setup
 Run the server by using the command
-  $py manage.py runserver
-  or
-  $python manage.py runserver
+
+  ```$py manage.py runserver```
+
+(replace "py" by ```python```, or ```python3```, depending on your python installation)
+
   depending on your python installation.
 in the music_quiz folder.
 
 To automatically recompile react, run
-  $npm run dev
+
+  ```$npm run dev```
+
 in the music_quiz/frontend folder
 
+
 Whenever an update is made to the database, run
+```
   $py manage.py makemigrations
   $py manage.py migrate
-  or
-  $python manage.py makemigrations
-  $python manage.py migrate
-  depending on your python installation
+```
 in the music_quiz/music_quiz folder to apply changes.
 
-To handle HTTPS request we use axios. 
+To handle HTTPS request we use axios.
+
 https://github.com/axios/axios
-do $npm install axios in root map. So the map that is the base of your local git 
-reepo.
+
+do 
+
+```$npm install axios```,
+
+in root directory, the directory that is the base of your local git 
+repo.

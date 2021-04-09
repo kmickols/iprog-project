@@ -19,4 +19,13 @@ class Room(models.Model):
     code = models.CharField(max_length=8, default=generate_unique_code, unique=True)
     host = models.CharField(max_length=50, unique=True)
     num_questions = models.IntegerField(default=5)
+    player_can_join = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Player(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    room_code = models.CharField(max_length=8)
+    user_name = models.CharField(max_length=15)
+    session_key = models.CharField(max_length=50, unique=True)
+    score = models.IntegerField(default=0)

@@ -27,7 +27,6 @@ export default function RoomInfo(props){
                     }
                 }).catch(er=>{
                         if(promise===p){
-                            console.log("hi")
                             setError(er)
                         }
                     }
