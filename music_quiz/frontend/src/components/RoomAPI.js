@@ -37,7 +37,7 @@ export function joinRoom(roomCode, name){
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        code: roomCode,
+        room_code: roomCode,
         user_name: name,
       }),
     };
@@ -54,14 +54,14 @@ export function joinRoom(roomCode, name){
 // If that is the case, it might be desirable to instantly redirect them to the room they are part of.
 export function userInRoom(){
 
-    return fetch("api/user-in-room")
+    return fetch("/api/user-in-room")
         .then(response => response.json())
         .then(dt => dt.code)
 }
 
 //Returns all players in the specified room
 export function getPlayers(roomCode){
-    return fetch("api/players-in-room?room_code="+roomCode)
+    return fetch("/api/players-in-room?room_code="+roomCode)
         .then(response => response.json())
         .then(dt => dt.players)
 }
@@ -74,6 +74,24 @@ export function leaveRoom(){
       method: "POST",
       headers: { "Content-Type": "application/json" },
     };
-    return fetch("api/leave-room", requestOptions)
+    return fetch("/api/leave-room", requestOptions)
         .then(response => response.json())
+}
+
+// Launches The game. Players will not be able to join anymore.
+// Returns the set of questions for the game. Meant to be called from the host.
+export function launchGame(roomCode){
+    const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            code: roomCode,
+    })
+    };
+    return fetch("/api/launch-game", requestOptions)
+        .then(response => response.json())
+}
+
+export function answerQuestion(answer){
+
 }

@@ -4,13 +4,13 @@ from django.shortcuts import render
 
 from django.shortcuts import render
 from rest_framework import generics, status
-from .serializers import RoomSerializer, CreateRoomSerializer, CreatePlayerSerializer, PlayerSerializer, PlayerInfoSerializer
+from .serializers import RoomSerializer, CreateRoomSerializer, CreatePlayerSerializer, PlayerSerializer, PlayerInfoSerializer, RoomCodeSerializer
 from .models import Room, Player
 from django.http import JsonResponse
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
+from . import functions
 
 class RoomView(generics.ListAPIView):
     queryset = Room.objects.all()
@@ -32,11 +32,14 @@ class GetRoom(APIView):
             if len(room) > 0:
                 data = RoomSerializer(room[0]).data
                 data['is_host'] = self.request.session.session_key == room[0].host
+                data['players'] = get_players_in_room(code)
                 return Response(data, status=status.HTTP_200_OK)
             return Response({'Room Not Found': 'Invalid Room Code'}, status=status.HTTP_404_NOT_FOUND)
         return Response({"Bad Request": "Room code parameter not preesent in request"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+# Create Room and generate questions
+# Thought: Host shouldn't be able to recreate room after it has been launched - or it will interrupt current game.
 class CreateRoomView(generics.CreateAPIView):
 
     serializer_class = CreateRoomSerializer
@@ -54,7 +57,8 @@ class CreateRoomView(generics.CreateAPIView):
                 # Room already exists - Update current room
                 room = queryset[0]
                 room.num_questions = num_questions
-                room.save(update_fields=['num_questions'])
+                room.player_can_join = True
+                room.save(update_fields=['num_questions', 'player_can_join'])
                 self.request.session['room_code'] = room.code
                 return Response(RoomSerializer(room).data, status=status.HTTP_200_OK)
             else:
@@ -66,14 +70,43 @@ class CreateRoomView(generics.CreateAPIView):
         return Response({'Bad Request': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-# Players cant join anymore.
+# Players can't join anymore. Takes room code TODO: take spotify playlist, generate Questions.
 class LaunchGame(APIView):
-    pass
+
+    serializer_class = RoomCodeSerializer
+
+    def post(self, request, format=None):
+
+        code = request.data.get('code')
+        queryset = Room.objects.filter(code=code)
+        if queryset.exists():
+            # Room exists - Update current room
+            room = queryset[0]
+            room.player_can_join = False
+            room.current_question = 0
+            room.questions = functions.generate_questions([])
+            room.save(update_fields=['player_can_join', 'current_question', 'questions'])
+            return Response({"message": "Game Launched successfully."}, status=status.HTTP_200_OK)
+        else:
+            print("room doesn't exist :(")
+            Response({'Bad Request': "Room with specified code doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Delete the room
 class EndGame(APIView):
     pass
+
+
+# Client answers question, check if current question and check if answer is correct.
+class AnswerQuestions(APIView):
+    def post(self, request, format=None):
+        pass
+
+
+class GetQuestion(APIView):
+    # Gets the next question/Gets all questions
+    def get(self, request, format=None):
+        pass
 
 
 class JoinRoomView(APIView):
@@ -86,6 +119,7 @@ class JoinRoomView(APIView):
 
         code = request.data.get('room_code')
         user_name = request.data.get('user_name')
+        print(code)
         if code != None:
             room_result = Room.objects.filter(code=code)
             if len(room_result) > 0:
@@ -148,10 +182,7 @@ class PlayersInRoom(APIView):
     def get(self, request, format=None):
         code = request.query_params['room_code']
         if code is not None:
-            queryset = list(Player.objects.filter(room_code=code))
-            lst = []
-            for i in range(0, len(queryset)):
-                lst.append(PlayerInfoSerializer(queryset[i]).data)
+            lst = get_players_in_room(code)
 
             data = {"players": lst}
             return JsonResponse(data, status=status.HTTP_200_OK)
@@ -159,6 +190,10 @@ class PlayersInRoom(APIView):
             return Response({"Bad Requeset": "no room_code provided"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-# Player sends an answer to a question
-class AnswerQuestion(APIView):
-    pass
+def get_players_in_room(code):
+    queryset = list(Player.objects.filter(room_code=code))
+    lst = []
+    for i in range(0, len(queryset)):
+        lst.append(PlayerInfoSerializer(queryset[i]).data)
+    return lst
+

@@ -1,5 +1,5 @@
 import React from "react";
-import {getRoomDetails, createRoom} from "./RoomAPI"
+import {getRoomDetails, createRoom, launchGame} from "./RoomAPI"
 
 export default function RoomInfo(props){
 
@@ -12,6 +12,7 @@ export default function RoomInfo(props){
     const [error, setError] = React.useState(null)
     const [numQuestions, setNumQuestions] = React.useState(0)
     const [isHost, setIsHost] = React.useState(false)
+    const [players, setPlayers] = React.useState([])
 
     React.useEffect(
         function (){
@@ -24,6 +25,7 @@ export default function RoomInfo(props){
                         setData(dt)
                         setNumQuestions(dt.num_questions)
                         setIsHost(dt.is_host)
+                        setPlayers(dt.players)
                     }
                 }).catch(er=>{
                         if(promise===p){
@@ -37,16 +39,27 @@ export default function RoomInfo(props){
         , [promise]
     )
 
-    return !error ?
-    (<div>
-        <button disabled={false} onClick={(ev) => createRoom(10)}>press</button>
-        <h2>Room Code: {roomCode}</h2>
-        <p>Questions: {numQuestions}</p>
-        <p>Host: {isHost ? "Yes" : "No"}</p>
-    </div>)
-        :
-    <div><p>Non-existing room with code: {roomCode}</p></div>
+    if(error){
+        return <div><p>Non-existing room with code: {roomCode}</p></div>
+    } else {
+        return isHost ?
+            (<div>
+                <button onClick={(ev) => launchGame(roomCode)}>Launch Game</button>
+                <button onClick={(ev) => createRoom(10)}>Re-Create Room</button>
+                <h2>Room Code: {roomCode}</h2>
+                <p>Questions: {numQuestions}</p>
+                <p>Host: {isHost ? "Yes" : "No"}</p>
+                <h3>Players:</h3>
+                {players.map(player => <p>{player.user_name}</p>)}
+                <button onClick={() => setPromise(getRoomDetails(roomCode))}>Refresh</button>
+            </div>)
+            : (
+                <div>
+                    <h2>Joined Room: {roomCode}</h2>
+                    <p>Wait for host to start the game.</p>
+                </div>
+            )
 
-
+    }
 
 }

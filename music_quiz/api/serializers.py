@@ -6,13 +6,18 @@ from .models import Room, Player
 class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
-        fields = ('id', 'code', 'host', 'num_questions', 'player_can_join', 'created_at',)
+        fields = ('id', 'code', 'host', 'num_questions', 'current_question', 'questions', 'player_can_join', 'created_at',)
 
 
 class CreateRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
         fields = ('num_questions',)
+
+class RoomCodeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Room
+        fields = ('code', )
 
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
