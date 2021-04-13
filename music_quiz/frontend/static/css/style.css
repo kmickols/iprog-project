@@ -28,6 +28,16 @@
     color: white;
 }
 
+.smaller-text {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 20px;
+    color: white;
+}
+
 .start-button {
     display: grid;
     justify-content: center;
@@ -94,6 +104,26 @@
     font-family:'Red Hat Display',sans-serif;
     font-weight:300;
     font-size: 20px;
+    color:#000;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align:center;
+    transition: all 0.2s;
+}
+
+.launch-button {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 50px;
+    padding: 0.3em 1.2em;
+    margin-top: 20px;
+    border-radius:0.7em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 15px;
     color:#000;
     text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
     text-align:center;
