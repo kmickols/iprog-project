@@ -15,6 +15,36 @@ tmp_questions = [
                 "answer": "Justin Bieber"
             }
         }
+    },
+    {
+        "type": "field",
+        "text": "What is the name of the song and the name of the artist?",
+        "body": {
+            "fields": 2,
+            "0": {
+                "text": "Song Name",
+                "answer": "What Is Love?"
+            },
+            "1": {
+                "text": "Artist Name",
+                "answer": "Haddaway"
+            }
+        }
+    },
+    {
+        "type": "field",
+        "text": "What is the name of the song and the name of the artist?",
+        "body": {
+            "fields": 2,
+            "0": {
+                "text": "Song Name",
+                "answer": "Africa"
+            },
+            "1": {
+                "text": "Artist Name",
+                "answer": "Toto"
+            }
+        }
     }
 ]
 
@@ -38,4 +68,4 @@ def json_to_list(jsn):
 # For "multiple" type the body will contain the different choices and the correct choice
 # Answers will be evaluated depending on type.
 def generate_questions(playlist):
-    return []
+    return tmp_questions

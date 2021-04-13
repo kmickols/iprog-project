@@ -103,12 +103,17 @@ class AnswerQuestions(APIView):
         pass
 
 
+# Change the current question to the next one, returns the current question position.
+# If there are no more questions -1 will be set to the current question and -1 will be returned.
 class NextQuestion(APIView):
-    pass
+    def post(self, request, format=None):
+        pass
+
 
 class GetQuestion(APIView):
     # Gets the next question and the next question's position
-    # Takes the roomCode
+    # Takes the roomCode,
+    # If there are no more questions, returns -1
     def get(self, request, format=None):
 
         if not self.request.session.exists(self.request.session.session_key):
@@ -135,6 +140,7 @@ class GetQuestion(APIView):
             if questions_json == "":
                 return Response({'Bad Request': "No Questions have been generated."},
                                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
             questions = functions.json_to_list(questions_json)
             question = questions[room.current_question]
 
@@ -142,9 +148,6 @@ class GetQuestion(APIView):
         else:
             return Response({'Bad Request': "Room with specified code doesn't exist"},
                             status=status.HTTP_400_BAD_REQUEST)
-
-
-
 
 
 class JoinRoomView(APIView):
