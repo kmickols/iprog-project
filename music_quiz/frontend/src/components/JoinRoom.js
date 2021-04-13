@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {getRoomDetails, joinRoom} from "./RoomAPI";
+import "../../static/css/style.css"
 
 export default function RoomInfo(props) {
 

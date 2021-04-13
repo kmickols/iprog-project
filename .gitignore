@@ -1,3 +1,4 @@
 */__pycache__/*
 *.pyc
 music_quiz/frontend/node_modules/
+music_quiz/frontend/static/frontend/*
