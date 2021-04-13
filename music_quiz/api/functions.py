@@ -4,53 +4,53 @@ tmp_questions = [
     {
         "type": "field",
         "text": "What is the name of the song and the name of the artist?",
-        "body": {
-            "fields": 2,
-            "0": {
+        "spotify_token": "xxx",
+        "body": [
+            {
                 "text": "Song Name",
                 "answer": "Baby",
                 "score": 1
             },
-            "1": {
+            {
                 "text": "Artist Name",
                 "answer": "Justin Bieber",
                 "score": 1
             }
-        }
+        ]
     },
     {
         "type": "field",
         "text": "What is the name of the song and the name of the artist?",
-        "body": {
-            "fields": 2,
-            "0": {
+        "spotify_token": "xxx",
+        "body": [
+            {
                 "text": "Song Name",
                 "answer": "What Is Love?",
                 "score": 1
             },
-            "1": {
+            {
                 "text": "Artist Name",
                 "answer": "Haddaway",
                 "score": 1
             }
-        }
+        ]
     },
     {
         "type": "field",
         "text": "What is the name of the song and the name of the artist?",
-        "body": {
-            "fields": 2,
-            "0": {
+        "spotify_token": "xxx",
+        "body": [
+            {
                 "text": "Song Name",
                 "answer": "Africa",
                 "score": 1
             },
-            "1": {
+            {
                 "text": "Artist Name",
                 "answer": "Toto",
                 "score": 1
             }
-        }
+        ]
     }
 ]
 
@@ -80,4 +80,22 @@ def generate_questions(playlist):
 # Checks if answers are correct.
 # Returns the awarded score first and then which questions were correct as a boolean list.
 def validate_answer(question, answers):
-    return 1, []
+    score = 0
+    result = []
+
+    # Questions of type "field"
+    if question["type"] == "field":
+        for i in range(0, len(question["body"])):
+            correct = question["body"][i]["answer"]
+            q_score = question["body"][i]["score"]
+            if len(answers) > i:
+                answer = answers[i]
+                if correct.lower() == answer.lower():
+                    score += q_score
+                    result.append(True)
+                else:
+                    result.append(False)
+            else:
+                result.append(False)
+
+    return score, result

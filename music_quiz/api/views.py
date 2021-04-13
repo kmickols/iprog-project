@@ -155,11 +155,10 @@ class NextQuestion(APIView):
             key = self.request.session.session_key
             is_host = key == room.host
             if not is_host:
-                return Response({"message": "Only host may change question."}, status.HTTP_401_UNAUTHORIZED)
+                return Response({"message": "Only host may change question."}, status=status.HTTP_401_UNAUTHORIZED)
 
             if room.current_question == -1:
-                return Response({"message": "No more questions", "question": -1}, status.HTTP_204_NO_CONTENT)
-
+                return JsonResponse({"message": "No more questions", "question": -1}, status=status.HTTP_204_NO_CONTENT)
 
             questions_json = room.questions
             if questions_json == "":
@@ -171,7 +170,7 @@ class NextQuestion(APIView):
 
             next_question = room.current_question + 1
             num_questions = room.num_questions
-            if num_questions >= next_question:
+            if next_question >= num_questions:
                 next_question = -1
             room.current_question = next_question
             room.save(update_fields=['current_question'])
@@ -217,6 +216,7 @@ class GetQuestion(APIView):
 
             return JsonResponse(question, status=status.HTTP_200_OK)
         else:
+            print(code)
             return Response({'Bad Request': "Room with specified code doesn't exist"},
                             status=status.HTTP_400_BAD_REQUEST)
 

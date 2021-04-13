@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {getRoomDetails, joinRoom} from "./RoomAPI";
+import {getQuestion, getRoomDetails, joinRoom, nextQuestion, answerQuestion} from "./RoomAPI";
 import "../../static/css/style.css"
 
 export default function RoomInfo(props) {
@@ -13,7 +13,7 @@ export default function RoomInfo(props) {
     return (
 
         <div>
-            <span class="main-text">
+            <span className="main-text">
             Room Code
             <br/>
             <input id="code" placeholder="Room Code" maxLength={6} className="fill-form"/>
@@ -22,14 +22,17 @@ export default function RoomInfo(props) {
             <br/>
             <input id="name" placeholder="Nickname" maxLength={15} className="fill-form"/>
             <br/>
-            <span class="main-text">
-            <button class="launch-button" onClick={() => {
+            <span className="main-text">
+            <button className="launch-button" onClick={() => {
                 setPromise(joinRoom(document.getElementById("code").value, document.getElementById("name").value)
                 .then(dt => setTxt(JSON.stringify(dt)))
                 .then(dt => props.history.push('/room/'+document.getElementById("code").value))
 
             )}}>
                 Join Room!</button>
+                <button hidden={true} className="launch-button" onClick={() => {getQuestion(document.getElementById("code").value).then(dt => console.log(dt))}}> Test get </button>
+                <button hidden={true} className="launch-button" onClick={() => {answerQuestion(document.getElementById("code").value, ["Baby", "Justin bieber"]).then(dt => console.log(dt))}}> Test answer </button>
+                <button hidden={true} className="launch-button" onClick={() => {nextQuestion(document.getElementById("code").value).then(dt => console.log(dt))}}> Test next </button>
                 </span>
         <p>{txt}</p>
                 </span>

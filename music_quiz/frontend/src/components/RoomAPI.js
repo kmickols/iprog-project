@@ -94,6 +94,32 @@ export function launchGame(roomCode){
         .then(response => response.json())
 }
 
-export function answerQuestion(answer){
+export function answerQuestion(roomCode, answers){
+    const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            code: roomCode,
+            answers: answers
+        })
+    };
+    return fetch("/api/answer-question", requestOptions)
+        .then(response => response.json())
+}
 
+export function nextQuestion(roomCode){
+    const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            code: roomCode,
+        })
+    };
+    return fetch("/api/next-question", requestOptions)
+        .then(response => response.json())
+}
+
+export function getQuestion(roomCode){
+    return fetch("/api/get-question?code="+roomCode)
+        .then(response => response.json())
 }
