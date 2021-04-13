@@ -7,7 +7,9 @@ export default function HomePage(props){
     return (
         <Router>
             <switch>
-                <Route exact path='/'><p> This is the homepage!! :)</p> </Route>
+
+                <Route exact path='/'><p>
+                    This is the homepage!! :)</p> </Route>
                 <Route path="/room/:roomCode" component={RoomInfo}/>
                 <Route path="/join" component={JoinRoom}/>
             </switch>

@@ -10,23 +10,28 @@ export default function RoomInfo(props) {
     const [error, setError] = React.useState(null)
 
     return (
-        <div style={{margin: 15}}>
+
+        <div>
+            <span className="main-text">
             Room Code
             <br/>
-            <input id="code" placeholder="Room Code" maxLength={6}/>
+            <input id="code" placeholder="Room Code" maxLength={6} className="fill-form"/>
             <br/>
             Nickname
             <br/>
-            <input id="name" placeholder="Nickname" maxLength={15}/>
+            <input id="name" placeholder="Nickname" maxLength={15} className="fill-form"/>
             <br/>
-            <button onClick={() => {
+            <span className="main-text">
+            <button className="join" onClick={() => {
                 setPromise(joinRoom(document.getElementById("code").value, document.getElementById("name").value)
                 .then(dt => setTxt(JSON.stringify(dt)))
                 .then(dt => props.history.push('/room/'+document.getElementById("code").value))
 
             )}}>
                 Join Room!</button>
+                </span>
         <p>{txt}</p>
+                </span>
         </div>
         )
     }

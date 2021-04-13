@@ -69,10 +69,78 @@
 }
 
 .fill-form {
-    font-family: inherit;
+    font-family: "Red Hat Display", sans-serif;
     font-size: 100%;
+    color: white;
+    background: #8090fd;
     border: none;
-    background: none;
-    border-bottom: 4px dashed white;
-    margin-top: 50px;
+    border-bottom: 3px dashed white;
+    margin: auto;
+    text-shadow: #4c4c4c;
+    border-radius: 0.2em;
+}
+
+.submit-button {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 50px;
+    padding: 0.3em 1.2em;
+    margin-top: 20px;
+    border-radius:0.7em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 20px;
+    color:#000;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align:center;
+    transition: all 0.2s;
+}
+
+
+/*TODO: Show questions nicely*/
+.questions {
+    display: block;
+}
+
+.number-button {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    width: 10px;
+    height: 30px;
+    padding: 0.3em 1.2em;
+    margin-top: 20px;
+    border-radius:1.4em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 30px;
+    color:#000;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    transition: all 0.2s;
+}
+
+.join {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 50px;
+    padding: 0.3em 1.2em;
+    margin: 10px;
+    border-radius:0.7em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 15px;
+    color:#000;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align:center;
+    transition: all 0.2s;
 }

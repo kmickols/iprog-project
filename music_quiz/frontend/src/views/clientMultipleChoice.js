@@ -1,4 +1,4 @@
-function MultipleChoice (props) {
+function ClientMultipleChoice (props) {
     return(
         <div>
             <header>
