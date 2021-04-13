@@ -32,6 +32,8 @@ export function createRoom(numQuestions){
 
 // Joins a room with the specified room code. Returns the HTTP response.
 // The name argument specifies tha players name. Maximum 15 characters.
+// If there is an error the response will contain a field "err_code"
+// err_code meanings: 0: Invalid post data, 1: Room is closed (launched) 2: Room Doesn't Exist.
 export function joinRoom(roomCode, name){
     const requestOptions = {
       method: "POST",
