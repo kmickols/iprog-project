@@ -103,10 +103,48 @@ class AnswerQuestions(APIView):
         pass
 
 
+class NextQuestion(APIView):
+    pass
+
 class GetQuestion(APIView):
-    # Gets the next question/Gets all questions
+    # Gets the next question and the next question's position
+    # Takes the roomCode
     def get(self, request, format=None):
-        pass
+
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        code = request.GET.get('code')
+        room_query = Room.objects.filter(code=code)
+        if room_query.exists():
+            room = room_query[0]
+
+            key = self.request.session.session_key
+            is_host = key == room.host
+            if not is_host:
+                player_query = Player.objects.filter(session_key=key)
+
+                # player doesn't exist or is not part o this room. Return error.
+                if not player_query.exists():
+                    return Response({'Bad Request': "Player doesn't exist"}, status=status.HTTP_404_NOT_FOUND)
+                elif not player_query[0].room_code == code:
+                    return Response({'Bad Request': "Player is not part of specified room: " + code},
+                                    status=status.HTTP_400_BAD_REQUEST)
+
+            questions_json = room.questions
+            if questions_json == "":
+                return Response({'Bad Request': "No Questions have been generated."},
+                                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            questions = functions.json_to_list(questions_json)
+            question = questions[room.current_question]
+
+            return JsonResponse(question, status=status.HTTP_200_OK)
+        else:
+            return Response({'Bad Request': "Room with specified code doesn't exist"},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+
+
 
 
 class JoinRoomView(APIView):
