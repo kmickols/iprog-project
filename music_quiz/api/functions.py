@@ -8,11 +8,13 @@ tmp_questions = [
             "fields": 2,
             "0": {
                 "text": "Song Name",
-                "answer": "Baby"
+                "answer": "Baby",
+                "score": 1
             },
             "1": {
                 "text": "Artist Name",
-                "answer": "Justin Bieber"
+                "answer": "Justin Bieber",
+                "score": 1
             }
         }
     },
@@ -23,11 +25,13 @@ tmp_questions = [
             "fields": 2,
             "0": {
                 "text": "Song Name",
-                "answer": "What Is Love?"
+                "answer": "What Is Love?",
+                "score": 1
             },
             "1": {
                 "text": "Artist Name",
-                "answer": "Haddaway"
+                "answer": "Haddaway",
+                "score": 1
             }
         }
     },
@@ -38,11 +42,13 @@ tmp_questions = [
             "fields": 2,
             "0": {
                 "text": "Song Name",
-                "answer": "Africa"
+                "answer": "Africa",
+                "score": 1
             },
             "1": {
                 "text": "Artist Name",
-                "answer": "Toto"
+                "answer": "Toto",
+                "score": 1
             }
         }
     }
@@ -69,3 +75,9 @@ def json_to_list(jsn):
 # Answers will be evaluated depending on type.
 def generate_questions(playlist):
     return tmp_questions
+
+
+# Checks if answers are correct.
+# Returns the awarded score first and then which questions were correct as a boolean list.
+def validate_answer(question, answers):
+    return 1, []

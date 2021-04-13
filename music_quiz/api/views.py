@@ -84,11 +84,11 @@ class LaunchGame(APIView):
             room = queryset[0]
             room.player_can_join = False
             room.current_question = 0
-            room.questions = functions.generate_questions([])
+            questions = functions.generate_questions([])
+            room.questions = functions.list_to_json(questions)
             room.save(update_fields=['player_can_join', 'current_question', 'questions'])
-            return Response({"message": "Game Launched successfully."}, status=status.HTTP_200_OK)
+            return JsonResponse({"questions": questions}, status=status.HTTP_200_OK, )
         else:
-            print("room doesn't exist :(")
             Response({'Bad Request': "Room with specified code doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -98,16 +98,87 @@ class EndGame(APIView):
 
 
 # Client answers question, check if current question and check if answer is correct.
-class AnswerQuestions(APIView):
+class AnswerQuestion(APIView):
     def post(self, request, format=None):
-        pass
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        code = request.data.get('code')
+        answers = request.data.get('answers')
+        queryset = Room.objects.filter(code=code)
+        if queryset.exists():
+            room = queryset[0]
+
+            key = self.request.session.session_key
+            player_query = Player.objects.filter(session_key=key)
+
+            # player doesn't exist or is not part o this room. Return error.
+            if not player_query.exists():
+                return Response({'Bad Request': "Player doesn't exist"}, status=status.HTTP_404_NOT_FOUND)
+            elif not player_query[0].room_code == code:
+                return Response({'Bad Request': "Player is not part of specified room: " + code},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+            if room.current_question == -1:
+                return Response({"message": "No more questions"}, status.HTTP_204_NO_CONTENT)
+
+            questions_json = room.questions
+            if questions_json == "":
+                return Response({'Bad Request': "No Questions have been generated."},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+            questions = functions.json_to_list(questions_json)
+            question = questions[room.current_question]
+            score, results = functions.validate_answer(question, answers)
+            data = {
+                "results": results,
+                "score": score
+            }
+            return JsonResponse(data, status=status.HTTP_200_OK)
+        else:
+            return Response({"message": "No room with specified code"}, status=status.HTTP_404_NOT_FOUND)
 
 
-# Change the current question to the next one, returns the current question position.
+# Returns the current question and changes the current question to the next one.
 # If there are no more questions -1 will be set to the current question and -1 will be returned.
 class NextQuestion(APIView):
     def post(self, request, format=None):
-        pass
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+
+        code = request.data.get('code')
+        queryset = Room.objects.filter(code=code)
+        if queryset.exists():
+            # Room exists - Update current room
+            room = queryset[0]
+            key = self.request.session.session_key
+            is_host = key == room.host
+            if not is_host:
+                return Response({"message": "Only host may change question."}, status.HTTP_401_UNAUTHORIZED)
+
+            if room.current_question == -1:
+                return Response({"message": "No more questions", "question": -1}, status.HTTP_204_NO_CONTENT)
+
+
+            questions_json = room.questions
+            if questions_json == "":
+                return Response({'Bad Request': "No Questions have been generated."},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+            questions = functions.json_to_list(questions_json)
+            question = questions[room.current_question]
+
+            next_question = room.current_question + 1
+            num_questions = room.num_questions
+            if num_questions >= next_question:
+                next_question = -1
+            room.current_question = next_question
+            room.save(update_fields=['current_question'])
+
+            return JsonResponse({"question": question}, status=status.HTTP_200_OK)
+        else:
+            return Response({"message": "No room with specified code"}, status=status.HTTP_404_NOT_FOUND)
 
 
 class GetQuestion(APIView):
