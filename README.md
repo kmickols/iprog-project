@@ -3,7 +3,9 @@ Project for DH2642
 
 ## Prerequisites
 Python 3.9 installed
+
 Node.js with npm (Can be installed from https://www.npmjs.com/get-npm)
+
 Django REST Framework (Install with '$pip install django djangorestframework')
 
 npm modules that are used can be installed by running the following commands in the frontend directory
