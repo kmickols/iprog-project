@@ -40,7 +40,8 @@ export default function RoomInfo(props){
     )
 
     if(error){
-        return <div><p>Non-existing room with code: {roomCode}</p></div>
+        return <div>
+            <span className="main-text">Non-existing room with code: {roomCode} </span> </div>
     } else {
         return isHost ?
             (<div>
