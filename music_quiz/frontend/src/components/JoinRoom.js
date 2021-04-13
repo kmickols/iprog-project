@@ -12,7 +12,7 @@ export default function RoomInfo(props) {
     return (
 
         <div>
-            <span className="main-text">
+            <span class="main-text">
             Room Code
             <br/>
             <input id="code" placeholder="Room Code" maxLength={6} className="fill-form"/>
@@ -21,8 +21,8 @@ export default function RoomInfo(props) {
             <br/>
             <input id="name" placeholder="Nickname" maxLength={15} className="fill-form"/>
             <br/>
-            <span className="main-text">
-            <button className="join" onClick={() => {
+            <span class="main-text">
+            <button class="launch-button" onClick={() => {
                 setPromise(joinRoom(document.getElementById("code").value, document.getElementById("name").value)
                 .then(dt => setTxt(JSON.stringify(dt)))
                 .then(dt => props.history.push('/room/'+document.getElementById("code").value))

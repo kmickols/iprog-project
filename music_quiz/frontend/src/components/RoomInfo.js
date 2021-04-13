@@ -41,23 +41,30 @@ export default function RoomInfo(props){
 
     if(error){
         return <div>
-            <span className="main-text">Non-existing room with code: {roomCode} </span> </div>
+            <span class="main-text"> Non-existing room with code: {roomCode} </span> </div>
     } else {
         return isHost ?
             (<div>
-                <button onClick={(ev) => launchGame(roomCode)}>Launch Game</button>
-                <button onClick={(ev) => createRoom(10)}>Re-Create Room</button>
-                <h2>Room Code: {roomCode}</h2>
-                <p>Questions: {numQuestions}</p>
-                <p>Host: {isHost ? "Yes" : "No"}</p>
-                <h3>Players:</h3>
-                {players.map(player => <p>{player.user_name}</p>)}
-                <button onClick={() => setPromise(getRoomDetails(roomCode))}>Refresh</button>
+                <span class="main-text">
+                <button className="smaller-button" onClick={(ev) => launchGame(roomCode)}>Launch Game</button>
+                <button className="smaller-button"  onClick={(ev) => createRoom(10)}>Re-Create Room</button>
+                 </span>
+                <span className="smaller-text">
+                   <h2 className="smaller-text">Room Code: {roomCode}</h2>
+                <p className="smaller-text">Questions: {numQuestions}</p>
+                <p className="smaller-text">Host: {isHost ? "Yes" : "No"}</p>
+                <h3 className="smaller-text">Players:</h3>
+                {players.map(player => <p className="smaller-text">{player.user_name}</p>)}
+                </span>
+                    <span className="main-text">
+
+                <button className="smaller-button" onClick={() => setPromise(getRoomDetails(roomCode))}>Refresh</button>
+                    </span>
             </div>)
             : (
                 <div>
-                    <h2>Joined Room: {roomCode}</h2>
-                    <p>Wait for host to start the game.</p>
+                    <h2 className="main-text">Joined Room: {roomCode}</h2>
+                    <p className="smaller-text">Wait for host to start the game.</p>
                 </div>
             )
 
