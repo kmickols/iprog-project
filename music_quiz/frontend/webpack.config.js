@@ -16,7 +16,12 @@ module.exports = {
           loader: "babel-loader",
         },
       },
+      {
+        test: /\.css$/,
+        use: [ 'css-loader' ]
+      }
     ],
+
   },
   optimization: {
     minimize: true,
