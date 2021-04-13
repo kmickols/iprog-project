@@ -1,30 +1,42 @@
-function InputQuestion(props) {
+function ClientInputQuestion(props) {
     return(
         <div>
-        <header>
-            <h1 class="header-side"> Music Quiz</h1>
-        </header>
+            <header>
+                <h1 className="header-side"> Music Quiz</h1>
+            </header>
 
-    <span class="main-text">
+            <span className="main-text">
 
-      <!--Question goes here-->
+        This is a very good song
+                <!--Question goes here-->
 
-      <table style="display: grid; justify-content: center">
+                <table style="display: grid; justify-content: center">
+                <tr>
+              <td>
+
+Song title:              </td>
+          </tr>
        <tr>
         <td>
-              <input placeholder="Type answer text here" class="fill-form"/>
+            <input placeholder="Type answer text here" className="fill-form"/>
         </td>
-
       </tr>
+          <tr>
+              <td>
+                  Artist:
+              </td>
+          </tr>
       <tr>
         <td>
-<input placeholder="Type answer text here" class="fill-form"/>
+            <input placeholder="Type answer text here" className="fill-form "/>
         </td>
       </tr>
       </table>
     </span>
-
-</div>
+            <span className="main-text">
+          <button className="submit-button"> Done </button>
+      </span>
+        </div>
     )
 
 }
