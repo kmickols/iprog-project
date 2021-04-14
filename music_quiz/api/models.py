@@ -19,7 +19,7 @@ class Room(models.Model):
     code = models.CharField(max_length=8, default=generate_unique_code, unique=True)
     host = models.CharField(max_length=50, unique=True)
     num_questions = models.IntegerField(default=5)
-    current_question = models.IntegerField(default=0)
+    current_question = models.IntegerField(default=-1)
     questions = models.TextField(default="[]")
     player_can_join = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

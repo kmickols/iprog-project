@@ -57,13 +57,14 @@ class CreateRoomView(generics.CreateAPIView):
                 # Room already exists - Update current room
                 room = queryset[0]
                 room.num_questions = num_questions
+                room.current_question = -1
                 room.player_can_join = True
-                room.save(update_fields=['num_questions', 'player_can_join'])
+                room.save(update_fields=['num_questions', 'player_can_join', 'current_question'])
                 self.request.session['room_code'] = room.code
                 return Response(RoomSerializer(room).data, status=status.HTTP_200_OK)
             else:
                 # No room wit this session ID - Create new room.
-                room = Room(host=host, num_questions=num_questions)
+                room = Room(host=host, num_questions=num_questions, current_question=-1)
                 room.save()
                 self.request.session['room_code'] = room.code
                 return Response(RoomSerializer(room).data, status=status.HTTP_201_CREATED)
