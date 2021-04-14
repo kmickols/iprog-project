@@ -1,0 +1,203 @@
+
+.header {
+    font-family: 'Red Hat Display', sans-serif;
+    color: white;
+    text-shadow: 2px 2px 2px #4c4c4c;
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header-side {
+    font-family: 'Red Hat Display', sans-serif;
+    color: white;
+    text-shadow: 2px 2px 2px #4c4c4c;
+    font-size: 30px;
+    text-align: left;
+    margin: 30px;
+}
+
+
+.main-text {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 30px;
+    color: white;
+}
+
+.smaller-text {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 20px;
+    margin: 10px;
+    color: white;
+}
+
+.start-button {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 100px;
+    padding: 0.3em 1.2em;
+    margin: 10px;
+    border-radius:0.7em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 30px;
+    color:#000;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align:center;
+    transition: all 0.2s;
+}
+
+.quiz-button {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 100px;
+    padding: 0.3em 1.2em;
+    margin: 10px;
+    border-radius:0.7em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 30px;
+    color:#000;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align:center;
+    transition: all 0.2s;
+}
+
+.fill-form {
+    font-family: "Red Hat Display", sans-serif;
+    font-size: 100%;
+    color: white;
+    background: #8090fd;
+    border: none;
+    border-bottom: 3px dashed white;
+    margin: auto;
+    text-shadow: #4c4c4c;
+    border-radius: 0.2em;
+}
+
+.submit-button {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 50px;
+    padding: 0.3em 1.2em;
+    margin-top: 20px;
+    border-radius:0.7em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 20px;
+    color:#000;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align:center;
+    transition: all 0.2s;
+}
+
+.launch-button {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 230px;
+    height: 80px;
+    padding: 0.3em 1.2em;
+    margin-top: 20px;
+    border-radius:0.7em;
+    border-style: solid;
+    border-color: #fff;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 30px;
+    color:#4D5DCA;
+    background-color: #fff;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align:center;
+    transition: all 0.2s;
+}
+
+.smaller-button {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 230px;
+    height: 80px;
+    padding: 0.3em 1.2em;
+    margin-top: 20px;
+    border-radius:0.7em;
+    border-style: solid;
+    border-color: #fff;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 20px;
+    color:#4D5DCA;
+    background-color: #fff;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align:center;
+    transition: all 0.2s;
+}
+
+
+/*TODO: Show questions nicely*/
+.questions {
+    display: block;
+}
+
+.number-button {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    width: 10px;
+    height: 30px;
+    padding: 0.3em 1.2em;
+    margin-top: 20px;
+    border-radius:1.4em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 30px;
+    color:#000;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    transition: all 0.2s;
+}
+
+.join {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 50px;
+    padding: 0.3em 1.2em;
+    margin: 10px;
+    border-radius:0.7em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 15px;
+    color:#000;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align:center;
+    transition: all 0.2s;
+}

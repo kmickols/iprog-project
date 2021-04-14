@@ -5,4 +5,3 @@ music_quiz/frontend/static/frontend/*
 music_quiz/frontend/__pycache__/*
 music_quiz/api/__pycache__/*
 music_quiz/music_quiz/__pycache__/*
-music_quiz/staticfiles/
