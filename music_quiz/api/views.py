@@ -118,6 +118,7 @@ class AnswerQuestion(APIView):
             elif not player_query[0].room_code == code:
                 return Response({'Bad Request': "Player is not part of specified room: " + code},
                                 status=status.HTTP_400_BAD_REQUEST)
+            player = player_query[0]
 
             if room.current_question == -1:
                 return Response({"message": "No more questions"}, status.HTTP_204_NO_CONTENT)
@@ -134,6 +135,8 @@ class AnswerQuestion(APIView):
                 "results": results,
                 "score": score
             }
+            player.score += score
+            player.save(update_fields=["score"])
             return JsonResponse(data, status=status.HTTP_200_OK)
         else:
             return Response({"message": "No room with specified code"}, status=status.HTTP_404_NOT_FOUND)
