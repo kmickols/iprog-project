@@ -29,6 +29,7 @@ pyasn1-modules==0.2.8
 pycparser==2.20
 pyOpenSSL==20.0.1
 pyparsing==2.4.7
+python-dotenv==0.17.0
 pytz==2021.1
 pyu2f==0.1.5
 retry-decorator==1.1.1
