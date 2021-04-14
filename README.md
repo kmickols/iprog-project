@@ -8,6 +8,12 @@ Node.js with npm (Can be installed from https://www.npmjs.com/get-npm)
 
 Django REST Framework (Install with '$pip install django djangorestframework')
 
+Modules required for heroku 
+
+```
+pip install gunicorn whitenoise django-heroku psycopg2
+```
+
 npm modules that are used can be installed by running the following commands in the frontend directory
 ```
 npm init -y
