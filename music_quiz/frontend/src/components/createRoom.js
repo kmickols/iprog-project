@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {createRoom} from "../components/RoomAPI";
+import {createRoom} from "./RoomAPI";
 
 //    Logga in med Spotify
 //Välj spellista (Richard)

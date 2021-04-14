@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import { BrowserRouter as Router, Switch, Route, Link, Redirect} from "react-router-dom";
 import RoomInfo from "./RoomInfo.js"
 import JoinRoom from "./JoinRoom.js"
-import CreateRoom from "./../views/createRoom.js"
+import CreateRoom from "./createRoom.js"
 
 export default function HomePage(props){
     return (
