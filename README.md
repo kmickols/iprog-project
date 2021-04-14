@@ -11,7 +11,7 @@ Django REST Framework (Install with '$pip install django djangorestframework')
 Modules required for heroku 
 
 ```
-pip install gunicorn whitenoise django-heroku psycopg2
+pip install gunicorn whitenoise django-heroku psycopg2 python-dotenv
 ```
 
 npm modules that are used can be installed by running the following commands in the frontend directory
