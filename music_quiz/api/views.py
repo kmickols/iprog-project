@@ -53,7 +53,7 @@ class GetRoom(APIView):
                                         status=status.HTTP_401_UNAUTHORIZED)
 
                 data = RoomSerializer(room).data
-                data['is_host'] = self.request.session.session_key == room.host
+                data['is_host'] = is_host
                 data['players'] = get_players_in_room(code)
                 return Response(data, status=status.HTTP_200_OK)
             return Response({'message': 'Room Not Found: Invalid Room Code: ' + code}, status=status.HTTP_404_NOT_FOUND)

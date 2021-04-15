@@ -8,4 +8,5 @@ urlpatterns = [
     path('login', index),
     path('tutorial', index),
     path('room/<str:roomCode>', index),
+    path('room/<str:roomCode>/quiz', index),
 ]
