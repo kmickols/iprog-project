@@ -34,7 +34,7 @@ export default function JoinRoom({code, name, codeInput, nameInput, joinGame, na
                 <p className={"small-error-text"}>{"" + joinErr}</p>
             </span>
             <span className={"main-text"}>
-                <button className="button smaller-button" onClick={() => returnToMain()}> Back </button>
+                <button className="button mini-button" onClick={() => returnToMain()}> &#5130; Back </button>
             </span>
 
         </div>)
