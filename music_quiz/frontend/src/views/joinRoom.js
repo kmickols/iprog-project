@@ -23,7 +23,7 @@ export default function JoinRoom({code, name, codeInput, nameInput, joinGame, na
 
             </span>
             <span className="main-text">
-                <button className="button launch-button" onClick={
+                <button className="button smaller-button" onClick={
                     () => {
                         joinGame()
                     }}>
