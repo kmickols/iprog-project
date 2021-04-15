@@ -5,16 +5,12 @@ import {createRoom} from "../components/roomAPI";
 // Välj spellista (Richard)
 // Hur många frågor
 // (ev. Vilken typ av frågor)
-export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuestions, changeNumQuestions, loginSpotify}) {
+export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuestions, changeNumQuestions, loginSpotify, createRoom}) {
     return(
         <div>
-            <header>
-                <h1 className="header"> Music Quiz</h1>
-            </header>
-
             <div style={{margin: 30}}>
                 <span className={"main-text"}>
-                    <button className={"flat-button"}>Login with Spotify!</button>
+                    <button className={"flat-button"} onClick={() => loginSpotify()}>Login with Spotify!</button>
                 </span>
             </div>
 
@@ -27,14 +23,14 @@ export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuest
                 <span className="main-text">
                    Number of Questions:
                     <span className={"main-text"}>
-                        <button className="number-button">+</button>
-                        <span className="main-text">10</span>
-                        <button className="number-button">-</button>
+                        <button className="number-button" onClick={() => changeNumQuestions(numQuestions + 1)}>+</button>
+                        <span className="main-text">{numQuestions}</span>
+                        <button className="number-button" onClick={() => changeNumQuestions(numQuestions - 1)}>-</button>
                     </span>
                 </span>
             </div>
             <span className={"main-text"}>
-                <button className="smaller-button" onClick={() => createRoom(5).then(dt => console.log(dt))}>Create Room</button>
+                <button className="smaller-button" onClick={() => createRoom()}>Create Room</button>
             </span>
         </div>
     );
