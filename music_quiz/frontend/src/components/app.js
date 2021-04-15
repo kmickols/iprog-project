@@ -6,7 +6,11 @@ import RoomInfoPresenter from "../presenters/roomInfoPresenter";
 import JoinRoomPresenter from "../presenters/joinRoomPresenter";
 import StartViewPresenter from "../presenters/startViewPresenter";
 
+
+
+
 function App(props){
+
    return  (
        <div>
         <Router>

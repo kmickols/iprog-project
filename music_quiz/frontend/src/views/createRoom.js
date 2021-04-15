@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {createRoom} from "../components/roomAPI";
+import {authenticateSpotify} from "../components/roomAPI";
 
 // Logga in med Spotify
 // Välj spellista (Richard)
@@ -11,7 +12,7 @@ export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuest
 
             <div style={{margin: 30}}>
                 <span className={"main-text"}>
-                    <button className="button smaller-button">Login with Spotify!</button>
+                    <button className="button smaller-button" onClick={() => authenticateSpotify()}>Login with Spotify!</button>
                 </span>
             </div>
 
