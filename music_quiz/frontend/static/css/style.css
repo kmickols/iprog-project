@@ -53,7 +53,8 @@
     font-family:'Red Hat Display',sans-serif;
     font-weight:300;
     font-size: 30px;
-    color:#000;
+    color:#4D5DCA;
+    background-color: #fff;
     text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
     text-align:center;
     transition: all 0.2s;
@@ -68,12 +69,15 @@
     padding: 0.3em 1.2em;
     margin: 10px;
     border-radius:0.7em;
+    border: white;
+    border-style: solid;
     box-sizing: border-box;
     text-decoration:none;
     font-family:'Red Hat Display',sans-serif;
     font-weight:300;
     font-size: 30px;
-    color:#000;
+    color:#4D5DCA;
+    background-color: #fff;
     text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
     text-align:center;
     transition: all 0.2s;
@@ -100,15 +104,19 @@
     padding: 0.3em 1.2em;
     margin-top: 20px;
     border-radius:0.7em;
+    border-style: solid;
+    border-color: #fff;
     box-sizing: border-box;
     text-decoration:none;
     font-family:'Red Hat Display',sans-serif;
     font-weight:300;
-    font-size: 20px;
-    color:#000;
+    font-size: 30px;
+    color:#4D5DCA;
+    background-color: #fff;
     text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
     text-align:center;
     transition: all 0.2s;
+
 }
 
 .launch-button {
@@ -173,11 +181,14 @@
     margin-top: 20px;
     border-radius:1.4em;
     box-sizing: border-box;
+    border-style: solid;
+    border-color: #fff;
     text-decoration:none;
     font-family:'Red Hat Display',sans-serif;
     font-weight:300;
     font-size: 30px;
-    color:#000;
+    color:#4D5DCA;
+    background-color: #fff;
     text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
     transition: all 0.2s;
 }
@@ -192,11 +203,14 @@
     margin: 10px;
     border-radius:0.7em;
     box-sizing: border-box;
+    border-style: solid;
+    border-color: #fff;
     text-decoration:none;
     font-family:'Red Hat Display',sans-serif;
     font-weight:300;
     font-size: 15px;
-    color:#000;
+    color:#4D5DCA;
+    background-color: #fff;
     text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
     text-align:center;
     transition: all 0.2s;
