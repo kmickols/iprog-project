@@ -1,6 +1,7 @@
 import React from "react";
 import CreateRoom from "../views/createRoom"
 import {createRoom} from "../components/roomAPI";
+import Error from "../views/error";
 
 export default function CreateRoomPresenter({model}) {
     console.log(model)
@@ -32,7 +33,7 @@ export default function CreateRoomPresenter({model}) {
     )
 
     if (error) {
-        return <div class="main-text"> ERROR </div>
+        return <Error error={error}/>
     } else {
         return <CreateRoom numQuestions={numQuestions}
                            createRoom = {() => {setPromise(createRoom(numQuestions))}}
@@ -41,8 +42,6 @@ export default function CreateRoomPresenter({model}) {
                                model.setNumQuestions(x)
                                setNumQuestions(x)}}
                            }
-
-
         />
     }
 }
