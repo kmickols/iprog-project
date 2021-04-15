@@ -1,6 +1,6 @@
 export default function HostMultipleChoice() {
-        return(
-            <div>
+    return(
+        <div>
 
             <span class = "main-text">
                 <!--Fråga goes here-->
@@ -19,5 +19,5 @@ export default function HostMultipleChoice() {
       </tr>
       </table>
       </span>
-            </div>
-        );}
+        </div>
+    );}

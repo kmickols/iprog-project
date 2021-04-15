@@ -4,7 +4,7 @@ function ClientMultipleChoice (props) {
 
             <span class = "main-text">
                 <!--Fråga goes here-->
-      <table style="display: grid; justify-content: center">
+                <table style="display: grid; justify-content: center">
        <tr>
            <td>
         <button className="quiz-button"> Alt 1</button></td>
