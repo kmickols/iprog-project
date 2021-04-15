@@ -6,8 +6,12 @@ import RoomInfoPresenter from "../presenters/roomInfoPresenter";
 import JoinRoomPresenter from "../presenters/joinRoomPresenter";
 import StartViewPresenter from "../presenters/startViewPresenter";
 import TutorialPresenter from "../presenters/tutorialPresenter";
+import Model from "../model/model.js"
+
+const myModel = new Model(2);
 
 function App(props){
+
 
     return  (
         <div>
@@ -16,7 +20,7 @@ function App(props){
                     <Route exact path='/' component={StartViewPresenter}/>
                     <Route path="/room/:roomCode" component={RoomInfoPresenter}/>
                     <Route path="/join" component={JoinRoomPresenter}/>
-                    <Route path="/create"><CreateRoomPresenter model = ""/></Route>
+                    <Route path="/create"><CreateRoomPresenter model={myModel} /></Route>
                     <Route path="/tutorial" component={TutorialPresenter}/>
                     <Route path="/login"/>
                 </switch>

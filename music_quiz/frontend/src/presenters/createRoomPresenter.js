@@ -1,9 +1,10 @@
 import React from "react";
 import CreateRoom from "../views/createRoom"
 
-export default function CreateRoomPresenter(props) {
-    const [numQuestions, setNumQuestions] = React.useState(props.model.numQuestions)
-    const [roomCode, setRoomCode] = React.useState(props.model.setRoomCode) //saves roomcode to model later
+export default function CreateRoomPresenter({model}) {
+    console.log(model)
+    const [numQuestions, setNumQuestions] = React.useState(10)
+    const [roomCode, setRoomCode] = React.useState("") //saves roomcode to model later
     const [data, setData] = React.useState(null)
     const [promise, setPromise] = React.useState(null)
     const [error, setError] = React.useState(null)
@@ -11,7 +12,7 @@ export default function CreateRoomPresenter(props) {
     React.useEffect(function () {
             setData(null)
             setError(null)
-            setNumQuestions(props.model.numQuestions)
+            setNumQuestions(model.numQuestions)
             if (promise) {
                 const p = promise
                 promise.then(dt => {
@@ -35,8 +36,8 @@ export default function CreateRoomPresenter(props) {
     } else {
         return <CreateRoom numQuestions={numQuestions}
                            roomCode={roomCode}
-                           setRoomCode={x => props.model.setRoomCode}
-                           setNumQuestions={x => props.model.numQuestions(x)}
+                           setRoomCode={x => model.setRoomCode}
+                           setNumQuestions={x => model.numQuestions(x)}
         />
     }
 }
