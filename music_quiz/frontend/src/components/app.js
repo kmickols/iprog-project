@@ -5,6 +5,7 @@ import CreateRoomPresenter from "../presenters/createRoomPresenter";
 import RoomInfoPresenter from "../presenters/roomInfoPresenter";
 import JoinRoomPresenter from "../presenters/joinRoomPresenter";
 import StartViewPresenter from "../presenters/startViewPresenter";
+import TutorialPresenter from "../presenters/tutorialPresenter";
 
 function App(props){
    return  (
@@ -15,6 +16,7 @@ function App(props){
                 <Route path="/room/:roomCode" component={RoomInfoPresenter}/>
                 <Route path="/join" component={JoinRoomPresenter}/>
                 <Route path="/create"><CreateRoomPresenter model = ""/></Route>
+                <Route path="/tutorial" component={TutorialPresenter}/>
                 <Route path="/login"/>
             </switch>
         </Router>
