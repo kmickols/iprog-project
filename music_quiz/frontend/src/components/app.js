@@ -7,17 +7,17 @@ import JoinRoomPresenter from "../presenters/joinRoomPresenter";
 import StartViewPresenter from "../presenters/startViewPresenter";
 
 function App(props){
-   return  (
-       <div>
-        <Router>
-            <switch>s
-                <Route exact path='/' component={StartViewPresenter}/>
-                <Route path="/room/:roomCode" component={RoomInfoPresenter}/>
-                <Route path="/join" component={JoinRoomPresenter}/>
-                <Route path="/create"><CreateRoomPresenter model = ""/></Route>
-                <Route path="/login"/>
-            </switch>
-        </Router>
+    return  (
+        <div>
+            <Router>
+                <switch>s
+                    <Route exact path='/' component={StartViewPresenter}/>
+                    <Route path="/room/:roomCode" component={RoomInfoPresenter}/>
+                    <Route path="/join" component={JoinRoomPresenter}/>
+                    <Route path="/create"><CreateRoomPresenter model = {props.model}/></Route>
+                    <Route path="/login"/>
+                </switch>
+            </Router>
         </div>
     );
 }
