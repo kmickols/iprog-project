@@ -20,7 +20,7 @@ export default function JoinRoom({joinGame}) {
             <input id="name" placeholder="Nickname" maxLength={15} className="fill-form"/>
             <br/>
             </span>
-            <span className="main-text">     <button className="button launch-button" onClick={() => {() => joinGame()}}>
+            <span className="main-text">     <button className="button launch-button" onClick={() => {() => joinGame("test", "test")}}>
                 Join Room!</button></span>
 
         </div>)
