@@ -17,6 +17,15 @@
     margin: 30px;
 }
 
+.extra-big-text {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 50px;
+    color: white;
+}
 
 .main-text {
     display: grid;

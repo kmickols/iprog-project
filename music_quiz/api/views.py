@@ -26,16 +26,38 @@ class GetRoom(APIView):
     lookup_url_kwarg = 'code'
 
     def get(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        key = self.request.session.session_key
+
         code = request.GET.get(self.lookup_url_kwarg)
-        if code != None:
-            room = Room.objects.filter(code=code)
-            if len(room) > 0:
-                data = RoomSerializer(room[0]).data
-                data['is_host'] = self.request.session.session_key == room[0].host
+        code = code.upper()
+        if code is not None:
+            room_query = Room.objects.filter(code=code)
+            if len(room_query) > 0:
+                room = room_query[0]
+
+                is_host = key == room.host
+                if not is_host:
+                    player_query = Player.objects.filter(session_key=key)
+
+                    # player doesn't exist or is not part of this room. Return error.
+                    if not player_query.exists():
+                        return Response({'message': "Not Found: Player doesn't exist",
+                                         "user_message": "Unauthorized: You have not joined a room yet"},
+                                        status=status.HTTP_404_NOT_FOUND)
+                    elif not player_query[0].room_code == code:
+                        return Response({'message': "Unauthorized: Player is not part of specified room: " + code,
+                                         "user_message": "Unauthorized: You have not joined this room"},
+                                        status=status.HTTP_401_UNAUTHORIZED)
+
+                data = RoomSerializer(room).data
+                data['is_host'] = self.request.session.session_key == room.host
                 data['players'] = get_players_in_room(code)
                 return Response(data, status=status.HTTP_200_OK)
-            return Response({'Room Not Found': 'Invalid Room Code'}, status=status.HTTP_404_NOT_FOUND)
-        return Response({"Bad Request": "Room code parameter not preesent in request"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Room Not Found: Invalid Room Code: ' + code}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"message": "Bad Request: Room code parameter not present in request"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Create Room and generate questions
@@ -68,7 +90,7 @@ class CreateRoomView(generics.CreateAPIView):
                 room.save()
                 self.request.session['room_code'] = room.code
                 return Response(RoomSerializer(room).data, status=status.HTTP_201_CREATED)
-        return Response({'Bad Request': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'Bad Request: Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Players can't join anymore. Takes room code TODO: take spotify playlist, generate Questions.
@@ -90,7 +112,7 @@ class LaunchGame(APIView):
             room.save(update_fields=['player_can_join', 'current_question', 'questions'])
             return JsonResponse({"questions": questions}, status=status.HTTP_200_OK, )
         else:
-            Response({'Bad Request': "Room with specified code doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
+            Response({'message': "Bad Request: Room with specified code doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Delete the room
@@ -108,7 +130,7 @@ class EndGame(APIView):
             room.delete()
             return Response({"message": "Room deleted successfully"}, status=status.HTTP_200_OK)
         else:
-            Response({'Bad Request': "Room with specified code doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
+            Response({'message': "Bad Request: Room with specified code doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Client answers question, check if current question and check if answer is correct.
@@ -126,12 +148,15 @@ class AnswerQuestion(APIView):
             key = self.request.session.session_key
             player_query = Player.objects.filter(session_key=key)
 
-            # player doesn't exist or is not part o this room. Return error.
+            # player doesn't exist or is not part of this room. Return error.
             if not player_query.exists():
-                return Response({'Bad Request': "Player doesn't exist"}, status=status.HTTP_404_NOT_FOUND)
+                return Response({'message': "Not Found: Player doesn't exist",
+                                 "user_message": "Unauthorized: You have not joined a room yet"},
+                                status=status.HTTP_404_NOT_FOUND)
             elif not player_query[0].room_code == code:
-                return Response({'Bad Request': "Player is not part of specified room: " + code},
-                                status=status.HTTP_400_BAD_REQUEST)
+                return Response({'message': "Unauthorized: Player is not part of specified room: " + code,
+                                 "user_message": "Unauthorized: You have not joined this room"},
+                                status=status.HTTP_401_UNAUTHORIZED)
             player = player_query[0]
 
             if room.current_question == -1:
@@ -139,7 +164,7 @@ class AnswerQuestion(APIView):
 
             questions_json = room.questions
             if questions_json == "":
-                return Response({'Bad Request': "No Questions have been generated."},
+                return Response({'message': "Bad Request: No Questions have been generated."},
                                 status=status.HTTP_400_BAD_REQUEST)
 
             questions = functions.json_to_list(questions_json)
@@ -179,7 +204,7 @@ class NextQuestion(APIView):
 
             questions_json = room.questions
             if questions_json == "":
-                return Response({'Bad Request': "No Questions have been generated."},
+                return Response({'message': "Bad Request: No Questions have been generated."},
                                 status=status.HTTP_400_BAD_REQUEST)
 
             questions = functions.json_to_list(questions_json)
@@ -216,16 +241,19 @@ class GetQuestion(APIView):
             if not is_host:
                 player_query = Player.objects.filter(session_key=key)
 
-                # player doesn't exist or is not part o this room. Return error.
+                # player doesn't exist or is not part of this room. Return error.
                 if not player_query.exists():
-                    return Response({'Bad Request': "Player doesn't exist"}, status=status.HTTP_404_NOT_FOUND)
+                    return Response({'message': "Not Found: Player doesn't exist",
+                                     "user_message": "Unauthorized: You have not joined a room yet"},
+                                    status=status.HTTP_404_NOT_FOUND)
                 elif not player_query[0].room_code == code:
-                    return Response({'Bad Request': "Player is not part of specified room: " + code},
-                                    status=status.HTTP_400_BAD_REQUEST)
+                    return Response({'message': "Unauthorized: Player is not part of specified room: " + code,
+                                     "user_message": "Unauthorized: You have not joined this room"},
+                                    status=status.HTTP_401_UNAUTHORIZED)
 
             questions_json = room.questions
             if questions_json == "":
-                return Response({'Bad Request': "No Questions have been generated."},
+                return Response({'message': "Bad Request: No Questions have been generated."},
                                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
             questions = functions.json_to_list(questions_json)
@@ -234,7 +262,7 @@ class GetQuestion(APIView):
             return JsonResponse(question, status=status.HTTP_200_OK)
         else:
             print(code)
-            return Response({'Bad Request': "Room with specified code doesn't exist"},
+            return Response({'message': "Bad Request: Room with specified code doesn't exist"},
                             status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -246,16 +274,22 @@ class JoinRoomView(APIView):
         if not self.request.session.exists(self.request.session.session_key):
             self.request.session.create()
 
-        code = request.data.get('room_code')
+        code = request.data.get('room_code').upper()
         user_name = request.data.get('user_name')
-        print(code)
-        if code != None:
+
+        if code is not None and user_name is not None and user_name != "":
             room_result = Room.objects.filter(code=code)
             if len(room_result) > 0:
                 room = room_result[0]
                 if not room.player_can_join:
-                    return Response({"message": "Room is closed.", "err_code": 1},
+                    return Response({"message": "Room is closed."},
                                     status=status.HTTP_503_SERVICE_UNAVAILABLE)
+
+                player_query = Player.objects.filter(room_code=code)
+                player_name_query = player_query.filter(user_name=user_name)
+                if player_name_query.exists():
+                    return Response({"message": "Nickname already taken in this room"}, status=status.HTTP_409_CONFLICT)
+
 
                 self.request.session['room_code'] = code
 
@@ -275,8 +309,8 @@ class JoinRoomView(APIView):
                     player.save()
 
                 return Response({"message": "Room Joined."}, status=status.HTTP_200_OK)
-            return Response({"Bad request": "Invalid Room Code", "err_code": 2}, status=status.HTTP_400_BAD_REQUEST)
-        return Response({"Bad request": "Invalid Post data.", "err_code": 0, "code": code, "user_name": user_name},
+            return Response({"message": "No Room with code " + code}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"message": "Bad request: Invalid Post data.", "code": code, "user_name": user_name},
                         status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -303,8 +337,7 @@ class LeaveRoom(APIView):
 
             player_results = Player.objects.filter(session_key=id)
 
-
-        return Response({"Message": "Success"}, status=status.HTTP_200_OK)
+        return Response({"message": "Success"}, status=status.HTTP_200_OK)
 
 
 class PlayersInRoom(APIView):
@@ -316,7 +349,7 @@ class PlayersInRoom(APIView):
             data = {"players": lst}
             return JsonResponse(data, status=status.HTTP_200_OK)
         else:
-            return Response({"Bad Requeset": "no room_code provided"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": "Bad Request: no room_code provided"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 def get_players_in_room(code):

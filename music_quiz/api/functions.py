@@ -19,6 +19,16 @@ tmp_questions = [
         ]
     },
     {
+        "type": "4choice",
+        "text": "Which year was the song released?",
+        "spotify_token": "xxx",
+        "body": {
+            "score": 1,
+            "choices": ["1981", "1920", "1931", "1925"],
+            "answer": "1920"
+        }
+    },
+    {
         "type": "field",
         "text": "What is the name of the song and the name of the artist?",
         "spotify_token": "xxx",

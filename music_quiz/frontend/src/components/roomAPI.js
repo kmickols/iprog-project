@@ -5,10 +5,10 @@
 export function getRoomDetails(roomCode){
     return fetch("/api/get-room?code="+roomCode)
         .then(response => {
-            if (response.status === 200){
+            if (response.ok){
                 return response
             } else {
-                throw "status code: " + response.status + "\nReason: " + response.data
+                throw response.json()
             }
         })
         .then(dt => dt.json());
@@ -27,7 +27,14 @@ export function createRoom(numQuestions){
       }),
     };
     return fetch("/api/create-room", requestOptions)
-        .then((response) => response.json())
+        .then(response => {
+            if (response.ok){
+                return response
+            } else {
+                throw response.json()
+            }
+        })
+        .then(response => response.json())
 }
 
 // Joins a room with the specified room code. Returns the HTTP response.
@@ -46,9 +53,13 @@ export function joinRoom(roomCode, name){
 
     return fetch("/api/join-room", requestOptions)
         .then(response => {
-            return response.json()
-            })
-        .catch(error => console.log(error))
+            if (response.ok){
+                return response
+            } else {
+                throw response.json()
+            }
+        })
+        .then(response => response.json())
 }
 
 // Returns the users roomCode (if they are in a room)
@@ -57,6 +68,13 @@ export function joinRoom(roomCode, name){
 export function userInRoom(){
 
     return fetch("/api/user-in-room")
+        .then(response => {
+            if (response.ok){
+                return response
+            } else {
+                throw response.json()
+            }
+        })
         .then(response => response.json())
         .then(dt => dt.code)
 }
@@ -64,6 +82,13 @@ export function userInRoom(){
 //Returns all players in the specified room
 export function getPlayers(roomCode){
     return fetch("/api/players-in-room?room_code="+roomCode)
+        .then(response => {
+            if (response.ok){
+                return response
+            } else {
+                throw response.json()
+            }
+        })
         .then(response => response.json())
         .then(dt => dt.players)
 }
@@ -77,6 +102,13 @@ export function leaveRoom(){
       headers: { "Content-Type": "application/json" },
     };
     return fetch("/api/leave-room", requestOptions)
+        .then(response => {
+            if (response.ok){
+                return response
+            } else {
+                throw response.json()
+            }
+        })
         .then(response => response.json())
 }
 
@@ -91,6 +123,13 @@ export function launchGame(roomCode){
     })
     };
     return fetch("/api/launch-game", requestOptions)
+        .then(response => {
+            if (response.ok){
+                return response
+            } else {
+                throw response.json()
+            }
+        })
         .then(response => response.json())
 }
 
@@ -106,6 +145,13 @@ export function endGame(roomCode){
     })
     };
     return fetch("/api/end-game", requestOptions)
+        .then(response => {
+            if (response.ok){
+                return response
+            } else {
+                throw response.json()
+            }
+        })
         .then(response => response.json())
 }
 
@@ -119,6 +165,13 @@ export function answerQuestion(roomCode, answers){
         })
     };
     return fetch("/api/answer-question", requestOptions)
+        .then(response => {
+            if (response.ok){
+                return response
+            } else {
+                throw response.json()
+            }
+        })
         .then(response => response.json())
 }
 
@@ -131,10 +184,24 @@ export function nextQuestion(roomCode){
         })
     };
     return fetch("/api/next-question", requestOptions)
+        .then(response => {
+            if (response.ok){
+                return response
+            } else {
+                throw response.json()
+            }
+        })
         .then(response => response.json())
 }
 
 export function getQuestion(roomCode){
     return fetch("/api/get-question?code="+roomCode)
+        .then(response => {
+            if (response.ok){
+                return response
+            } else {
+                throw response.json()
+            }
+        })
         .then(response => response.json())
 }

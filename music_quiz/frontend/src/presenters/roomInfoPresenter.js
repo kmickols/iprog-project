@@ -2,7 +2,8 @@ import React from "react";
 import {getRoomDetails, launchGame} from "../components/roomAPI";
 import HostRoomInfo from "../views/hostRoomInfo";
 import ClientRoomInfo from "../views/clientRoomInfo";
-
+import Loading from "../views/loading";
+import Error from "../views/error";
 
 export default function RoomInfoPresenter(props){
     const roomCode = props.match.params.roomCode
@@ -33,10 +34,12 @@ export default function RoomInfoPresenter(props){
                     }
                 }).catch(er=>{
                         if(promise===p){
-                            setError(er)
+                            return er
                         }
                     }
-                )
+                ).then(er => {
+                            setError(er);
+                })
             }
 
         }
@@ -44,9 +47,8 @@ export default function RoomInfoPresenter(props){
     )
 
     if(error){
-        return <div>
-            <span class="main-text"> Non-existing room with code: {roomCode} </span> </div>
-    } else {
+        return <Error error={error}/>
+    } else if(data) {
         if(currentQuestion === -1) {
             //Game not started yet, show lobby
             if (isHost) {
@@ -63,5 +65,7 @@ export default function RoomInfoPresenter(props){
              return <div>
                 <span class="main-text"> Game has started! Current question: {currentQuestion}</span> </div>
         }
+    } else {
+        return <Loading/>
     }
 }
