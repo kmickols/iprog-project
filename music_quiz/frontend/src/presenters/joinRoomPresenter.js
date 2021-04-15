@@ -1,4 +1,5 @@
 import React from "react";
+import JoinRoom from "../views/joinRoom";
 
 export default function JoinRoomPresenter(props){
     const [txt, setTxt] = React.useState("")
@@ -6,4 +7,6 @@ export default function JoinRoomPresenter(props){
 
     const [data, setData] = React.useState(null)
     const [error, setError] = React.useState(null)
+
+    return <JoinRoom/>
     }

@@ -11,7 +11,7 @@ function App(props){
    return  (
        <div>
         <Router>
-            <switch>s
+            <switch>
                 <Route exact path='/' component={StartViewPresenter}/>
                 <Route path="/room/:roomCode" component={RoomInfoPresenter}/>
                 <Route path="/join" component={JoinRoomPresenter}/>
