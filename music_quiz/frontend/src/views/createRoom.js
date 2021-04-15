@@ -24,9 +24,9 @@ export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuest
                 <span className="main-text">
                    Number of Questions:
                     <span className={"main-text"}>
-                        <button className="button number-button" onClick={() => changeNumQuestions(numQuestions + 1)}>+</button>
+                        <button className="button mini-button" onClick={() => changeNumQuestions(numQuestions + 1)}>+</button>
                         <span className="main-text">{numQuestions}</span>
-                        <button className="button number-button" onClick={() => changeNumQuestions(numQuestions - 1)}>-</button>
+                        <button className="button mini-button" onClick={() => changeNumQuestions(numQuestions - 1)}>-</button>
 
                     </span>
                 </span>
