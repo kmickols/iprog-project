@@ -4,7 +4,7 @@ export default function TutorialPage() {
     return(
         <div>
 
-            <span className="main-text"> <p> HOW TO CREATE A GAME </p></span>
+            <span className="main-text extra-bold-text"> <p> HOW TO PLAY! </p></span>
             <span className="main-text">
           <ul>
           <li>
@@ -17,7 +17,7 @@ export default function TutorialPage() {
             <li>When everyone is ready, start the game</li></ul>
 
         </span>
-            <span className="main-text"> <button className="launch-button">Back to homepage
+            <span className="main-text"> <button className="button start-button">Back to homepage
         </button> </span>
         </div>
     )

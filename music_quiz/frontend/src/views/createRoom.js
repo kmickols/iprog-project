@@ -8,13 +8,11 @@ import {createRoom} from "../components/roomAPI";
 export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuestions, changeNumQuestions, loginSpotify, createRoom}) {
     return(
         <div>
-
             <div style={{margin: 30}}>
                 <span className={"main-text"}>
                     <button className="button smaller-button">Login with Spotify!</button>
                 </span>
             </div>
-
             <div style={{margin: 30}}>
                 <span className="main-text">
                 Choose Playlist:
@@ -24,9 +22,9 @@ export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuest
                 <span className="main-text">
                    Number of Questions:
                     <span className={"main-text"}>
-                        <button className="button number-button" onClick={() => changeNumQuestions(numQuestions + 1)}>+</button>
+                        <button className="button mini-button" onClick={() => changeNumQuestions(numQuestions + 1)}>+</button>
                         <span className="main-text">{numQuestions}</span>
-                        <button className="button number-button" onClick={() => changeNumQuestions(numQuestions - 1)}>-</button>
+                        <button className="button mini-button" onClick={() => changeNumQuestions(numQuestions - 1)}>-</button>
 
                     </span>
                 </span>

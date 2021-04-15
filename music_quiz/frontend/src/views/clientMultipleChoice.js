@@ -1,23 +1,25 @@
 function ClientMultipleChoice (props) {
     return(
         <div>
-
-            <span class = "main-text">
+            <span className={} = "main-text">
                 <!--Fråga goes here-->
-      <table style="display: grid; justify-content: center">
+                <table style="display: grid; justify-content: center">
        <tr>
            <td>
-        <button className="quiz-button"> Alt 1</button></td>
+        <button className="button quiz-button"> Alt 1</button></td>
         <td>
-        <button className="quiz-button"> Alt 2</button></td>
+        <button className="button quiz-button"> Alt 2</button></td>
       </tr>
       <tr>
         <td>
-          <button className="quiz-button"> Alt 3</button></td>
+          <button className="button quiz-button"> Alt 3</button></td>
         <td>
-          <button className="quiz-button"> Alt 4</button></td>
+          <button className="button quiz-button"> Alt 4</button></td>
       </tr>
       </table>
+      </span>
+            <span className="main-text">
+          <button className="button submit-button"> Done </button>
       </span>
         </div>
     );}
