@@ -4,7 +4,6 @@ import {joinRoom} from "../components/roomAPI";
 
 export default function JoinRoomPresenter(props){
     const [promise, setPromise] = React.useState(null)
-
     const [data, setData] = React.useState(null)
     const [error, setError] = React.useState(null)
 

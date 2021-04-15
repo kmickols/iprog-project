@@ -8,18 +8,18 @@ import StartViewPresenter from "../presenters/startViewPresenter";
 import TutorialPresenter from "../presenters/tutorialPresenter";
 
 function App(props){
-   return  (
-       <div>
-        <Router>
-            <switch>
-                <Route exact path='/' component={StartViewPresenter}/>
-                <Route path="/room/:roomCode" component={RoomInfoPresenter}/>
-                <Route path="/join" component={JoinRoomPresenter}/>
-                <Route path="/create"><CreateRoomPresenter model = ""/></Route>
-                <Route path="/tutorial" component={TutorialPresenter}/>
-                <Route path="/login"/>
-            </switch>
-        </Router>
+    return  (
+        <div>
+            <Router>
+                <switch>
+                    <Route exact path='/' component={StartViewPresenter}/>
+                    <Route path="/room/:roomCode" component={RoomInfoPresenter}/>
+                    <Route path="/join" component={JoinRoomPresenter}/>
+                    <Route path="/create"><CreateRoomPresenter model = ""/></Route>
+                    <Route path="/tutorial" component={TutorialPresenter}/>
+                    <Route path="/login"/>
+                </switch>
+            </Router>
         </div>
     );
 }
