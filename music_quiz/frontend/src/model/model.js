@@ -1,6 +1,6 @@
 export default class Model {
-    constructor(players = 2, questions = [], currentQuestion = 0, numQuestions = 1, roomCode = "") {
-        this.questions = questions;
+    constructor(players = 2, question = "", currentQuestion = 0, numQuestions = 1, roomCode = "") {
+        this.question = question;
         this.currentQuestion = currentQuestion;
         this.roomCode = roomCode;
         this.setNumberOfPlayers(players);

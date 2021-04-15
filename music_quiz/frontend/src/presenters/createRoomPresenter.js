@@ -1,5 +1,6 @@
 import React from "react";
 import CreateRoom from "../views/createRoom"
+import {createRoom} from "../components/roomAPI";
 
 export default function CreateRoomPresenter({model}) {
     console.log(model)
@@ -12,14 +13,13 @@ export default function CreateRoomPresenter({model}) {
     React.useEffect(function () {
             setData(null)
             setError(null)
-            setNumQuestions(model.numQuestions)
             if (promise) {
                 const p = promise
                 promise.then(dt => {
                     if (promise === p) {
                         setData(dt)
-                        setNumQuestions(dt.num_questions)
-                        setRoomCode(dt.code)
+                        model.setRoomCode(dt.code)
+                        window.location = "room/" + dt.code
                     }
                 }).catch(er => {
                         if (promise === p) {
@@ -35,9 +35,14 @@ export default function CreateRoomPresenter({model}) {
         return <div class="main-text"> ERROR </div>
     } else {
         return <CreateRoom numQuestions={numQuestions}
-                           roomCode={roomCode}
-                           setRoomCode={x => model.setRoomCode}
-                           setNumQuestions={x => model.numQuestions(x)}
+                           createRoom = {() => {setPromise(createRoom(numQuestions))}}
+                           changeNumQuestions={x =>
+                           {if(x >= 1){
+                               model.setNumQuestions(x)
+                               setNumQuestions(x)}}
+                           }
+
+
         />
     }
 }
