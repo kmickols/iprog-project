@@ -6,7 +6,7 @@ Python 3.9 installed
 
 Node.js with npm (Can be installed from https://www.npmjs.com/get-npm)
 
-Django REST Framework (Install with '$pip install django djangorestframework')
+Django REST Framework (Install with '$pip install django djangorestframework django_extensions')
 
 Modules required for heroku 
 

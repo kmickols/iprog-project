@@ -8,9 +8,10 @@ import {createRoom} from "../components/roomAPI";
 export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuestions, changeNumQuestions, loginSpotify, createRoom}) {
     return(
         <div>
+
             <div style={{margin: 30}}>
                 <span className={"main-text"}>
-                    <button className={"flat-button"} onClick={() => loginSpotify()}>Login with Spotify!</button>
+                    <button className="button smaller-button">Login with Spotify!</button>
                 </span>
             </div>
 
@@ -23,14 +24,18 @@ export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuest
                 <span className="main-text">
                    Number of Questions:
                     <span className={"main-text"}>
-                        <button className="number-button" onClick={() => changeNumQuestions(numQuestions + 1)}>+</button>
+                        <button className="button number-button" onClick={() => changeNumQuestions(numQuestions + 1)}>+</button>
                         <span className="main-text">{numQuestions}</span>
-                        <button className="number-button" onClick={() => changeNumQuestions(numQuestions - 1)}>-</button>
+                        <button className="button number-button" onClick={() => changeNumQuestions(numQuestions - 1)}>-</button>
+
                     </span>
                 </span>
             </div>
             <span className={"main-text"}>
-                <button className="smaller-button" onClick={() => createRoom()}>Create Room</button>
+                <button className="button smaller-button" onClick={() => createRoom()}>Create Room</button>
+            </span>
+            <span>
+                <button className="button smaller-button"> Back </button>
             </span>
         </div>
     );

@@ -21,7 +21,9 @@
     margin: 30px;
 }
 
-.extra-big-text {
+
+
+/*.extra-big-text { CAN BE SWAPPED WTIH MAIN-TEXT EXTRA-BIG-TEXT
     display: grid;
     justify-content: center;
     align-items: center;
@@ -29,7 +31,7 @@
     font-weight:300;
     font-size: 50px;
     color: white;
-}
+}*/
 
 .main-text {
     display: grid;
@@ -40,18 +42,16 @@
     font-size: 30px;
     color: white;
 }
-
-.smaller-text {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    font-family:'Red Hat Display',sans-serif;
-    font-weight:300;
-    font-size: 20px;
-    margin: 10px;
-    color: white;
+.extra-big-text {
+    font-size: 50px;
 }
 
+.smaller-text {
+    font-size: 20px;
+    margin: 10px;
+}
+
+<<<<<<< HEAD
 .start-button {
     display: grid;
     justify-content: center;
@@ -97,6 +97,8 @@
     text-align:center;
     transition: all 0.2s;
 }
+=======
+>>>>>>> e2fef279c1a0e86cfd1a6fd04d63828fe61a732d
 
 .fill-form {
     font-family: "Red Hat Display", sans-serif;
@@ -110,17 +112,15 @@
     border-radius: 0.2em;
 }
 
-.submit-button {
+.button {
     display: grid;
     justify-content: center;
     align-items: center;
-    width: 100px;
-    height: 50px;
+    width: 300px;
+    height: 100px;
     padding: 0.3em 1.2em;
-    margin-top: 20px;
+    margin: 10px;
     border-radius:0.7em;
-    border-style: solid;
-    border-color: #fff;
     box-sizing: border-box;
     text-decoration:none;
     font-family:'Red Hat Display',sans-serif;
@@ -131,53 +131,43 @@
     text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
     text-align:center;
     transition: all 0.2s;
+}
 
+.quiz-button {
+    width: 300px;
+    height: 100px;
+}
+
+.submit-button {
+    width: 100px;
+    height: 50px;
 }
 
 .launch-button {
-    display: grid;
-    justify-content: center;
-    align-items: center;
     width: 230px;
     height: 80px;
-    padding: 0.3em 1.2em;
-    margin-top: 20px;
-    border-radius:0.7em;
-    border-style: solid;
-    border-color: #fff;
-    box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Red Hat Display',sans-serif;
-    font-weight:300;
-    font-size: 30px;
-    color:#4D5DCA;
-    background-color: #fff;
-    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
-    text-align:center;
-    transition: all 0.2s;
 }
 
 .smaller-button {
-    display: grid;
-    justify-content: center;
-    align-items: center;
     width: 230px;
     height: 80px;
-    padding: 0.3em 1.2em;
-    margin-top: 20px;
-    border-radius:0.7em;
-    border-style: solid;
-    border-color: #fff;
-    box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Red Hat Display',sans-serif;
-    font-weight:300;
     font-size: 20px;
-    color:#4D5DCA;
-    background-color: #fff;
-    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
-    text-align:center;
-    transition: all 0.2s;
+}
+
+.number-button {
+    width: 10px;
+    height: 30px;
+    padding: 0.3em 1.2em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius:1.4em;
+    font-size: 30px;
+}
+
+.join-button {
+    width: 100px;
+    height: 50px;
+    font-size: 15px;
 }
 
 .flat-button {
@@ -209,48 +199,3 @@
     display: block;
 }
 
-.number-button {
-    display: grid;
-    justify-content: center;
-    align-content: center;
-    width: 10px;
-    height: 30px;
-    padding: 0.3em 1.2em;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border-radius:1.4em;
-    box-sizing: border-box;
-    border-style: solid;
-    border-color: #fff;
-    text-decoration:none;
-    font-family:'Red Hat Display',sans-serif;
-    font-weight:300;
-    font-size: 30px;
-    color:#4D5DCA;
-    background-color: #fff;
-    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
-    transition: all 0.2s;
-}
-
-.join {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 50px;
-    padding: 0.3em 1.2em;
-    margin: 10px;
-    border-radius:0.7em;
-    box-sizing: border-box;
-    border-style: solid;
-    border-color: #fff;
-    text-decoration:none;
-    font-family:'Red Hat Display',sans-serif;
-    font-weight:300;
-    font-size: 15px;
-    color:#4D5DCA;
-    background-color: #fff;
-    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
-    text-align:center;
-    transition: all 0.2s;
-}

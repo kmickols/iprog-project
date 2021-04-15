@@ -13,16 +13,16 @@ function JoinRoom(props) {
             <br/>
             <input id="name" placeholder="Nickname" maxLength={15} className="fill-form"/>
             <br/>
-            <button className="launch-button" onClick={() => {
+            <button className="button launch-button" onClick={() => {
                 setPromise(joinRoom(document.getElementById("code").value, document.getElementById("name").value)
                 .then(dt => setTxt(JSON.stringify(dt)))
                 .then(dt => props.history.push('/room/'+document.getElementById("code").value))
 
             )}}>
                 Join Room!</button>
-                <button hidden={true} className="launch-button" onClick={() => {getQuestion(document.getElementById("code").value).then(dt => console.log(dt))}}> Test get </button>
-                <button hidden={true} className="launch-button" onClick={() => {answerQuestion(document.getElementById("code").value, ["Baby", "Justin bieber"]).then(dt => console.log(dt))}}> Test answer </button>
-                <button hidden={true} className="launch-button" onClick={() => {nextQuestion(document.getElementById("code").value).then(dt => console.log(dt))}}> Test next </button>
+                <button hidden={true} className="button launch-button" onClick={() => {getQuestion(document.getElementById("code").value).then(dt => console.log(dt))}}> Test get </button>
+                <button hidden={true} className="button launch-button" onClick={() => {answerQuestion(document.getElementById("code").value, ["Baby", "Justin bieber"]).then(dt => console.log(dt))}}> Test answer </button>
+                <button hidden={true} className="button launch-button" onClick={() => {nextQuestion(document.getElementById("code").value).then(dt => console.log(dt))}}> Test next </button>
 
         </div>)
 }
