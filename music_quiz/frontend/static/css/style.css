@@ -12,26 +12,11 @@
     margin-bottom: 30px;
 }
 
-.header-side {
-    font-family: 'Red Hat Display', sans-serif;
-    color: white;
-    text-shadow: 2px 2px 2px #4c4c4c;
+.header-side { /* className = "header header-side" */
     font-size: 30px;
     text-align: left;
     margin: 30px;
 }
-
-
-
-/*.extra-big-text { CAN BE SWAPPED WTIH MAIN-TEXT EXTRA-BIG-TEXT
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    font-family:'Red Hat Display',sans-serif;
-    font-weight:300;
-    font-size: 50px;
-    color: white;
-}*/
 
 .main-text {
     display: grid;
@@ -42,6 +27,7 @@
     font-size: 30px;
     color: white;
 }
+
 .extra-big-text {
     font-size: 50px;
 }
@@ -125,11 +111,5 @@
     width: 100px;
     height: 50px;
     font-size: 15px;
-}
-
-
-/*TODO: Show questions nicely*/
-.questions {
-    display: block;
 }
 

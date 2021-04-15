@@ -1,18 +1,19 @@
-function ClientInputQuestion(props) {
+export default function ClientInputQuestion({question}) {
     return(
         <div>
-
-
             <span className="main-text">
 
-        This is a very good song
+                This is a very good song
                 <!--Question goes here-->
-
+                {question.text}
                 <table style="display: grid; justify-content: center">
-                <tr>
-              <td>
-
-Song title:              </td>
+                         {questions.data.map(
+                             function () {
+                             return(
+                             <div>
+                <tr><td>
+                    {question.body.text}: <!--Song title: -->
+                                </td>
           </tr>
        <tr>
         <td>
@@ -21,15 +22,16 @@ Song title:              </td>
       </tr>
           <tr>
               <td>
-                  Artist:
+                  {question.body.text} <!-- Artist: -->
               </td>
           </tr>
       <tr>
         <td>
             <input placeholder="Type answer text here" className="fill-form "/>
         </td>
-      </tr>
-      </table>
+      </tr></div>)})};
+
+       </table>
     </span>
             <span className="main-text">
           <button className="button submit-button"> Done </button>
