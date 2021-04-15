@@ -51,54 +51,7 @@
     margin: 10px;
 }
 
-<<<<<<< HEAD
-.start-button {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    width: 300px;
-    height: 100px;
-    padding: 0.3em 1.2em;
-    margin: 15px;
-    border-radius:0.7em;
-    border-style: solid;
-    border-color: #fff;
-    box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Red Hat Display',sans-serif;
-    font-weight:300;
-    font-size: 30px;
-    color:#4D5DCA;
-    background-color: #fff;
-    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
-    text-align:center;
-    transition: all 0.2s;
-}
 
-.quiz-button {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-    height: 100px;
-    padding: 0.3em 1.2em;
-    margin: 10px;
-    border-radius:0.7em;
-    border: white;
-    border-style: solid;
-    box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Red Hat Display',sans-serif;
-    font-weight:300;
-    font-size: 30px;
-    color:#4D5DCA;
-    background-color: #fff;
-    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
-    text-align:center;
-    transition: all 0.2s;
-}
-=======
->>>>>>> e2fef279c1a0e86cfd1a6fd04d63828fe61a732d
 
 .fill-form {
     font-family: "Red Hat Display", sans-serif;
@@ -121,6 +74,8 @@
     padding: 0.3em 1.2em;
     margin: 10px;
     border-radius:0.7em;
+    border-color: #fff;
+    border-style: solid;
     box-sizing: border-box;
     text-decoration:none;
     font-family:'Red Hat Display',sans-serif;
@@ -131,6 +86,11 @@
     text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
     text-align:center;
     transition: all 0.2s;
+    box-shadow: black;
+}
+
+.button:active {
+    transform: translateY(4px);
 }
 
 .quiz-button {
