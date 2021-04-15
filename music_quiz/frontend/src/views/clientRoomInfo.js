@@ -5,7 +5,9 @@ export default function ClientRoomInfo({roomCode, refresh}){
         <div>
             <h2 className="main-text">Joined Room {roomCode}!</h2>
             <p className="main-text smaller-text">Wait for host to start the game.</p>
-            <button className="button smaller-button" onClick={() => refresh()}>Refresh</button>
+            <span className={"main-text"}>
+                <button className="button smaller-button" onClick={() => refresh()}>Refresh</button>
+            </span>
         </div>
     )
 }

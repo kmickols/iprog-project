@@ -308,7 +308,7 @@ class JoinRoomView(APIView):
                     player = Player(room=room, session_key=session_key, room_code=code, user_name=user_name, score=0)
                     player.save()
 
-                return Response({"message": "Room Joined."}, status=status.HTTP_200_OK)
+                return Response({"message": "Room Joined.", "code": code}, status=status.HTTP_200_OK)
             return Response({"message": "No Room with code " + code}, status=status.HTTP_404_NOT_FOUND)
         return Response({"message": "Bad request: Invalid Post data.", "code": code, "user_name": user_name},
                         status=status.HTTP_400_BAD_REQUEST)

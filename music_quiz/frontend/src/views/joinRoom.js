@@ -1,14 +1,14 @@
-import {answerQuestion, getQuestion, joinRoom, nextQuestion} from "../components/roomAPI";
 import React from "react";
 
-export default function JoinRoom({joinGame}) {
+export default function JoinRoom({code, name, codeInput, nameInput, joinGame, nameError, codeError, joinErr}) {
     return(<div>
             <span className="main-text">
                 Room Code
             </span>
         <span className="main-text">
             <br/>
-            <input id="code" placeholder="Room Code" maxLength={6} className="fill-form"/>
+            <input id="code" placeholder="Room Code" maxLength={6} className="fill-form" onInput={ev => codeInput(ev.target.value)}/>
+            <p className={"small-error-text"}>{"" + codeError}</p>
         </span>
             <br/>
         <span className="main-text">
@@ -17,11 +17,22 @@ export default function JoinRoom({joinGame}) {
         </span>
         <span className="main-text"> 
             <br/>
-            <input id="name" placeholder="Nickname" maxLength={15} className="fill-form"/>
+            <input id="name" placeholder="Nickname" maxLength={15} className="fill-form" onInput={ev => nameInput(ev.target.value)}/>
+            <p className={"small-error-text"}>{"" + nameError}</p>
             <br/>
+
             </span>
-            <span className="main-text">     <button className="button launch-button" onClick={() => {() => joinGame("test", "test")}}>
-                Join Room!</button></span>
+            <span className="main-text">
+                <button className="button launch-button" onClick={
+                    () => {
+                        joinGame()
+                    }}>
+                Join Room!</button>
+
+            </span>
+            <span className={"main-text"}>
+                <p className={"small-error-text"}>{"" + joinErr}</p>
+            </span>
 
         </div>)
 }
