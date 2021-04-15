@@ -1,10 +1,13 @@
+
 export default class Model {
-    constructor(players = 2, question = "", currentQuestion = 0, numQuestions = 1, roomCode = "") {
+    constructor(players = 0, question = "", currentQuestion = 0, numQuestions = -1, roomCode = "") {
         this.question = question;
         this.currentQuestion = currentQuestion;
         this.roomCode = roomCode;
         this.setNumberOfPlayers(players);
         this.setNumQuestions(numQuestions);
+        this.isHost = false
+        console.log("newMod")
     }
     setRoomCode(x){
         this.roomCode = x;
@@ -16,6 +19,10 @@ export default class Model {
 
     setNumQuestions(x) {
         this.numQuestions = x;
+    }
+
+    setIsHost(bool) {
+        this.isHost = bool
     }
 
     getQuestion(x){

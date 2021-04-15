@@ -2,8 +2,8 @@ import React from "react";
 import CreateRoom from "../views/createRoom"
 import {createRoom} from "../components/roomAPI";
 
-export default function CreateRoomPresenter({model}) {
-    console.log(model)
+export default function CreateRoomPresenter(props) {
+    const model = props.model
     const [numQuestions, setNumQuestions] = React.useState(10)
     const [roomCode, setRoomCode] = React.useState("") //saves roomcode to model later
     const [data, setData] = React.useState(null)
@@ -19,7 +19,9 @@ export default function CreateRoomPresenter({model}) {
                     if (promise === p) {
                         setData(dt)
                         model.setRoomCode(dt.code)
-                        window.location = "room/" + dt.code
+                        model.setIsHost(true)
+                        console.log(dt)
+                        props.history.push("room/" + dt.code)
                     }
                 }).catch(er => {
                         if (promise === p) {
@@ -32,18 +34,16 @@ export default function CreateRoomPresenter({model}) {
     )
 
     if (error) {
-        return <div class="main-text"> ERROR </div>
+        return <div class="main-text"> {error + ""} </div>
     } else {
         return <CreateRoom numQuestions={numQuestions}
-                           createRoom = {() => {setPromise(createRoom(numQuestions))}}
+                           createRoom = {() => setPromise(createRoom(numQuestions))}
                            changeNumQuestions={x => {
                                if(x >= 1){
                                     model.setNumQuestions(x)
                                     setNumQuestions(x)}
                            }}
-                           returnToMain={() => window.location = "/"}
-
-
+                           returnToMain={() => props.history.push("/")}
 
         />
     }

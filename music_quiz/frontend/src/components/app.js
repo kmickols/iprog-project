@@ -6,22 +6,22 @@ import RoomInfoPresenter from "../presenters/roomInfoPresenter";
 import JoinRoomPresenter from "../presenters/joinRoomPresenter";
 import StartViewPresenter from "../presenters/startViewPresenter";
 import TutorialPresenter from "../presenters/tutorialPresenter";
-import Model from "../model/model.js"
 import QuizPresenter from "../presenters/quizPresenter";
+import Model from "../model/model";
+import CreateRoom from "../views/createRoom";
 
-const myModel = new Model(2);
+const model = new Model()
 
-function App(props){
-
+function App({model}){
     return  (
         <div>
             <Router>
                 <switch>
                     <Route exact path='/' component={StartViewPresenter}/>
-                    <Route exact path="/room/:roomCode" component={RoomInfoPresenter}/>
-                    <Route path="/room/:roomCode/quiz"> <QuizPresenter model ={myModel}/> </Route>
-                    <Route path="/join"> <JoinRoomPresenter model = {myModel}/> </Route>
-                    <Route path="/create"><CreateRoomPresenter model={myModel} /></Route>
+                    <Route exact path="/room/:roomCode" render={(props) => <RoomInfoPresenter {...props} model={model}/>} />
+                    <Route path="/room/:roomCode/quiz" render={(props) => <QuizPresenter {...props} model={model}/>} />
+                    <Route path="/join" render={(props) => <JoinRoomPresenter {...props} model = {model}/>} />
+                    <Route path="/create" render={(props) => <CreateRoomPresenter {...props} model={model}/>}/>
                     <Route path="/tutorial" component={TutorialPresenter}/>
                     <Route path="/login"/>
                 </switch>
@@ -29,6 +29,5 @@ function App(props){
         </div>
     );
 }
-
 const appDiv = document.getElementById("app");
-render(<App/>, appDiv)
+render(<App model={model}/>, appDiv)
