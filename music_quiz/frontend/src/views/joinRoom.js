@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function JoinRoom({code, name, codeInput, nameInput, joinGame, nameError, codeError, joinErr}) {
+export default function JoinRoom({code, name, codeInput, nameInput, joinGame, nameError, codeError, joinErr, returnToMain}) {
     return(<div>
             <span className="main-text">
                 Room Code
@@ -32,6 +32,9 @@ export default function JoinRoom({code, name, codeInput, nameInput, joinGame, na
             </span>
             <span className={"main-text"}>
                 <p className={"small-error-text"}>{"" + joinErr}</p>
+            </span>
+            <span className={"main-text"}>
+                <button className="button smaller-button" onClick={() => returnToMain()}> Back </button>
             </span>
 
         </div>)

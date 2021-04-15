@@ -69,5 +69,6 @@ export default function JoinRoomPresenter(props){
                      codeError={codeErr}
                      nameError={nameErr}
                      err={error?error.message:""}
+                     returnToMain={() => window.location = "/"}
     />
     }
