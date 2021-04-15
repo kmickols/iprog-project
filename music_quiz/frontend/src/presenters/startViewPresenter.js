@@ -3,5 +3,5 @@ import React from "react";
 
 export default function StartViewPresenter(props){
 
-    return <StartView hostGame={() => window.location="/create"} joinGame={() => window.location="/join"} tutorial={() => window.location="/tutorial"}/>
+    return <StartView hostGame={() => props.history.push("/create")} joinGame={() => props.history.push("/join")} tutorial={() => props.history.push("/tutorial")}/>
 }

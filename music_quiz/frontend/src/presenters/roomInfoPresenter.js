@@ -4,6 +4,7 @@ import HostRoomInfo from "../views/hostRoomInfo";
 import ClientRoomInfo from "../views/clientRoomInfo";
 import Loading from "../views/loading";
 import Error from "../views/error";
+import GoToQuiz from "../views/goToQuizView";
 
 export default function RoomInfoPresenter(props){
     const roomCode = props.match.params.roomCode
@@ -62,7 +63,7 @@ export default function RoomInfoPresenter(props){
                             setLaunchData(dt)
                             console.log(dt)
                             console.log("launching!")
-                            window.location = "/room/"+dt.code+"/quiz"
+                            props.history.push("/room/"+dt.code+"/quiz")
                         }
                     }).catch(er=>{
                             if(promise===p){
@@ -94,9 +95,7 @@ export default function RoomInfoPresenter(props){
             }
         } else {
             //Game started
-            //TODO: Redirect to questions!
-             return <div>
-                <span class="main-text"> Game has started! Current question: {currentQuestion} </span> </div>
+             return <GoToQuiz goToQuiz={() => props.history.push("/room/"+roomCode+"/quiz")} />
         }
     } else {
         return <Loading/>

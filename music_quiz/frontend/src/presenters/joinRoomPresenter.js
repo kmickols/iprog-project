@@ -16,7 +16,8 @@ export default function JoinRoomPresenter(props){
                 promise.then(dt=>{
                     if(promise===p){
                         setData(dt)
-                        window.location = "/room/"+dt.code
+                        props.history.push("/room/"+dt.code)
+                        props.model.setIsHost(false)
                     }
                 }).catch(er=>{
                         if(promise===p){
@@ -69,5 +70,6 @@ export default function JoinRoomPresenter(props){
                      codeError={codeErr}
                      nameError={nameErr}
                      err={error?error.message:""}
+                     returnToMain={() => props.history.push("/")}
     />
     }

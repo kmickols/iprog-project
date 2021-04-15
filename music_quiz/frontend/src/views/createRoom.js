@@ -5,7 +5,7 @@ import {createRoom} from "../components/roomAPI";
 // Välj spellista (Richard)
 // Hur många frågor
 // (ev. Vilken typ av frågor)
-export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuestions, changeNumQuestions, loginSpotify, createRoom}) {
+export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuestions, changeNumQuestions, loginSpotify, createRoom, returnToMain}) {
     return(
         <div>
             <div style={{margin: 30}}>
@@ -32,8 +32,8 @@ export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuest
             <span className={"main-text"}>
                 <button className="button smaller-button" onClick={() => createRoom()}>Create Room</button>
             </span>
-            <span>
-                <button className="button smaller-button"> Back </button>
+            <span className={"main-text"}>
+                <button className="button mini-button" onClick={() => returnToMain()}>  &#5130; Back </button>
             </span>
         </div>
     );

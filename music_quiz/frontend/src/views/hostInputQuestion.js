@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function HostInputQuestion({question}) {
     return(
         <div>
@@ -6,7 +8,7 @@ export default function HostInputQuestion({question}) {
                 This is a very good song
                 <!--Question goes here-->
                 {question.text}
-                <table style="display: grid; justify-content: center">
+                <table>
                          {questions.data.map(
                              function () {
                                  return(

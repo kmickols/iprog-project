@@ -1,4 +1,6 @@
-export default function ClientInputQuestion({question}) {
+import React from "react";
+
+export default function ClientInputQuestion({question, score, player}) {
     return(
         <div>
             <span className="main-text">
@@ -25,6 +27,10 @@ export default function ClientInputQuestion({question}) {
             <span className="main-text">
           <button className="button submit-button"> Done </button>
       </span>
+            <span className="score"> Your Score: {score}
+             </span>
+            <span className="player"> Your Name: {player}
+             </span>
         </div>
     )
 
