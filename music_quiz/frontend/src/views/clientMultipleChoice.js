@@ -1,4 +1,6 @@
-function ClientMultipleChoice (props) {
+import React from "react";
+
+function ClientMultipleChoice ({score, player}) {
     return(
         <div>
             <span className={} = "main-text">
@@ -21,5 +23,9 @@ function ClientMultipleChoice (props) {
             <span className="main-text">
           <button className="button submit-button"> Done </button>
       </span>
+            <span className="score"> Your Score: {score}
+             </span>
+            <span className="player"> Your Name: {player}
+             </span>
         </div>
     );}

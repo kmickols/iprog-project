@@ -17,7 +17,7 @@ export default function TutorialPage({returnToMain}) {
             <li>When everyone is ready, start the game</li></ul>
 
         </span>
-            <span className="main-text"> <button className="button start-button" onClick={() => returnToMain()}>Back
+            <span className="main-text"> <button className="button mini-button" onClick={() => returnToMain()}> &#5130; Back
         </button> </span>
         </div>
     )
