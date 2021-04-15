@@ -177,3 +177,13 @@
     font-size: 30px;
     color: white;
 }
+
+.player {
+    position:absolute;
+    bottom:5px;
+    left:10px;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:bolder;
+    font-size: 30px;
+    color: white;
+}

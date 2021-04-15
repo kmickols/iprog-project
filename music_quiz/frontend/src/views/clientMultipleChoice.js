@@ -1,6 +1,6 @@
 import React from "react";
 
-function ClientMultipleChoice ({score}) {
+function ClientMultipleChoice ({score, player}) {
     return(
         <div>
             <span className={} = "main-text">
@@ -24,6 +24,8 @@ function ClientMultipleChoice ({score}) {
           <button className="button submit-button"> Done </button>
       </span>
             <span className="score"> Your Score: {score}
+             </span>
+            <span className="player"> Your Name: {player}
              </span>
         </div>
     );}
