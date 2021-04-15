@@ -95,7 +95,20 @@ class LaunchGame(APIView):
 
 # Delete the room
 class EndGame(APIView):
-    pass
+
+    serializer_class = RoomCodeSerializer
+
+    def post(self, request, format=None):
+
+        code = request.data.get('code')
+        queryset = Room.objects.filter(code=code)
+        if queryset.exists():
+            # Room exists - Update current room
+            room = queryset[0]
+            room.delete()
+            return Response({"message": "Room deleted successfully"}, status=status.HTTP_200_OK)
+        else:
+            Response({'Bad Request': "Room with specified code doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Client answers question, check if current question and check if answer is correct.

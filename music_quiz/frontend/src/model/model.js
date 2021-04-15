@@ -24,6 +24,7 @@ class Model {
             //GEJM OVER
         }*/
     }
+
     getQuestion(x){
         let questionElement = this.questions[x];
         return questionElement;

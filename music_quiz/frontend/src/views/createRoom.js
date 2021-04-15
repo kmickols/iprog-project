@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import {createRoom} from "../components/RoomAPI";
 
-//    Logga in med Spotify
-//Välj spellista (Richard)
-//Hur många frågor
-//(ev. Vilken typ av frågor)
+// Logga in med Spotify
+// Välj spellista (Richard)
+// Hur många frågor
+// (ev. Vilken typ av frågor)
 export default function CreateRoom(props) {
 
     return(

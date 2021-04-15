@@ -94,6 +94,21 @@ export function launchGame(roomCode){
         .then(response => response.json())
 }
 
+
+// Ends The game (Removes the room). Players will not be able to join anymore.
+// Meant to be called from the host.
+export function endGame(roomCode){
+    const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            code: roomCode,
+    })
+    };
+    return fetch("/api/end-game", requestOptions)
+        .then(response => response.json())
+}
+
 export function answerQuestion(roomCode, answers){
     const requestOptions = {
         method: "POST",
