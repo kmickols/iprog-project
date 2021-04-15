@@ -21,18 +21,6 @@
     margin: 30px;
 }
 
-
-
-/*.extra-big-text { CAN BE SWAPPED WTIH MAIN-TEXT EXTRA-BIG-TEXT
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    font-family:'Red Hat Display',sans-serif;
-    font-weight:300;
-    font-size: 50px;
-    color: white;
-}*/
-
 .main-text {
     display: grid;
     justify-content: center;
@@ -51,7 +39,6 @@
     margin: 10px;
 }
 
-<<<<<<< HEAD
 .start-button {
     display: grid;
     justify-content: center;
@@ -97,8 +84,6 @@
     text-align:center;
     transition: all 0.2s;
 }
-=======
->>>>>>> e2fef279c1a0e86cfd1a6fd04d63828fe61a732d
 
 .fill-form {
     font-family: "Red Hat Display", sans-serif;
