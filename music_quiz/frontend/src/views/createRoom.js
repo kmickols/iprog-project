@@ -33,7 +33,7 @@ export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuest
                 <button className="button smaller-button" onClick={() => createRoom()}>Create Room</button>
             </span>
             <span>
-                <button className="button smaller-button"> Back </button>
+                <button className="button mini-button"> &#5130; Back </button>
             </span>
         </div>
     );
