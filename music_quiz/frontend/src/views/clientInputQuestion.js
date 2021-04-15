@@ -1,9 +1,7 @@
 function ClientInputQuestion(props) {
     return(
         <div>
-            <header>
-                <h1 className="header-side"> Music Quiz</h1>
-            </header>
+
 
             <span className="main-text">
 
@@ -34,7 +32,7 @@ Song title:              </td>
       </table>
     </span>
             <span className="main-text">
-          <button className="submit-button"> Done </button>
+          <button className="button submit-button"> Done </button>
       </span>
         </div>
     )

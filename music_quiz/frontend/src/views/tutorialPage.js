@@ -3,9 +3,7 @@ import React from "react";
 export default function TutorialPage() {
     return(
         <div>
-            <header>
-                <h1 className="header">Music Quiz</h1>
-            </header>
+
             <span className="main-text"> <p> HOW TO CREATE A GAME </p></span>
             <span className="main-text">
           <ul>
