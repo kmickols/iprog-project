@@ -20,7 +20,6 @@ export default function CreateRoomPresenter(props) {
                         setData(dt)
                         model.setRoomCode(dt.code)
                         model.setIsHost(true)
-                        console.log(dt)
                         props.history.push("room/" + dt.code)
                     }
                 }).catch(er => {

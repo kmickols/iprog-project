@@ -7,7 +7,6 @@ export default class Model {
         this.setNumberOfPlayers(players);
         this.setNumQuestions(numQuestions);
         this.isHost = false
-        console.log("newMod")
     }
     setRoomCode(x){
         this.roomCode = x;

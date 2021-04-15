@@ -1,20 +1,19 @@
 import React from "react";
 
 export default function HostInputQuestion({question}) {
+    console.log(question)
     return(
         <div>
             <span className="main-text">
 
-                This is a very good song
-                <!--Question goes here-->
                 {question.text}
                 <table>
-                         {questions.data.map(
-                             function () {
+                         {question.body.map(
+                             field => {
                                  return(
                                      <div>
                                          <tr><td>
-                                             {question.body.text}: <!--Song title: -->
+                                             {field.text}:
                                          </td>
                                          </tr>
                                          <tr>
@@ -22,16 +21,7 @@ export default function HostInputQuestion({question}) {
                                                  <input placeholder="Type answer text here" className="fill-form"/>
                                              </td>
                                          </tr>
-                                         <tr>
-                                             <td>
-                                                 {question.body.text} <!-- Artist: -->
-                                             </td>
-                                         </tr>
-                                         <tr>
-                                             <td>
-                                                 <input placeholder="Type answer text here" className="fill-form "/>
-                                             </td>
-                                         </tr></div>)})};
+                                     </div>)})}
 
        </table>
     </span>
