@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function TutorialPage() {
+export default function TutorialPage({returnToMain}) {
     return(
         <div>
 
@@ -17,7 +17,7 @@ export default function TutorialPage() {
             <li>When everyone is ready, start the game</li></ul>
 
         </span>
-            <span className="main-text"> <button className="button start-button">Back to homepage
+            <span className="main-text"> <button className="button start-button" onClick={() => returnToMain()}>Back
         </button> </span>
         </div>
     )

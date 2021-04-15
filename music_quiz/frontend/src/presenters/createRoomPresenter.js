@@ -36,11 +36,13 @@ export default function CreateRoomPresenter({model}) {
     } else {
         return <CreateRoom numQuestions={numQuestions}
                            createRoom = {() => {setPromise(createRoom(numQuestions))}}
-                           changeNumQuestions={x =>
-                           {if(x >= 1){
-                               model.setNumQuestions(x)
-                               setNumQuestions(x)}}
-                           }
+                           changeNumQuestions={x => {
+                               if(x >= 1){
+                                    model.setNumQuestions(x)
+                                    setNumQuestions(x)}
+                           }}
+                           returnToMain={() => window.location = "/"}
+
 
 
         />
