@@ -3,6 +3,7 @@ import json
 tmp_questions = [
     {
         "type": "field",
+        "index": 0,
         "text": "What is the name of the song and the name of the artist?",
         "spotify_token": "xxx",
         "body": [
@@ -20,6 +21,7 @@ tmp_questions = [
     },
     {
         "type": "4choice",
+        "index": 1,
         "text": "Which year was the song released?",
         "spotify_token": "xxx",
         "body": {
@@ -30,6 +32,7 @@ tmp_questions = [
     },
     {
         "type": "field",
+        "index": 2,
         "text": "What is the name of the song and the name of the artist?",
         "spotify_token": "xxx",
         "body": [
@@ -47,6 +50,7 @@ tmp_questions = [
     },
     {
         "type": "field",
+        "index": 3,
         "text": "What is the name of the song and the name of the artist?",
         "spotify_token": "xxx",
         "body": [

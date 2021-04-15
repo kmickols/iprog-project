@@ -7,6 +7,7 @@ export default class Model {
         this.setNumberOfPlayers(players);
         this.setNumQuestions(numQuestions);
         this.isHost = false
+        this.autoplay = false
     }
     setRoomCode(x){
         this.roomCode = x;
