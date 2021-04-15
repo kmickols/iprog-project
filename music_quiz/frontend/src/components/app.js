@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import CreateRoom from "../views/createRoom";
 import RoomInfoPresenter from "../presenters/roomInfoPresenter";
 import JoinRoomPresenter from "../presenters/joinRoomPresenter";
+import StartViewPresenter from "../presenters/startViewPresenter";
 
 function App(props){
    return  (
@@ -11,8 +12,7 @@ function App(props){
         <Router>
             <switch>
 
-                <Route exact path='/'><p>
-                    This is the homepage!! :)</p> </Route>
+                <Route exact path='/' component={StartViewPresenter}/>
                 <Route path="/room/:roomCode" component={RoomInfoPresenter}/>
                 <Route path="/join" component={JoinRoomPresenter}/>
                 <Route path="/create" component={CreateRoom}/>

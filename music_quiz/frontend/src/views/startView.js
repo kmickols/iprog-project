@@ -1,13 +1,18 @@
-function StartView() {
+import React from "react";
+
+// Blir dubbelt :(
+//         <header>
+//             <h1 class="header"> Music Quiz</h1>
+//         </header>
+//
+export default function StartView({hostGame, joinGame, tutorial}) {
     return(
         <div>
-        <header>
-            <h1 class="header"> Music Quiz</h1>
-        </header>
-    <span class = "main-text">
-      <button class="start-button">Host a quiz</button>
-      <button class="start-button">Join a quiz</button>
-      <button class="start-button">Tutorial</button>
-      </span>
+
+            <span class = "main-text">
+              <button class="start-button" onClick={() => hostGame()}>Host a quiz</button>
+              <button class="start-button" onClick={() => joinGame()}>Join a quiz</button>
+              <button class="start-button" onClick={() => tutorial()}>Tutorial</button>
+            </span>
         </div>
     );}

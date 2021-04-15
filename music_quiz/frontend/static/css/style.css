@@ -1,4 +1,8 @@
 
+.hidden {
+    display: none;
+}
+
 .header {
     font-family: 'Red Hat Display', sans-serif;
     color: white;
@@ -174,6 +178,29 @@
     transition: all 0.2s;
 }
 
+.flat-button {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 230px;
+    height: 50px;
+    padding: 0.3em 1.2em;
+    margin-top: 20px;
+    border-radius:0.7em;
+    border-style: solid;
+    border-color: #fff;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Red Hat Display',sans-serif;
+    font-weight:300;
+    font-size: 20px;
+    color:#4D5DCA;
+    background-color: #fff;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align:center;
+    transition: all 0.2s;
+}
+
 
 /*TODO: Show questions nicely*/
 .questions {
@@ -187,7 +214,8 @@
     width: 10px;
     height: 30px;
     padding: 0.3em 1.2em;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     border-radius:1.4em;
     box-sizing: border-box;
     border-style: solid;
