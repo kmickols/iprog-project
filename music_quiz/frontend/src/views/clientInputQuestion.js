@@ -10,7 +10,7 @@ export default function ClientInputQuestion({question}) {
                             return(
                                 <div>
                                     <tr><td>
-                                        {question.body.text}: <!--Song title: -->
+                                        {question.body.text}:
                                     </td>
                                     </tr>
                                     <tr>
@@ -18,16 +18,7 @@ export default function ClientInputQuestion({question}) {
                                             <input placeholder="Type answer text here" className="fill-form"/>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            {question.body.text} <!-- Artist: -->
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input placeholder="Type answer text here" className="fill-form "/>
-                                        </td>
-                                    </tr></div>)})};
+                                  </div>)})};
 
        </table>
     </span>

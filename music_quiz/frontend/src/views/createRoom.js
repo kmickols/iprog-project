@@ -8,13 +8,11 @@ import {createRoom} from "../components/roomAPI";
 export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuestions, changeNumQuestions, loginSpotify, createRoom}) {
     return(
         <div>
-
             <div style={{margin: 30}}>
                 <span className={"main-text"}>
                     <button className="button smaller-button">Login with Spotify!</button>
                 </span>
             </div>
-
             <div style={{margin: 30}}>
                 <span className="main-text">
                 Choose Playlist:
