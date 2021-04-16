@@ -19,7 +19,7 @@ For now, the questions are hard-coded (both answers and questions).
 
 ### Future work
 
-We are currently planning to implement playlist selection, generate questions automatically, refresh automatically and overall better error handling. 
+We are currently planning to implement playlist selection, generate questions automatically, refresh automatically and overall better error handling. We also intend to implement different kinds of questions, not just input questions. For example multiple choice questions. 
 If time allows, users will also be able to tailor their own quizzes with their own questions, which they can save to their profile.
 
 ### Project file structure
@@ -35,13 +35,13 @@ The project has several folders:
     * migrations: used for the database
     
 * music_quiz
-    * TODO
+    * settings and other information that is needeed to start the server.
 
 * spotify
-    * TODO
+    * COntains information to handle spotify api requests and handling of user authentication
 
 * staticfiles
-    * TODO
+    * files generated to be able to host the application.
 
 
 
