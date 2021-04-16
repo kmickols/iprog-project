@@ -148,6 +148,7 @@ class AnswerQuestion(APIView):
         answers = request.data.get('answers')
         index = request.data.get('index')
 
+
         queryset = Room.objects.filter(code=code)
         if queryset.exists():
             room = queryset[0]
