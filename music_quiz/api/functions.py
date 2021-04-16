@@ -19,17 +19,6 @@ tmp_questions = [
             }
         ]
     },
-    #    {
-    #        "type": "4choice",
-    #        "index": 1,
-    #        "text": "Which year was the song released?",
-    #        "spotify_token": "xxx",
-    #        "body": {
-    #            "score": 1,
-    #            "choices": ["1981", "1920", "1931", "1925"],
-    #            "answer": "1920"
-    #        }
-    #    },
     {
         "type": "field",
         "index": 1,
@@ -66,6 +55,17 @@ tmp_questions = [
             }
         ]
     }
+    #    {
+    #        "type": "4choice",
+    #        "index": 1,
+    #        "text": "Which year was the song released?",
+    #        "spotify_token": "xxx",
+    #        "body": {
+    #            "score": 1,
+    #            "choices": ["1981", "1920", "1931", "1925"],
+    #            "answer": "1920"
+    #        }
+    #    },
 ]
 
 def list_to_json(lst):

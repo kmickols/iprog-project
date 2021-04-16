@@ -25,7 +25,7 @@ export default function InputAnswer({question, next}){
                                      </tr>
                                  </div>)})}
                 </table>
-                <button className="button submit-button" onClick={() => next()}> Next Question </button>
+                <button className="button launch-button" onClick={() => next()}> Next Question </button>
             </span>
         </div>
     )
