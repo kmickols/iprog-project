@@ -1,6 +1,15 @@
 import React, {Component} from "react";
 import {createRoom} from "../components/roomAPI";
-import {authenticateSpotify, spotifyStatus} from "../components/spotify";
+import {
+    authenticateSpotify,
+    getSpotifyPlayer,
+    getUserToken,
+    playSong,
+    spotifyStatus,
+    stopPlaying
+} from "../components/spotify";
+import {onSpotifyWebPlaybackSDKReady} from "../components/webbPlayer";
+import model from "../model/model";
 
 // Logga in med Spotify
 // Välj spellista (Richard)
@@ -8,17 +17,22 @@ import {authenticateSpotify, spotifyStatus} from "../components/spotify";
 // (ev. Vilken typ av frågor)
 export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuestions, changeNumQuestions, loginSpotify, createRoom, returnToMain}) {
     return (
+
         <div>
             <div style={{margin: 30}}>
                 <span className={"main-text"}>
-                    <button className="button smaller-button" disabled={loggedInToSpotify}
-                            onClick={() => {
-                                if (spotifyStatus() === true) {
-                                    loggedInToSpotify = true;
-                                } else {
-                                    authenticateSpotify()
-                                }
-                            }}>Login with Spotify </button>
+                    <button className="button smaller-button"
+                            onClick={() => authenticateSpotify()}>Login with Spotify </button>
+                      <button className="button smaller-button" onClick={() =>
+                          getSpotifyPlayer()
+                      }> testplayer </button>
+
+                     <button className="button smaller-button" onClick={() =>
+                         playSong("spotify:track:0VNDOpBbUYtSpCFY7HUA3D")
+                     }> play song </button>
+                     <button className="button smaller-button" onClick={() =>
+                         stopPlaying()
+                     }> Stop </button>
                 </span>
             </div>
             <div style={{margin: 30}}>

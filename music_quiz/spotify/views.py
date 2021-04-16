@@ -4,14 +4,13 @@ from rest_framework.views import APIView
 from requests import Request, post
 from rest_framework import status
 from rest_framework.response import Response
-from .util import update_or_create_user_tokens, is_spotify_authenticated
-
-import base64
+from .util import update_or_create_user_tokens, is_spotify_authenticated, get_user_tokens, set_player, pause_song, \
+    play_song
 
 
 class AuthURL(APIView):
     def get(self, request, format=None):
-        scopes = 'playlist-modify-private'
+        scopes = 'streaming user-read-email user-read-private user-modify-playback-state'
 
         url = Request('GET', 'https://accounts.spotify.com/authorize', params={
             'scope': scopes,
@@ -50,7 +49,31 @@ def spotify_callback(request, format=None):
     return redirect(reverse('frontend:create'))
 
 
+class GetUserToken(APIView):
+    def get(self, request, format=None):
+        userToken = get_user_tokens(self.request.session.session_key)
+        return Response({'token': userToken.access_token}, status=status.HTTP_200_OK)
+
+
 class IsAuthenticated(APIView):
     def get(self, request, format=None):
         is_authenticated = is_spotify_authenticated(self.request.session.session_key)
         return Response({'status': is_authenticated}, status=status.HTTP_200_OK)
+
+
+class SetDevice(APIView):
+    def post(self, request, format=None):
+        set_player(self.request.session.session_key, request.data.get('device_id'))
+        return Response({'status': 'add device id'}, status=status.HTTP_200_OK)
+
+
+class PlaySong(APIView):
+    def post(self, request, format=None):
+        play_song(self.request.session.session_key, request.data.get('song_id'))
+        return Response({'status': 'add device id'}, status=status.HTTP_200_OK)
+
+
+class StopPlaying(APIView):
+    def post(self, request, format=None):
+        pause_song(self.request.session.session_key)
+        return Response({'status': 'add device id'}, status=status.HTTP_200_OK)
