@@ -46,7 +46,6 @@ export default function CreateRoomPresenter(props) {
                 spotifyStatusPromise.then(dt => {
                     if (spotifyStatusPromise === p) {
                         setSpotifyAuth(dt)
-                        console.log("sppl " + dt);
                         if(dt) {
                             getSpotifyPlayer()
                         }

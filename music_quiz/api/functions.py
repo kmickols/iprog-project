@@ -5,7 +5,7 @@ tmp_questions = [
         "type": "field",
         "index": 0,
         "text": "What is the name of the song and the name of the artist?",
-        "spotify_token": "xxx",
+        "spotify_token": "spotify:track:0VNDOpBbUYtSpCFY7HUA3D",
         "body": [
             {
                 "text": "Song Name",
@@ -23,11 +23,11 @@ tmp_questions = [
         "type": "field",
         "index": 1,
         "text": "What is the name of the song and the name of the artist?",
-        "spotify_token": "xxx",
+        "spotify_token": "spotify:track:2ahnofp2LbBWDXcJbMaSTu",
         "body": [
             {
                 "text": "Song Name",
-                "answer": "What Is Love?",
+                "answer": "What Is Love",
                 "score": 1
             },
             {
@@ -41,7 +41,7 @@ tmp_questions = [
         "type": "field",
         "index": 2,
         "text": "What is the name of the song and the name of the artist?",
-        "spotify_token": "xxx",
+        "spotify_token": "spotify:track:2374M0fQpWi3dLnB54qaLX",
         "body": [
             {
                 "text": "Song Name",
@@ -54,7 +54,43 @@ tmp_questions = [
                 "score": 1
             }
         ]
-    }
+    },
+    {
+        "type": "field",
+        "index": 3,
+        "text": "What is the name of the song and the name of the artist?",
+        "spotify_token": "spotify:track:3z8h0TU7ReDPLIbEnYhWZb",
+        "body": [
+            {
+                "text": "Song Name",
+                "answer": "Bohemian Rhapsody",
+                "score": 1
+            },
+            {
+                "text": "Artist Name",
+                "answer": "Queen",
+                "score": 1
+            }
+        ]
+    },
+    {
+        "type": "field",
+        "index": 4,
+        "text": "What is the name of the song and the name of the artist?",
+        "spotify_token": "spotify:track:6I9VzXrHxO9rA9A5euc8Ak",
+        "body": [
+            {
+                "text": "Song Name",
+                "answer": "Toxic",
+                "score": 1
+            },
+            {
+                "text": "Artist Name",
+                "answer": "Britney Spears",
+                "score": 1
+            }
+        ]
+    },
     #    {
     #        "type": "4choice",
     #        "index": 1,
