@@ -6,7 +6,12 @@
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\Max\OneDrive\Dokument\KTH\Kurser\Dynweb\iprog-project\music_quiz\db.sqlite3</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="db [2]" uuid="dd2857aa-d9b8-4d9b-b85f-4eca5283f9ee">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\KTH\iprog-project\music_quiz\db.sqlite3</jdbc-url>
     </data-source>
   </component>
 </project>

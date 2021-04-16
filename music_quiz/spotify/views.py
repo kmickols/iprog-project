@@ -1,14 +1,15 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from .credentials import REDIRECT_URI, CLIENT_ID, CLIENT_SECRET
 from rest_framework.views import APIView
 from requests import Request, post
 from rest_framework import status
 from rest_framework.response import Response
 from .util import update_or_create_user_tokens, is_spotify_authenticated
+
 import base64
 
 
-class AuthUTL(APIView):
+class AuthURL(APIView):
     def get(self, request, format=None):
         scopes = 'playlist-modify-private'
 
@@ -46,7 +47,7 @@ def spotify_callback(request, format=None):
     update_or_create_user_tokens(
         request.session.session_key, access_token, token_type, expires_in, refresh_token)
 
-    return redirect('frontend:')
+    return redirect(reverse('frontend:create'))
 
 
 class IsAuthenticated(APIView):
