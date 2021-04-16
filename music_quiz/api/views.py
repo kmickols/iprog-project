@@ -113,7 +113,8 @@ class LaunchGame(APIView):
             room.current_question = 0
             questions = functions.generate_questions([])
             room.questions = functions.list_to_json(questions)
-            room.save(update_fields=['player_can_join', 'current_question', 'questions'])
+            room.block_answers = False
+            room.save(update_fields=['player_can_join', 'current_question', 'questions', 'block_answers'])
             return JsonResponse({"questions": questions}, status=status.HTTP_200_OK, )
         else:
             Response({'message': "Bad Request: Room with specified code doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
