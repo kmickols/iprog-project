@@ -54,7 +54,43 @@ tmp_questions = [
                 "score": 1
             }
         ]
-    }
+    },
+    {
+        "type": "field",
+        "index": 3,
+        "text": "What is the name of the song and the name of the artist?",
+        "spotify_token": "xxx",
+        "body": [
+            {
+                "text": "Song Name",
+                "answer": "Bohemian Rhapsody",
+                "score": 1
+            },
+            {
+                "text": "Artist Name",
+                "answer": "Queen",
+                "score": 1
+            }
+        ]
+    },
+    {
+        "type": "field",
+        "index": 4,
+        "text": "What is the name of the song and the name of the artist?",
+        "spotify_token": "xxx",
+        "body": [
+            {
+                "text": "Song Name",
+                "answer": "Toxic",
+                "score": 1
+            },
+            {
+                "text": "Artist Name",
+                "answer": "Britney Spears",
+                "score": 1
+            }
+        ]
+    },
     #    {
     #        "type": "4choice",
     #        "index": 1,
