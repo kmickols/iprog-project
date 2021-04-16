@@ -19,8 +19,7 @@ For now, the questions are hard-coded (both answers and questions).
 
 ### Future work
 
-We are currently planning to implement playlist selection, generate questions automatically, refresh automatically and overall better error handling. We also intend to implement different kinds of questions, not just input questions. For example multiple choice questions. 
-If time allows, users will also be able to tailor their own quizzes with their own questions, which they can save to their profile.
+We are currently planning to implement playlist selection, generate questions automatically, refresh automatically and overall better error handling. We also intend to implement different kinds of questions, not just input questions. For example multiple choice questions. Another important change is to make the clients update automatically when the host changes the question. Currently the user must refresh the page manually. If time allows, users will also be able to tailor their own quizzes with their own questions, which they can save to their profile.
 
 ### Project file structure
 
