@@ -9,6 +9,7 @@ export default function CreateRoomPresenter(props) {
     const [data, setData] = React.useState(null)
     const [promise, setPromise] = React.useState(null)
     const [error, setError] = React.useState(null)
+    const [spotifyStatus, setSpotifyStatus] = React.useState(false)
 
     React.useEffect(function () {
             setData(null)
@@ -29,6 +30,7 @@ export default function CreateRoomPresenter(props) {
                     }
                 )
             }
+
         }, [promise]
     )
 
@@ -36,12 +38,15 @@ export default function CreateRoomPresenter(props) {
         return <div class="main-text"> {error + ""} </div>
     } else {
         return <CreateRoom numQuestions={numQuestions}
-                           createRoom = {() => setPromise(createRoom(numQuestions))}
+                           loggedInToSpotify={model.setSpotifyStatus()}
+                           createRoom={() => setPromise(createRoom(numQuestions))}
                            changeNumQuestions={x => {
-                               if(x >= 1){
-                                    model.setNumQuestions(x)
-                                    setNumQuestions(x)}
+                               if (x >= 1) {
+                                   model.setNumQuestions(x)
+                                   setNumQuestions(x)
+                               }
                            }}
+
                            returnToMain={() => props.history.push("/")}
 
         />
