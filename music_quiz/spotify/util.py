@@ -1,9 +1,10 @@
+import json
+
 from .models import SpotifyToken
 from django.utils import timezone
 from datetime import timedelta
 from .credentials import CLIENT_ID, CLIENT_SECRET
 from requests import post, put, get
-
 
 BASE_URL = "https://api.spotify.com/v1/me/"
 
@@ -62,3 +63,63 @@ def refresh_spotify_token(session_id):
 
     update_or_create_user_tokens(
         session_id, access_token, token_type, expires_in, refresh_token)
+
+
+def execute_spotify_api_request(session_id, endpoint, post_=False, put_=False, get_=False):
+    tokens = get_user_tokens(session_id)
+    headers = {'Content-Type': 'application/json',
+               'Authorization': "Bearer " + tokens.access_token}
+
+    if post_:
+        post(BASE_URL + endpoint, headers=headers)
+    if put_:
+        put(BASE_URL + endpoint, headers=headers)
+    if get_:
+        get(BASE_URL + endpoint, headers=headers)
+
+    response = get(BASE_URL + endpoint, {}, headers=headers)
+    try:
+        return response.json()
+    except:
+        return {'Error': 'Issue with request'}
+
+
+def play_song(session_id, song_id):
+    tokens = get_user_tokens(session_id)
+    headers = {'Content-Type': 'application/json',
+               'Authorization': "Bearer " + tokens.access_token}
+    data = {"uris": [song_id]}
+
+    print(data)
+
+    put("https://api.spotify.com/v1/me/player/play", headers=headers, json=data)
+
+    response = get('https://api.spotify.com/v1/me/player/play', {}, headers=headers)
+
+    try:
+        return response.json()
+    except:
+        return {'Error': 'Issue with request'}
+
+
+def pause_song(session_id):
+    return execute_spotify_api_request(session_id, "player/pause", put_=True)
+
+
+def set_player(session_id, device_id):
+    tokens = get_user_tokens(session_id)
+    headers = {'Content-Type': 'application/json',
+               'Authorization': "Bearer " + tokens.access_token}
+    data = {'device_ids': [device_id],
+            'play': True}
+
+    print(data)
+
+    put("https://api.spotify.com/v1/me/player", headers=headers, json=data)
+
+    response = get('https://api.spotify.com/v1/me/player', {}, headers=headers)
+
+    try:
+        return response.json()
+    except:
+        return {'Error': 'Issue with request'}

@@ -17,6 +17,7 @@ const model = new Model()
 function App({model}){
     return  (
         <div>
+
             <Router>
                 <switch>
                     <Route exact path='/' component={StartViewPresenter}/>
