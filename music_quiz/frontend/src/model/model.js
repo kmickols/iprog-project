@@ -17,10 +17,7 @@ export default class Model {
         this.roomCode = x;
     }
 
-
-
     setSpotifyStatus(){
-        this.spotifyStatus = spotifyStatus();
 
     }
 

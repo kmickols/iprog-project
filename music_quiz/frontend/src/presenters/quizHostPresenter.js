@@ -5,6 +5,7 @@ import {getQuestion, nextQuestion, revealQuestion} from "../components/roomAPI";
 import InputAnswer from "../views/inputAnswer";
 import Error from "../views/error";
 import FinalScore from "../views/finalScore";
+import {playSong} from "../components/spotify";
 
 export default function QuizHostPresenter(props){
     const roomCode = props.match.params.roomCode
@@ -48,6 +49,7 @@ export default function QuizHostPresenter(props){
                 setShowAnswer(true)
                 revealQuestion(roomCode)
             }
+            playSong(question.spotify_token)
             return <HostInputQuestion question={question} next={next}/>
         } else {
             next = () => {

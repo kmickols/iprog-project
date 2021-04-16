@@ -16,18 +16,17 @@ export function authenticateSpotify() {
 }
 
 export function spotifyStatus() {
-    fetch("/spotify/is-authenticated")
-        .then((response) => response.json())
-        .then((data) => {
+    return fetch("/spotify/is-authenticated")
+        .then(response => response.json())
+        .then(data => {
             return data.status
         });
 }
 
 export function getSpotifyPlayer() {
-    fetch("/spotify/get-user-token")
+    return fetch("/spotify/get-user-token")
         .then((response) => response.json())
         .then((data) => {
-            console.log(data.token)
             return onSpotifyWebPlaybackSDKReady(data.token)
         });
 }

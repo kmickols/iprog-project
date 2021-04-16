@@ -15,25 +15,18 @@ import model from "../model/model";
 // Välj spellista (Richard)
 // Hur många frågor
 // (ev. Vilken typ av frågor)
+//                  <span className={"main-text"}>
+//                      <button className="button smaller-button" onClick={() => playSong("spotify:track:0VNDOpBbUYtSpCFY7HUA3D")}> play song </button>
+//                      <button className="button smaller-button" onClick={() => stopPlaying()}> Stop </button>
+//                 </span>
 export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuestions, changeNumQuestions, loginSpotify, createRoom, returnToMain}) {
     return (
 
         <div>
             <div style={{margin: 30}}>
-                <span className={"main-text"}>
-                    <button className="button smaller-button"
-                            onClick={() => authenticateSpotify()}>Login with Spotify </button>
-                      <button className="button smaller-button" onClick={() =>
-                          getSpotifyPlayer()
-                      }> testplayer </button>
-
-                     <button className="button smaller-button" onClick={() =>
-                         playSong("spotify:track:0VNDOpBbUYtSpCFY7HUA3D")
-                     }> play song </button>
-                     <button className="button smaller-button" onClick={() =>
-                         stopPlaying()
-                     }> Stop </button>
-                </span>
+                {!loggedInToSpotify?<span className={"main-text"}><button className="button smaller-button" onClick={() => loginSpotify()}>Login with Spotify </button></span>
+                    :
+                    (<div><span className={"main-text"}>Spotify Authenticated!</span> <span className={"main-text"}>Please do not use spotify for anything else during the quiz.</span></div>)}
             </div>
             <div style={{margin: 30}}>
                 <span className="main-text">

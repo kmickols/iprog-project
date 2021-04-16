@@ -40,7 +40,7 @@ def is_spotify_authenticated(session_id):
     if tokens:
         expiry = tokens.expires_in
         if expiry <= timezone.now():
-            refresh_spotify_token(session_id)
+            return refresh_spotify_token(session_id)
 
         return True
 
@@ -61,8 +61,12 @@ def refresh_spotify_token(session_id):
     token_type = response.get('token_type')
     expires_in = response.get('expires_in')
 
-    update_or_create_user_tokens(
-        session_id, access_token, token_type, expires_in, refresh_token)
+    if "error" in response:
+        print("ERROR WHILE REFRESHING SPOTIFY TOKEN: " + str(response))
+        return False
+
+    update_or_create_user_tokens(session_id, access_token, token_type, expires_in, refresh_token)
+    return True
 
 
 def execute_spotify_api_request(session_id, endpoint, post_=False, put_=False, get_=False):
@@ -111,7 +115,7 @@ def set_player(session_id, device_id):
     headers = {'Content-Type': 'application/json',
                'Authorization': "Bearer " + tokens.access_token}
     data = {'device_ids': [device_id],
-            'play': True}
+            'play': False}
 
     print(data)
 
