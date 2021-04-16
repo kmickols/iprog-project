@@ -154,13 +154,14 @@ export function endGame(roomCode){
         .then(response => response.json())
 }
 
-export function answerQuestion(roomCode, answers){
+export function answerQuestion(roomCode, answers, index){
     const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             code: roomCode,
-            answers: answers
+            answers: answers,
+            index: index,
         })
     };
     return fetch("/api/answer-question", requestOptions)
@@ -191,6 +192,7 @@ export function nextQuestion(roomCode){
             }
         })
         .then(response => response.json())
+        .then(json => json.question)
 }
 
 export function getQuestion(roomCode){

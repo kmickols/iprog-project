@@ -141,6 +141,8 @@ class AnswerQuestion(APIView):
 
         code = request.data.get('code')
         answers = request.data.get('answers')
+        index = request.data.get('index')
+
         queryset = Room.objects.filter(code=code)
         if queryset.exists():
             room = queryset[0]
@@ -159,16 +161,18 @@ class AnswerQuestion(APIView):
                                 status=status.HTTP_401_UNAUTHORIZED)
             player = player_query[0]
 
-            if room.current_question == -1:
-                return Response({"message": "No more questions"}, status.HTTP_204_NO_CONTENT)
-
             questions_json = room.questions
             if questions_json == "":
                 return Response({'message': "Bad Request: No Questions have been generated."},
                                 status=status.HTTP_400_BAD_REQUEST)
 
             questions = functions.json_to_list(questions_json)
-            question = questions[room.current_question]
+
+            if len(questions) < index:
+                return Response({'message': "Bad Request: Invalid question index."},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+            question = questions[index]
             score, results = functions.validate_answer(question, answers)
             data = {
                 "results": results,
@@ -200,15 +204,12 @@ class NextQuestion(APIView):
                 return Response({"message": "Only host may change question."}, status=status.HTTP_401_UNAUTHORIZED)
 
             if room.current_question == -1:
-                return JsonResponse({"message": "No more questions", "question": -1}, status=status.HTTP_204_NO_CONTENT)
+                return JsonResponse({"message": "No more questions", "question": -1}, status=status.HTTP_200_OK)
 
             questions_json = room.questions
             if questions_json == "":
                 return Response({'message': "Bad Request: No Questions have been generated."},
                                 status=status.HTTP_400_BAD_REQUEST)
-
-            questions = functions.json_to_list(questions_json)
-            question = questions[room.current_question]
 
             next_question = room.current_question + 1
             num_questions = room.num_questions
@@ -216,6 +217,12 @@ class NextQuestion(APIView):
                 next_question = -1
             room.current_question = next_question
             room.save(update_fields=['current_question'])
+
+            questions = functions.json_to_list(questions_json)
+            if len(questions) <= room.current_question:
+                return JsonResponse({"message": "No more questions", "question": -1}, status=status.HTTP_200_OK)
+
+            question = questions[room.current_question]
 
             return JsonResponse({"question": question}, status=status.HTTP_200_OK)
         else:

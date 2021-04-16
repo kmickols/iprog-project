@@ -9,6 +9,7 @@ export default class Model {
         this.setNumQuestions(numQuestions);
         this.isHost = false
         this.spotifyStatus=spotifyStatus;
+        this.autoplay = false
     }
     setRoomCode(x){
         this.roomCode = x;

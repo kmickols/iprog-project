@@ -1,38 +1,14 @@
 import React from "react";
 
-export default function HostInputQuestion({question, answer}) {
-    console.log(question)
-
-    const numQuestions = question.body.length
-    let i = -1
-
+export default function HostInputQuestion({question, next}) {
     return(
         <div>
-            <span className="main-text">
+            <span className="main-text extra-big-text">
                 {question.text}
-                <table className={"main-table"} align={"center"}>
-                         {question.body.map(
-                             field => {
-                                 i += 1
-                                 return(
-                                     <div id ={i + ""} className={"main-table-entry"}>
-                                         <tr><td>
-                                             {field.text}:
-                                         </td>
-                                         </tr>
-                                         <tr>
-                                             <td>
-                                                 <input placeholder="Type answer text here" className="fill-form"/>
-                                             </td>
-                                         </tr>
-                                     </div>)})}
 
-       </table>
     </span>
             <span className="main-text">
-          <button className="button submit-button" onClick={() => {
-              
-          }}> Done </button>
+          <button className="button submit-button" onClick={() => {next()}}> Continue </button>
       </span>
         </div>
     )
