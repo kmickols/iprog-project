@@ -26,7 +26,7 @@ If time allows, users will also be able to tailor their own quizzes with their o
 
 The project has several folders:
 * api
-    * handles database api call
+    * handles database api calls, hold the database and its models. This is crucial for multiple players to be able to join a room. Also will be responsible for generating questions.
 
 * frontend
     * src contains MVP, respectively in their own folder and files 
