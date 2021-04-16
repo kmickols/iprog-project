@@ -199,10 +199,39 @@ export function getQuestion(roomCode){
     return fetch("/api/get-question?code="+roomCode)
         .then(response => {
             if (response.ok){
+                return response.json().then(dt => dt.question)
+            } else {
+                throw response.json()
+            }
+        })
+}
+
+export function revealQuestion(roomCode){
+    const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            code: roomCode,
+        })
+    };
+    return fetch("/api/reveal-question", requestOptions)
+        .then(response => {
+            if (response.ok){
                 return response
             } else {
                 throw response.json()
             }
         })
         .then(response => response.json())
+}
+
+export function getScores(roomCode){
+    return fetch("/api/get-score?code="+roomCode)
+        .then(response => {
+            if (response.ok){
+                return response.json().then(dt => dt.scores)
+            } else {
+                throw response.json()
+            }
+        })
 }

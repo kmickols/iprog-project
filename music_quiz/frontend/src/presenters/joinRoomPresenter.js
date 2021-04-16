@@ -18,6 +18,8 @@ export default function JoinRoomPresenter(props){
                         setData(dt)
                         props.history.push("/room/"+dt.code)
                         props.model.setIsHost(false)
+                        props.model.score = 0
+                        props.model.nickname = dt.user_name
                     }
                 }).catch(er=>{
                         if(promise===p){

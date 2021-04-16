@@ -19,20 +19,20 @@ tmp_questions = [
             }
         ]
     },
-    {
-        "type": "4choice",
-        "index": 1,
-        "text": "Which year was the song released?",
-        "spotify_token": "xxx",
-        "body": {
-            "score": 1,
-            "choices": ["1981", "1920", "1931", "1925"],
-            "answer": "1920"
-        }
-    },
+    #    {
+    #        "type": "4choice",
+    #        "index": 1,
+    #        "text": "Which year was the song released?",
+    #        "spotify_token": "xxx",
+    #        "body": {
+    #            "score": 1,
+    #            "choices": ["1981", "1920", "1931", "1925"],
+    #            "answer": "1920"
+    #        }
+    #    },
     {
         "type": "field",
-        "index": 2,
+        "index": 1,
         "text": "What is the name of the song and the name of the artist?",
         "spotify_token": "xxx",
         "body": [
@@ -50,7 +50,7 @@ tmp_questions = [
     },
     {
         "type": "field",
-        "index": 3,
+        "index": 2,
         "text": "What is the name of the song and the name of the artist?",
         "spotify_token": "xxx",
         "body": [

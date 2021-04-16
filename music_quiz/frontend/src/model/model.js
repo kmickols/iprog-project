@@ -8,6 +8,8 @@ export default class Model {
         this.setNumQuestions(numQuestions);
         this.isHost = false
         this.autoplay = false
+        this.score = 0
+        this.nickname = ""
     }
     setRoomCode(x){
         this.roomCode = x;
@@ -30,6 +32,20 @@ export default class Model {
         return questionElement;
     }
 
-    // updateScore
+    addScore(deltaScore){
+        this.score += deltaScore
+    }
+
+    getScore(){
+        return this.score
+    }
+
+    setNickname(name){
+        this.nickname = name
+    }
+
+    getNickname(){
+        return this.nickname
+    }
     
 }

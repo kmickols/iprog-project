@@ -11,4 +11,5 @@ urlpatterns = [
     path('tutorial', index),
     path('room/<str:roomCode>', index),
     path('room/<str:roomCode>/quiz', index),
+    path('room/<str:roomCode>/result', index),
 ]

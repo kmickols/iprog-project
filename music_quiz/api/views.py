@@ -74,6 +74,8 @@ class CreateRoomView(generics.CreateAPIView):
         if serializer.is_valid():
             num_questions = serializer.data.get('num_questions')
             host = self.request.session.session_key
+
+
             queryset = Room.objects.filter(host=host)
             if queryset.exists():
                 # Room already exists - Update current room
@@ -83,12 +85,14 @@ class CreateRoomView(generics.CreateAPIView):
                 room.player_can_join = True
                 room.save(update_fields=['num_questions', 'player_can_join', 'current_question'])
                 self.request.session['room_code'] = room.code
+                clear_players_in_room(room.code)
                 return Response(RoomSerializer(room).data, status=status.HTTP_200_OK)
             else:
                 # No room wit this session ID - Create new room.
                 room = Room(host=host, num_questions=num_questions, current_question=-1)
                 room.save()
                 self.request.session['room_code'] = room.code
+                clear_players_in_room(room.code)
                 return Response(RoomSerializer(room).data, status=status.HTTP_201_CREATED)
         return Response({'message': 'Bad Request: Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -128,6 +132,7 @@ class EndGame(APIView):
             # Room exists - Update current room
             room = queryset[0]
             room.delete()
+            clear_players_in_room(code)
             return Response({"message": "Room deleted successfully"}, status=status.HTTP_200_OK)
         else:
             Response({'message': "Bad Request: Room with specified code doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
@@ -166,15 +171,25 @@ class AnswerQuestion(APIView):
                 return Response({'message': "Bad Request: No Questions have been generated."},
                                 status=status.HTTP_400_BAD_REQUEST)
 
+            if room.block_answers:
+                data = {
+                    "status": -1,
+                    "results": [],
+                    "score": 0,
+                }
+                return JsonResponse(data, status=status.HTTP_200_OK)
+
+
             questions = functions.json_to_list(questions_json)
 
             if len(questions) < index:
-                return Response({'message': "Bad Request: Invalid question index."},
+                return Response({'message': "Bad Request: Invalid Question index!"},
                                 status=status.HTTP_400_BAD_REQUEST)
 
             question = questions[index]
             score, results = functions.validate_answer(question, answers)
             data = {
+                "status": 0,
                 "results": results,
                 "score": score
             }
@@ -216,7 +231,8 @@ class NextQuestion(APIView):
             if next_question >= num_questions:
                 next_question = -1
             room.current_question = next_question
-            room.save(update_fields=['current_question'])
+            room.block_answers = False
+            room.save(update_fields=['current_question', 'block_answers'])
 
             questions = functions.json_to_list(questions_json)
             if len(questions) <= room.current_question:
@@ -227,6 +243,26 @@ class NextQuestion(APIView):
             return JsonResponse({"question": question}, status=status.HTTP_200_OK)
         else:
             return Response({"message": "No room with specified code"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class QuestionRevealed(APIView):
+    def post(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        code = request.data.get('code')
+        queryset = Room.objects.filter(code=code)
+        if queryset.exists():
+            room = queryset[0]
+            key = self.request.session.session_key
+            is_host = key == room.host
+            if not is_host:
+                return Response({"message": "Only host may change question."}, status=status.HTTP_401_UNAUTHORIZED)
+
+            room.block_answers = True
+            room.save(update_fields=['block_answers'])
+            return JsonResponse({"message": "further answers blocked"}, status=status.HTTP_200_OK)
+        return Response({"message": "No room with specified code"}, status=status.HTTP_404_NOT_FOUND)
 
 
 class GetQuestion(APIView):
@@ -264,11 +300,34 @@ class GetQuestion(APIView):
                                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
             questions = functions.json_to_list(questions_json)
+            if room.current_question >= len(questions):
+                return JsonResponse({"message": "No more questions", "question": -1}, status=status.HTTP_200_OK)
             question = questions[room.current_question]
 
-            return JsonResponse(question, status=status.HTTP_200_OK)
+            return JsonResponse({"question": question}, status=status.HTTP_200_OK)
         else:
-            print(code)
+            return Response({'message': "Bad Request: Room with specified code doesn't exist"},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+
+class GetScores(APIView):
+    def get(self, request, format=None):
+        code = request.GET.get('code')
+        room_query = Room.objects.filter(code=code)
+        if room_query.exists():
+            room = room_query[0]
+
+            player_query = list(Player.objects.filter(room_code=code))
+            lst = []
+            for i in range(0, len(player_query)):
+                player = PlayerSerializer(player_query[i]).data
+                lst.append({
+                    "name": player["user_name"],
+                    "score": player["score"]
+                })
+
+            return JsonResponse({"scores": lst}, status=status.HTTP_200_OK)
+        else:
             return Response({'message': "Bad Request: Room with specified code doesn't exist"},
                             status=status.HTTP_400_BAD_REQUEST)
 
@@ -315,7 +374,7 @@ class JoinRoomView(APIView):
                     player = Player(room=room, session_key=session_key, room_code=code, user_name=user_name, score=0)
                     player.save()
 
-                return Response({"message": "Room Joined.", "code": code}, status=status.HTTP_200_OK)
+                return Response({"message": "Room Joined.", "code": code, "user_name": user_name}, status=status.HTTP_200_OK)
             return Response({"message": "No Room with code " + code}, status=status.HTTP_404_NOT_FOUND)
         return Response({"message": "Bad request: Invalid Post data.", "code": code, "user_name": user_name},
                         status=status.HTTP_400_BAD_REQUEST)
@@ -366,3 +425,8 @@ def get_players_in_room(code):
         lst.append(PlayerInfoSerializer(queryset[i]).data)
     return lst
 
+
+def clear_players_in_room(code):
+    player_query = list(Player.objects.filter(room_code=code))
+    for plyr in player_query:
+        plyr.delete()
