@@ -1,14 +1,18 @@
 import HostInputQuestion from "../views/hostInputQuestion";
 import Loading from "../views/loading";
 import React from "react";
-import {getQuestion, nextQuestion} from "../components/roomAPI";
+import {getQuestion, nextQuestion, revealQuestion} from "../components/roomAPI";
+import InputAnswer from "../views/inputAnswer";
+import Error from "../views/error";
+import FinalScore from "../views/finalScore";
 
 export default function QuizHostPresenter(props){
+    const roomCode = props.match.params.roomCode
 
     const [question, setQuestion] = React.useState(null)
     const [questionPromise, setQuestionPromise] = React.useState(null)
     const [questionError, setQuestionError] = React.useState(null)
-    const [showResult, setShowResult] = React.useState(false)
+    const [showAnswer, setShowAnswer] = React.useState(false)
 
     React.useEffect(function () {
             setQuestion(null)
@@ -17,9 +21,8 @@ export default function QuizHostPresenter(props){
                 const p = questionPromise
                 questionPromise.then(dt => {
                     if (questionPromise === p) {
-                        console.log(dt)
                         if (dt === -1){
-                            setShowResult(true)
+                            props.history.push("/room/"+roomCode+"/result")
                         } else {
                             setQuestion(dt)
                         }
@@ -34,12 +37,27 @@ export default function QuizHostPresenter(props){
         }, [questionPromise]
     )
 
-    React.useEffect(function () { setQuestionPromise( getQuestion(props.match.params.roomCode) )}, [])
+    React.useEffect(function () { setQuestionPromise( getQuestion(roomCode) )}, [])
 
-    if(showResult){
-        return <div>Results:</div>
+    if(questionError){
+        return <Error error={questionError}/>
     } else if (question) {
-        return <HostInputQuestion question={question} next={() => setQuestionPromise(nextQuestion(props.match.params.roomCode))}/>
+        let next
+        if(!showAnswer){
+            next = () => {
+                setShowAnswer(true)
+                revealQuestion(roomCode)
+            }
+            return <HostInputQuestion question={question} next={next}/>
+        } else {
+            next = () => {
+                setQuestionPromise(nextQuestion(roomCode))
+                setShowAnswer(false)
+            }
+
+            return <InputAnswer question={question} next={next}/>
+
+        }
     } else {
         return <Loading/>
     }

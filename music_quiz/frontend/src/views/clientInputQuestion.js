@@ -44,8 +44,8 @@ export default function ClientInputQuestion({question, score, player, answer, an
                     <button className="button submit-button" onClick={() => next()}> Next Question </button>
                 }
             </span>
-            <span className="score"> Your Score: {score}</span>
-            <span className="player"> Your Name: {player}</span>
+            <span className="score"> Score: {score}</span>
+            <span className="player"> Player: {player}</span>
         </div>
     )
 

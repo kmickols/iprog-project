@@ -30,7 +30,6 @@ export default function RoomInfoPresenter(props){
                             setData(dt)
                             setNumQuestions(dt.num_questions)
                             setCurrentQuestion(dt.current_question)
-                            console.log(dt)
                             setIsHost(dt.is_host)
                             setPlayers(dt.players)
                         }
@@ -61,8 +60,6 @@ export default function RoomInfoPresenter(props){
                     promise.then(dt=>{
                         if(promise===p){
                             setLaunchData(dt)
-                            console.log(dt)
-                            console.log("launching!")
                             props.history.push("/room/"+dt.code+"/quiz")
                         }
                     }).catch(er=>{

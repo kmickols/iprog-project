@@ -4,11 +4,12 @@ from .views import index
 app_name = 'frontend'
 
 urlpatterns = [
-    path('', index),
-    path('join', index),
-    path('create', index),
-    path('login', index),
-    path('tutorial', index),
-    path('room/<str:roomCode>', index),
-    path('room/<str:roomCode>/quiz', index),
-]
+    path('', index, name=''),
+    path('join', index, name='join'),
+    path('create', index, name='create'),
+    path('login', index, name='login'),
+    path('tutorial', index, name='tutorial'),
+    path('room/<str:roomCode>', index, name='room'),
+    path('room/<str:roomCode>/quiz', index, name='room/quiz'),
+    path('room/<str:roomCode>/result', index, name="room/result"),
+    ]
