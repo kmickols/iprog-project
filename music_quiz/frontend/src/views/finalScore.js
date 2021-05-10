@@ -1,26 +1,33 @@
-//Tänker att score datan ser ut så här tuples med (name, score) t.ex. [("Antyklanty", 100), ("Rikky", 5)]
 import React from "react";
 
 // sample scores:
-//    var scores = [
-//        {name: 'Anty', score: 500},
-//        {name: 'Rikky', score: 3}
-//    ];
+/*
+var scores = [
+    {name: 'Anty', score: 50220},
+    {name: 'Rikky', score: 250},
+    {name: 'Izzy', score:  7}
+];
+*/
+
 
 export default function FinalScore({scores, returnToMain}){
+
     return(
         <div>
             <span className={"main-text"}>
-                <table>
-                    <tr>
-                        <th className={"main-text"}> Scores: </th>
-                    </tr>
-                    {scores.sort(function(a,b){
-                        return b.score - a.score;
-                    }).map(d =>
-                    <tr>
-                        <td className={"main-text"}>{d.name}: {d.score}</td>
-                    </tr>
+                <table className = {"highscore"}>
+                    <th  colspan="2">🏆SCOREBOARD🏆</th>
+                        <tr>
+                            <td>Player:</td>
+                            <td>Score:</td>
+                        </tr>
+                        {scores.sort(function(a,b){
+                            return b.score - a.score;
+                        }).map(d =>
+                        <tr>
+                            <td>{d.name}</td>
+                            <td>{d.score}</td>
+                        </tr>
                     )}
                 </table>
             </span>

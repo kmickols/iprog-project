@@ -198,3 +198,28 @@
     font-size: 30px;
     color: white;
 }
+
+.highscore {
+    width: 600px;
+    border-collapse: collapse;
+
+}
+
+.highscore th{
+    text-align: center;
+    font-size: 50px;
+}
+
+.highscore td {
+    border: 1px solid black;
+}
+
+.highscore tr:nth-child(even) {
+    background-color: #0000ff;
+}
+
+.highscore tr:nth-child(odd) {
+    background-color: #1e90ff;
+}
+
+
