@@ -25,12 +25,12 @@ export default function QuizClientPresenter(props) {
                 const p = questionPromise
                 questionPromise.then(dt => {
                     if (questionPromise === p) {
-                        if (dt === -1){
+                        if (dt === -1) {
                             setShowResult(true)
                         } else {
-                            if(currentQuestionIndex === dt.index){
+                            if (currentQuestionIndex === dt.index) {
                                 setQuestion(prevQuestion)
-                            } else if(dt !== prevQuestion) {
+                            } else if (dt !== prevQuestion) {
                                 setQuestionAnswered(false)
                                 setAnswers([])
                                 setCurrentQuestionIndex(dt.index)
@@ -48,13 +48,16 @@ export default function QuizClientPresenter(props) {
         }, [questionPromise]
     )
 
-    React.useEffect(function () { setQuestionPromise( getQuestion(props.match.params.roomCode) )}, [])
+    React.useEffect(function () {
+        setQuestionPromise(model.getQuestion())
+    }, [])
 
-    if (showResult){
+    if (showResult) {
         return <span className={"main-text"}>The results are in!</span>
     } else if (question) {
-        if(questionAnswered){
-            return <Intermission message={answerMessage} score={model.score} player={model.nickname} next={() => setQuestionPromise(getQuestion(props.match.params.roomCode))}/>
+        if (questionAnswered) {
+            return <Intermission message={answerMessage} score={model.score} player={model.nickname}
+                                 next={() => setQuestionPromise(model.getQuestion())}/>
         } else {
             return <ClientInputQuestion question={question}
                                         score={model.score}
@@ -62,9 +65,9 @@ export default function QuizClientPresenter(props) {
                                         questionAnswered={questionAnswered}
                                         answer={(arr) => {
                                             setAnswers(arr)
-                                            answerQuestion(props.match.params.roomCode, arr, currentQuestionIndex)
+                                            model.getAnswerQuestion(arr, currentQuestionIndex)
                                                 .then(dt => {
-                                                    if(dt.status === -1){
+                                                    if (dt.status === -1) {
                                                         //Answered too late!
                                                         setAnswerMessage("You answered too late! No points :(")
                                                     } else {

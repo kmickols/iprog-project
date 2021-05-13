@@ -6,7 +6,7 @@ import {authenticateSpotify, getSpotifyPlayer, spotifyStatus} from "../component
 export default function CreateRoomPresenter(props) {
     const model = props.model
     const [numQuestions, setNumQuestions] = React.useState(10)
-    const [roomCode, setRoomCode] = React.useState("") //saves roomcode to model later
+
     const [data, setData] = React.useState(null)
     const [promise, setPromise] = React.useState(null)
     const [error, setError] = React.useState(null)
@@ -34,7 +34,6 @@ export default function CreateRoomPresenter(props) {
                     }
                 )
             }
-
         }, [promise]
     )
 
@@ -57,7 +56,6 @@ export default function CreateRoomPresenter(props) {
                     }
                 )
             }
-
         }, [spotifyStatusPromise]
     )
 
@@ -78,9 +76,7 @@ export default function CreateRoomPresenter(props) {
                                    setNumQuestions(x)
                                }
                            }}
-
                            returnToMain={() => props.history.push("/")}
-
         />
     }
 }
