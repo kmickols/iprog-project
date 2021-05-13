@@ -7,7 +7,6 @@ export function onSpotifyWebPlaybackSDKReady(token) {
             cb(token);
         }
     });
-
     // Error handling
     player.addListener('initialization_error', ({message}) => {
         console.error(message);
@@ -40,4 +39,4 @@ export function onSpotifyWebPlaybackSDKReady(token) {
 
     // Connect to the player!
     player.connect();
-};
+}
