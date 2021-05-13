@@ -168,7 +168,7 @@ class CreateRoomView(generics.CreateAPIView):
         return Response({'message': 'Bad Request: Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-# Players can't join anymore. Takes room code TODO: take spotify playlist, generate Questions.
+# Players can't join anymore. Takes room code
 class LaunchGame(APIView):
 
     serializer_class = RoomCodeSerializer
@@ -305,15 +305,14 @@ class NextQuestion(APIView):
             else:
                 room.block_answers = False
             room.current_question = next_question
-            room.current_question = next_question
 
             room.save(update_fields=['current_question', 'block_answers'])
 
             questions = functions.json_to_list(questions_json)
-            if len(questions) <= room.current_question or next_question == -1:
+            if len(questions) <= next_question or next_question == -1:
                 return JsonResponse({"message": "No more questions", "question": -1}, status=status.HTTP_200_OK)
 
-            question = questions[room.current_question]
+            question = questions[next_question]
 
             return JsonResponse({"question": question}, status=status.HTTP_200_OK)
         else:
@@ -340,6 +339,7 @@ class QuestionRevealed(APIView):
         return Response({"message": "No room with specified code"}, status=status.HTTP_404_NOT_FOUND)
 
 
+# Gets the FIRST question in the quiz
 class GetQuestion(APIView):
     # Gets the next question and the next question's position
     # Takes the roomCode,
@@ -375,9 +375,7 @@ class GetQuestion(APIView):
                                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
             questions = functions.json_to_list(questions_json)
-            if room.current_question >= len(questions):
-                return JsonResponse({"message": "No more questions", "question": -1}, status=status.HTTP_200_OK)
-            question = questions[room.current_question]
+            question = questions[0]
 
             return JsonResponse({"question": question}, status=status.HTTP_200_OK)
         else:
