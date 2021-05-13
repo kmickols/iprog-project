@@ -1,4 +1,5 @@
-import {spotifyStatus} from "../components/spotify";
+import {authenticateSpotify, getSpotifyPlayer, spotifyStatus} from "../components/spotify";
+import {createRoom} from "../components/roomAPI";
 
 export default class Model {
     constructor(players = 0, question = "", currentQuestion = 0, numQuestions = -1, roomCode = "") {
@@ -12,11 +13,12 @@ export default class Model {
         this.score = 0
         this.nickname = ""
     }
-    setRoomCode(x){
+
+    setRoomCode(x) {
         this.roomCode = x;
     }
 
-    setNumberOfPlayers(x){
+    setNumberOfPlayers(x) {
         this.players = x;
     }
 
@@ -28,20 +30,35 @@ export default class Model {
         this.isHost = bool
     }
 
-    addScore(deltaScore){
+    addScore(deltaScore) {
         this.score += deltaScore
     }
 
-    getScore(){
+    getScore() {
         return this.score
     }
 
-    setNickname(name){
+    setNickname(name) {
         this.nickname = name
     }
 
-    getNickname(){
+    getNickname() {
         return this.nickname
     }
-    
+
+    createRoom(numQuestions) {
+        return createRoom(numQuestions)
+    }
+
+    getSpotifyPlayer() {
+        return getSpotifyPlayer()
+    }
+
+    getSpotifyStatus() {
+        return spotifyStatus()
+    }
+
+    getAuthenticateSpotify() {
+        return authenticateSpotify()
+    }
 }
