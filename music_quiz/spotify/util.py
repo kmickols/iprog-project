@@ -93,11 +93,8 @@ def play_song(session_id, song_id):
     headers = {'Content-Type': 'application/json',
                'Authorization': "Bearer " + tokens.access_token}
     data = {"uris": [song_id]}
-
     print(data)
-
     put("https://api.spotify.com/v1/me/player/play", headers=headers, json=data)
-
     response = get('https://api.spotify.com/v1/me/player/play', {}, headers=headers)
 
     try:
@@ -116,9 +113,7 @@ def set_player(session_id, device_id):
                'Authorization': "Bearer " + tokens.access_token}
     data = {'device_ids': [device_id],
             'play': False}
-
     print(data)
-
     put("https://api.spotify.com/v1/me/player", headers=headers, json=data)
 
     response = get('https://api.spotify.com/v1/me/player', {}, headers=headers)
