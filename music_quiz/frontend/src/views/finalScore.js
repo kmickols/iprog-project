@@ -2,15 +2,14 @@ import React from "react";
 
 // sample scores:
 /*
-var scores = [
-    {name: 'Anty', score: 50220},
-    {name: 'Rikky', score: 250},
-    {name: 'Izzy', score:  7}
-];
+    var scores = [
+        {name: 'Anty', score: 50220},
+        {name: 'Rikky', score: 250},
+        {name: 'Izzy', score:  7}
+    ];
 */
 
-
-export default function FinalScore({scores, returnToMain}){
+export default function FinalScore({score, returnToMain}){
 
     return(
         <div>
@@ -21,7 +20,7 @@ export default function FinalScore({scores, returnToMain}){
                             <td>Player:</td>
                             <td>Score:</td>
                         </tr>
-                        {scores.sort(function(a,b){
+                        {score.sort(function(a,b){
                             return b.score - a.score;
                         }).map(d =>
                         <tr>
