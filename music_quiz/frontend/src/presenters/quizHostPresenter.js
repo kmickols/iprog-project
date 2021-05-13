@@ -7,7 +7,7 @@ import Error from "../views/error";
 import FinalScore from "../views/finalScore";
 import {playSong, stopPlaying} from "../components/spotify";
 
-export default function QuizHostPresenter(props){
+export default function QuizHostPresenter(props) {
     const roomCode = props.match.params.roomCode
 
     const [question, setQuestion] = React.useState(null)
@@ -22,12 +22,12 @@ export default function QuizHostPresenter(props){
                 const p = questionPromise
                 questionPromise.then(dt => {
                     if (questionPromise === p) {
-                        if (dt === -1){
-                            props.history.push("/room/"+roomCode+"/result")
+                        if (dt === -1) {
+                            props.history.push("/room/" + roomCode + "/result")
                         } else {
                             setQuestion(dt)
                             playSong(dt.spotify_token)
-                            console.log("plays:")
+
                         }
                     }
                 }).catch(er => {
@@ -40,13 +40,15 @@ export default function QuizHostPresenter(props){
         }, [questionPromise]
     )
 
-    React.useEffect(function () { setQuestionPromise( getQuestion(roomCode) );}, [])
+    React.useEffect(function () {
+        setQuestionPromise(getQuestion(roomCode));
+    }, [])
 
-    if(questionError){
+    if (questionError) {
         return <Error error={questionError}/>
     } else if (question) {
         let next
-        if(!showAnswer){
+        if (!showAnswer) {
             next = () => {
                 setShowAnswer(true)
                 revealQuestion(roomCode)

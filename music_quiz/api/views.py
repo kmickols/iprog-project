@@ -4,21 +4,91 @@ from django.shortcuts import render
 
 from django.shortcuts import render
 from rest_framework import generics, status
-from .serializers import RoomSerializer, CreateRoomSerializer, CreatePlayerSerializer, PlayerSerializer, PlayerInfoSerializer, RoomCodeSerializer
-from .models import Room, Player
+from .serializers import RoomSerializer, CreateRoomSerializer, CreatePlayerSerializer, PlayerSerializer, PlayerInfoSerializer, RoomCodeSerializer, SongSerializer, CreateSongSerializer, SongIdSerializer
+from .models import Room, Player, Song
 from django.http import JsonResponse
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from . import functions
 
+
 class RoomView(generics.ListAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
 
+
 class PlayersView(generics.ListAPIView):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
+
+
+class SongsView(generics.ListAPIView):
+    queryset = Song.objects.all()
+    serializer_class = SongSerializer
+
+
+class CreateSongView(generics.CreateAPIView):
+
+    serializer_class = CreateSongSerializer
+
+    def post(self, request, format=None):
+
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+
+            song_name = serializer.data.get('song_name')
+            album = serializer.data.get('album_name')
+            artist = serializer.data.get('artist_name')
+            trivia = serializer.data.get('trivia')
+            trivia = trivia if trivia else ""
+            release = serializer.data.get('release_year')
+            release = release if release else ""
+            token = serializer.data.get('token')
+
+            queryset = Song.objects.filter(token=token)
+            if queryset.exists():
+                # Song already exists - Update song
+                song = queryset[0]
+                song.song_name = song_name
+                song.album_name = album
+                song.artist_name = artist
+                song.trivia = trivia
+                song.release_year = release
+                song.save(update_fields=['song_name', 'album_name', 'artist_name', 'trivia', 'release_year'])
+                return Response(SongSerializer(song).data, status=status.HTTP_200_OK)
+            else:
+                # No song wit this token - Create new song.
+                song = Song(song_name=song_name, album_name=album, artist_name=artist, trivia=trivia,
+                            token=token, release_year=release)
+                song.save()
+                return Response(SongSerializer(song).data, status=status.HTTP_201_CREATED)
+        return Response({'message': 'Bad Request: Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DeleteSongView(APIView):
+
+    def get(self, request):
+        return Response('Enter song to delete')
+
+    serializer_class = SongIdSerializer
+
+    def post(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+
+        if not serializer.is_valid():
+            return Response({'message': "Bad Request: Invalid data"}, status=status.HTTP_400_BAD_REQUEST)
+
+        id = serializer.data.get('id')
+
+        queryset = Song.objects.filter(id=id)
+        if queryset.exists():
+            # Song exists - Delete
+            song = queryset[0]
+            song.delete()
+            return Response({"message": "Song deleted successfully"}, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': "Bad Request: Song with id doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class GetRoom(APIView):
@@ -73,23 +143,24 @@ class CreateRoomView(generics.CreateAPIView):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             num_questions = serializer.data.get('num_questions')
+            type = serializer.data.get('quiz_type')
             host = self.request.session.session_key
-
 
             queryset = Room.objects.filter(host=host)
             if queryset.exists():
                 # Room already exists - Update current room
                 room = queryset[0]
                 room.num_questions = num_questions
+                room.quiz_type = type
                 room.current_question = -1
                 room.player_can_join = True
-                room.save(update_fields=['num_questions', 'player_can_join', 'current_question'])
+                room.save(update_fields=['num_questions', 'player_can_join', 'quiz_type', 'current_question'])
                 self.request.session['room_code'] = room.code
                 clear_players_in_room(room.code)
                 return Response(RoomSerializer(room).data, status=status.HTTP_200_OK)
             else:
                 # No room wit this session ID - Create new room.
-                room = Room(host=host, num_questions=num_questions, current_question=-1)
+                room = Room(host=host, num_questions=num_questions, quiz_type=type, current_question=-1)
                 room.save()
                 self.request.session['room_code'] = room.code
                 clear_players_in_room(room.code)
@@ -97,7 +168,7 @@ class CreateRoomView(generics.CreateAPIView):
         return Response({'message': 'Bad Request: Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-# Players can't join anymore. Takes room code TODO: take spotify playlist, generate Questions.
+# Players can't join anymore. Takes room code
 class LaunchGame(APIView):
 
     serializer_class = RoomCodeSerializer
@@ -111,7 +182,7 @@ class LaunchGame(APIView):
             room = queryset[0]
             room.player_can_join = False
             room.current_question = 0
-            questions = functions.generate_questions([])
+            questions = functions.generate_questions(room.quiz_type, Song.objects.all(), room.num_questions)
             room.questions = functions.list_to_json(questions)
             room.block_answers = False
             room.save(update_fields=['player_can_join', 'current_question', 'questions', 'block_answers'])
@@ -136,7 +207,7 @@ class EndGame(APIView):
             clear_players_in_room(code)
             return Response({"message": "Room deleted successfully"}, status=status.HTTP_200_OK)
         else:
-            Response({'message': "Bad Request: Room with specified code doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': "Bad Request: Room with specified code doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Client answers question, check if current question and check if answer is correct.
@@ -231,15 +302,17 @@ class NextQuestion(APIView):
             num_questions = room.num_questions
             if next_question >= num_questions:
                 next_question = -1
+            else:
+                room.block_answers = False
             room.current_question = next_question
-            room.block_answers = False
+
             room.save(update_fields=['current_question', 'block_answers'])
 
             questions = functions.json_to_list(questions_json)
-            if len(questions) <= room.current_question:
+            if len(questions) <= next_question or next_question == -1:
                 return JsonResponse({"message": "No more questions", "question": -1}, status=status.HTTP_200_OK)
 
-            question = questions[room.current_question]
+            question = questions[next_question]
 
             return JsonResponse({"question": question}, status=status.HTTP_200_OK)
         else:
@@ -266,6 +339,7 @@ class QuestionRevealed(APIView):
         return Response({"message": "No room with specified code"}, status=status.HTTP_404_NOT_FOUND)
 
 
+# Gets the FIRST question in the quiz
 class GetQuestion(APIView):
     # Gets the next question and the next question's position
     # Takes the roomCode,
@@ -301,9 +375,7 @@ class GetQuestion(APIView):
                                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
             questions = functions.json_to_list(questions_json)
-            if room.current_question >= len(questions):
-                return JsonResponse({"message": "No more questions", "question": -1}, status=status.HTTP_200_OK)
-            question = questions[room.current_question]
+            question = questions[0]
 
             return JsonResponse({"question": question}, status=status.HTTP_200_OK)
         else:

@@ -18,12 +18,13 @@ export function getRoomDetails(roomCode){
 // If the current user already has hosted a room, the existing room will be updated.
 // Returns the HTTP response
 // see html form of rooms at /api/create-room
-export function createRoom(numQuestions){
+export function createRoom(numQuestions, quiz_type = "classics"){
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         num_questions: numQuestions,
+        quiz_type: quiz_type,
       }),
     };
     return fetch("/api/create-room", requestOptions)
