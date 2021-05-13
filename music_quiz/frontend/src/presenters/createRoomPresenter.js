@@ -1,6 +1,6 @@
 import React from "react";
 import CreateRoom from "../views/createRoom"
-import {createRoom} from "../components/roomAPI";
+
 import {authenticateSpotify, getSpotifyPlayer, spotifyStatus} from "../components/spotify";
 
 export default function CreateRoomPresenter(props) {
@@ -46,8 +46,8 @@ export default function CreateRoomPresenter(props) {
                 spotifyStatusPromise.then(dt => {
                     if (spotifyStatusPromise === p) {
                         setSpotifyAuth(dt)
-                        if(dt) {
-                            getSpotifyPlayer()
+                        if (dt) {
+                            model.getSpotifyPlayer()
                         }
                     }
                 }).catch(er => {
@@ -61,15 +61,17 @@ export default function CreateRoomPresenter(props) {
         }, [spotifyStatusPromise]
     )
 
-    React.useEffect(function () { setSpotifyStatusPromise(spotifyStatus()) }, [])
+    React.useEffect(function () {
+        setSpotifyStatusPromise(model.getSpotifyStatus())
+    }, [])
 
     if (error) {
         return <div class="main-text"> {error + ""} </div>
     } else {
         return <CreateRoom numQuestions={numQuestions}
                            loggedInToSpotify={spotifyAuth}
-                           loginSpotify={() => authenticateSpotify()}
-                           createRoom={() => setPromise(createRoom(numQuestions))}
+                           loginSpotify={() => model.getAuthenticateSpotify()}
+                           createRoom={() => setPromise(model.createRoom(numQuestions))}
                            changeNumQuestions={x => {
                                if (x >= 1) {
                                    model.setNumQuestions(x)
