@@ -1,4 +1,7 @@
 import json
+from .serializers import SongSerializer
+import random
+
 
 tmp_questions = [
     {
@@ -123,8 +126,39 @@ def json_to_list(jsn):
 # For "field" type the body will contain the number of fields and their labels and the answers
 # For "multiple" type the body will contain the different choices and the correct choice
 # Answers will be evaluated depending on type.
-def generate_questions(playlist):
-    return tmp_questions
+def generate_questions(quiz_type, songs_query, num_questions):
+    filtered_songs = list(songs_query.filter(types__contains="{"+quiz_type+"}"))
+    song_info = []
+    for i in range(0, len(filtered_songs)):
+        song_info.append(SongSerializer(filtered_songs[i]).data)
+
+    songs = random.sample(range(0, len(song_info)), min(len(song_info), num_questions))
+
+    questions = []
+    index = 0
+    for i in songs:
+        song = song_info[i]
+        question = {
+            "type": "field",
+            "index": index,
+            "text": "What is the name of the song and the name of the artist?",
+            "spotify_token": song["token"],
+            "body": [
+                {
+                    "text": "Song Name",
+                    "answer": song["song_name"],
+                    "score": 1
+                },
+                {
+                    "text": "Artist Name",
+                    "answer": song["artist_name"],
+                    "score": 1
+                }
+            ]
+        }
+        questions.append(question)
+        index += 1
+    return questions
 
 
 # Checks if answers are correct.

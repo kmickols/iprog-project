@@ -1,18 +1,40 @@
 from rest_framework import serializers
-from .models import Room, Player
+from .models import Room, Player, Song
 
 
-# We would want id, num_questions(?), playlist(?), players(?), code, host, created_at
 class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
-        fields = ('id', 'code', 'host', 'num_questions', 'current_question', 'questions', 'block_answers', 'player_can_join', 'created_at',)
+        fields = ('id', 'code', 'host', 'num_questions', 'current_question', 'questions', 'block_answers',
+                  'quiz_type', 'player_can_join', 'created_at',)
+
+
+class SongSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Song
+        fields = ('id', 'song_name', 'album_name', 'artist_name', 'trivia', 'release_year', 'token', 'types')
+
+
+class SongIdSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField()
+
+    class Meta:
+        model = Song
+        fields = ('id',)
+
+
+class CreateSongSerializer(serializers.ModelSerializer):
+    token = serializers.CharField(max_length=300)
+
+    class Meta:
+        model = Song
+        fields = ('song_name', 'album_name', 'artist_name', 'release_year', 'trivia', 'token', 'types')
 
 
 class CreateRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
-        fields = ('num_questions',)
+        fields = ('num_questions', 'quiz_type')
 
 
 class RoomCodeSerializer(serializers.ModelSerializer):
