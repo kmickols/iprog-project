@@ -21,6 +21,51 @@ export default function RoomInfoPresenter(props) {
     const [currentQuestion, setCurrentQuestion] = React.useState(-1)
     const [isHost, setIsHost] = React.useState(false)
     const [players, setPlayers] = React.useState([])
+
+    function refreshPlayers(){
+        model.getRoomDetails()
+            .then(dt => {
+                if (dt.players !== players){
+                     setPlayers(dt.players)
+                    }
+                }).catch(er => {
+                        return er
+
+                    }
+                ).then(er => {
+                    setError(er);
+                })
+    }
+
+    function checkGameStarted(){model.getRoomDetails()
+            .then(dt => {
+                if (dt.current_question !== -1){
+                        props.history.push("/room/" + model.getRoom() + "/quiz")
+                    }
+                }).catch(er => {
+                        return er
+                    }
+                ).then(er => {
+                    setError(er);
+                })
+    }
+
+    React.useEffect(
+        () =>  {
+            let interval = setInterval(() => {
+                if (isHost) {
+                    refreshPlayers()
+                } else {
+                    checkGameStarted()
+                }
+
+            }, 1000)
+            return () => {
+                clearInterval(interval)
+            }
+        }
+    )
+
     React.useEffect(
         function () {
             setData(null)
@@ -90,11 +135,11 @@ export default function RoomInfoPresenter(props) {
                                      refresh={() => setPromise(model.getRoomDetails())}/>
             } else {
                 //Player
-                return <ClientRoomInfo roomCode={roomCode} refresh={() => setPromise(model.getRoomDetails())}/>
+                return <ClientRoomInfo roomCode={roomCode}/>
             }
         } else {
             //Game started
-            return <GoToQuiz goToQuiz={() => props.history.push("/room/" + model.getRoom() + "/quiz")}/>
+            checkGameStarted()
         }
     } else {
         return <Loading/>

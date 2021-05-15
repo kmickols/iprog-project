@@ -196,8 +196,8 @@ export function nextQuestion(roomCode){
         .then(json => json.question)
 }
 
-export function getQuestion(roomCode){
-    return fetch("/api/get-question?code="+roomCode)
+export function getQuestion(roomCode, getFirst = false){
+    return fetch("/api/get-question?code="+roomCode+"&first="+getFirst)
         .then(response => {
             if (response.ok){
                 return response.json().then(dt => dt.question)

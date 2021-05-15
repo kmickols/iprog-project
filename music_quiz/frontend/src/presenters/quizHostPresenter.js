@@ -13,6 +13,28 @@ export default function QuizHostPresenter(props) {
     const [questionPromise, setQuestionPromise] = React.useState(null)
     const [questionError, setQuestionError] = React.useState(null)
     const [showAnswer, setShowAnswer] = React.useState(false)
+    const [seconds, setSeconds] = React.useState(30)
+
+    function revealAnswer() {
+        setShowAnswer(true)
+        model.getRevealQuestion()
+        model.getStopPlaying()
+    }
+
+    React.useEffect(
+        () =>  {
+            let interval = setInterval(() => {
+                setSeconds(seconds - 1)
+                if(seconds - 1 === 0){
+                    revealAnswer()
+                }
+            }, 1000)
+            return () => {
+                clearInterval(interval)
+            }
+        }
+    )
+
 
     React.useEffect(function () {
             setQuestion(null)
@@ -40,24 +62,19 @@ export default function QuizHostPresenter(props) {
     )
 
     React.useEffect(function () {
-        setQuestionPromise(model.getQuestion());
+        setQuestionPromise(model.getQuestion(true));
     }, [])
 
     if (questionError) {
         return <Error error={questionError}/>
     } else if (question) {
-        let next
         if (!showAnswer) {
-            next = () => {
-                setShowAnswer(true)
-                model.getRevealQuestion()
-                model.getStopPlaying()
-            }
-            return <HostInputQuestion question={question} next={next}/>
+            return <HostInputQuestion question={question} remainingSeconds={seconds}/>
         } else {
-            next = () => {
+            let next = () => {
                 setQuestionPromise(model.getNextQuestion())
                 setShowAnswer(false)
+                setSeconds(30)
             }
 
             return <InputAnswer question={question} next={next}/>

@@ -174,7 +174,7 @@ def validate_answer(question, answers):
             q_score = question["body"][i]["score"]
             if len(answers) > i:
                 answer = answers[i]
-                if correct.lower() == answer.lower():
+                if correct.lower().strip() == answer.lower().strip():
                     score += q_score
                     result.append(True)
                 else:

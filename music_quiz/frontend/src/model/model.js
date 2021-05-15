@@ -79,8 +79,8 @@ export default class Model {
         return joinRoom(tmp_code, tmp_name)
     }
 
-    getQuestion() {
-        return getQuestion(this.roomCode)
+    getQuestion(getFirst = false) {
+        return getQuestion(this.roomCode, getFirst)
     }
 
     getAnswerQuestion(arr, currentQuestionIndex) {

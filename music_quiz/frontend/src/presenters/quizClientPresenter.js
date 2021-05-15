@@ -16,6 +16,51 @@ export default function QuizClientPresenter(props) {
     const [answers, setAnswers] = React.useState([])
     const [showResult, setShowResult] = React.useState(false)
     const [answerMessage, setAnswerMessage] = React.useState("")
+    const [seconds, setSeconds] = React.useState(30)
+
+    function answer(arr){
+        setAnswers(arr)
+        model.getAnswerQuestion(arr, currentQuestionIndex)
+            .then(dt => {
+                if (dt.status === -1) {
+                    //Answered too late!
+                    setAnswerMessage("Too slow :( Better luck next time!")
+                } else {
+                    model.addScore(dt.score)
+                    if(dt.score > 0) {
+                        setAnswerMessage("Good job! You got " + dt.score + " points!")
+                    } else {
+                        setAnswerMessage("That was not correct, no points :( Better luck next time!")
+                    }
+                }
+            })
+            .catch(er => console.error("Error while answering question or adding score!" + er))
+        setQuestionAnswered(true)
+    }
+
+    function timeout(){
+        setAnswerMessage("Too slow, no points :( Better luck next time!")
+        setQuestionAnswered(true)
+    }
+
+    React.useEffect(
+        () =>  {
+            let interval = setInterval(() => {
+                setSeconds(seconds - 1)
+                if(seconds - 1 === 0){
+                    timeout()
+                }
+
+                if(seconds < 0) {
+                    // Check if there's a new question
+                    setQuestionPromise(model.getQuestion())
+                }
+            }, 1000)
+            return () => {
+                clearInterval(interval)
+            }
+        }
+    )
 
     React.useEffect(function () {
             const prevQuestion = question
@@ -24,6 +69,7 @@ export default function QuizClientPresenter(props) {
             if (questionPromise) {
                 const p = questionPromise
                 questionPromise.then(dt => {
+                    console.log(dt)
                     if (questionPromise === p) {
                         if (dt === -1) {
                             setShowResult(true)
@@ -35,6 +81,7 @@ export default function QuizClientPresenter(props) {
                                 setAnswers([])
                                 setCurrentQuestionIndex(dt.index)
                                 setQuestion(dt)
+                                setSeconds(30)
                             }
                         }
                     }
@@ -56,30 +103,15 @@ export default function QuizClientPresenter(props) {
         return <span className={"main-text"}>The results are in!</span>
     } else if (question) {
         if (questionAnswered) {
-            return <Intermission message={answerMessage} score={model.score} player={model.nickname}
-                                 next={() => setQuestionPromise(model.getQuestion())}/>
+            return <Intermission message={answerMessage} answers={answers} score={model.score} player={model.nickname}/>
         } else {
             return <ClientInputQuestion question={question}
                                         score={model.score}
                                         player={model.nickname}
                                         questionAnswered={questionAnswered}
-                                        answer={(arr) => {
-                                            setAnswers(arr)
-                                            model.getAnswerQuestion(arr, currentQuestionIndex)
-                                                .then(dt => {
-                                                    if (dt.status === -1) {
-                                                        //Answered too late!
-                                                        setAnswerMessage("You answered too late! No points :(")
-                                                    } else {
-                                                        model.addScore(dt.score)
-                                                        setAnswerMessage("Wait for the host to show the correct answer!")
-                                                    }
-                                                })
-                                                .catch(er => console.error("Error while answering question or adding score!" + er))
-                                            setQuestionAnswered(true)
-                                        }
-                                        }
+                                        answer={answer}
                                         answers={answers}
+                                        remainingSeconds={seconds}
 
             />
         }

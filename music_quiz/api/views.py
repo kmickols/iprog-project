@@ -147,20 +147,24 @@ class CreateRoomView(generics.CreateAPIView):
             host = self.request.session.session_key
 
             queryset = Room.objects.filter(host=host)
+
+            questions = functions.generate_questions(type, Song.objects.all(), num_questions)
+
             if queryset.exists():
                 # Room already exists - Update current room
                 room = queryset[0]
                 room.num_questions = num_questions
                 room.quiz_type = type
                 room.current_question = -1
+                room.questions = functions.list_to_json(questions)
                 room.player_can_join = True
-                room.save(update_fields=['num_questions', 'player_can_join', 'quiz_type', 'current_question'])
+                room.save(update_fields=['num_questions', 'player_can_join', 'quiz_type', 'current_question', 'questions'])
                 self.request.session['room_code'] = room.code
                 clear_players_in_room(room.code)
                 return Response(RoomSerializer(room).data, status=status.HTTP_200_OK)
             else:
                 # No room wit this session ID - Create new room.
-                room = Room(host=host, num_questions=num_questions, quiz_type=type, current_question=-1)
+                room = Room(host=host, num_questions=num_questions, quiz_type=type, questions=questions, current_question=-1)
                 room.save()
                 self.request.session['room_code'] = room.code
                 clear_players_in_room(room.code)
@@ -182,11 +186,9 @@ class LaunchGame(APIView):
             room = queryset[0]
             room.player_can_join = False
             room.current_question = 0
-            questions = functions.generate_questions(room.quiz_type, Song.objects.all(), room.num_questions)
-            room.questions = functions.list_to_json(questions)
             room.block_answers = False
             room.save(update_fields=['player_can_join', 'current_question', 'questions', 'block_answers'])
-            return JsonResponse({"questions": questions}, status=status.HTTP_200_OK, )
+            return JsonResponse({"questions": room.questions}, status=status.HTTP_200_OK, )
         else:
             Response({'message': "Bad Request: Room with specified code doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -339,7 +341,7 @@ class QuestionRevealed(APIView):
         return Response({"message": "No room with specified code"}, status=status.HTTP_404_NOT_FOUND)
 
 
-# Gets the FIRST question in the quiz
+# Gets the current question in the quiz or the first question, if first == True
 class GetQuestion(APIView):
     # Gets the next question and the next question's position
     # Takes the roomCode,
@@ -350,6 +352,8 @@ class GetQuestion(APIView):
             self.request.session.create()
 
         code = request.GET.get('code')
+        first = request.GET.get('first')
+        print(first)
         room_query = Room.objects.filter(code=code)
         if room_query.exists():
             room = room_query[0]
@@ -370,12 +374,19 @@ class GetQuestion(APIView):
                                     status=status.HTTP_401_UNAUTHORIZED)
 
             questions_json = room.questions
-            if questions_json == "":
-                return Response({'message': "Bad Request: No Questions have been generated."},
+            questions = functions.json_to_list(questions_json)
+
+            if len(questions) == 0:
+                return Response({'message': "Server error: No Questions have been generated."},
                                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-            questions = functions.json_to_list(questions_json)
-            question = questions[0]
+            if first == "true":
+                question = questions[0]
+            elif room.current_question < len(questions):
+                print("Here!")
+                question = questions[room.current_question]
+            else:
+                return JsonResponse({"question": -1}, status=status.HTTP_200_OK)
 
             return JsonResponse({"question": question}, status=status.HTTP_200_OK)
         else:

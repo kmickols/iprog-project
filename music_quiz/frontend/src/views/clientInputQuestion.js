@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ClientInputQuestion({question, score, player, answer, answers, questionAnswered, next}) {
+export default function ClientInputQuestion({question, score, player, answer, answers, questionAnswered, next, remainingSeconds}) {
     const numQuestions = question.body.length
     let i = -1
 
@@ -39,11 +39,17 @@ export default function ClientInputQuestion({question, score, player, answer, an
                             arr.push(document.getElementById("" + i).value)
                         }
                         answer(arr)
-                    }}> Done </button>
+                    }}> Submit </button>
                     :
                     <button className="button submit-button" onClick={() => next()}> Next Question </button>
                 }
             </span>
+
+            <span className="main-text extra-big-text">{remainingSeconds}</span>
+            <div className="progress">
+                <div className="color"/>
+            </div>
+
             <span className="score"> Score: {score}</span>
             <span className="player"> Player: {player}</span>
         </div>

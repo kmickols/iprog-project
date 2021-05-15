@@ -1,19 +1,29 @@
 import React from "react";
 
-export default function Intermission({score, player, next, message}) {
+export default function Intermission({score, player, next, message, answers}) {
     return(
         <div>
             <span className={"main-text"}>
                 {message?message:null}
             </span>
             <br/>
+            <span className={"main-text"}>
+                Your answers:
+            </span>
+                <table className={"main-table"} align={"center"}>
+                         {answers.map(
+                             answer => {
+                                 return(
+                                     <div className={"main-table-entry"}>
+                                         <tr>
+                                             <span className="main-text">{answer} </span>
+                                         </tr>
+                                     </div>)})}
+
+                </table>
             <br/>
             <span className={"main-text"}>
-                Press the button when the host continues to the next question!
-                <span className={"main-text"}>
-                    <br/>
-                    <button className={"button submit-button"} onClick={() => next()}>Continue</button>
-                </span>
+                Wait for the next question!
             </span>
 
             <span className="score"> Score: {score}
