@@ -7,7 +7,7 @@ import Error from "../views/error";
 
 export default function ResultPresenter(props) {
     const model = props.model
-    const roomCode = props.match.params.roomCode
+
 
     const [promise, setPromise] = React.useState(null)
     const [score, setScore] = React.useState(null)
@@ -36,7 +36,7 @@ export default function ResultPresenter(props) {
         , [promise]
     )
 
-     React.useEffect(function () { setPromise( getScores(roomCode) )}, [])
+     React.useEffect(function () { setPromise( model.getScores() )}, [])
 
 
     return scoreErr?<Error error={scoreErr}/>:(score?<FinalScore scores={score} returnToMain={() => props.history.push("/")}/>:<Loading/>)

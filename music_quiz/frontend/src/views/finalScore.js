@@ -9,8 +9,7 @@ import React from "react";
     ];
 */
 
-export default function FinalScore({score, returnToMain}){
-
+export default function FinalScore({scores, returnToMain}){
     return(
         <div>
             <span className={"main-text"}>
@@ -20,7 +19,7 @@ export default function FinalScore({score, returnToMain}){
                             <td>Player:</td>
                             <td>Score:</td>
                         </tr>
-                        {score.sort(function(a,b){
+                        {scores.sort(function(a,b){
                             return b.score - a.score;
                         }).map(d =>
                         <tr>
@@ -31,7 +30,7 @@ export default function FinalScore({score, returnToMain}){
                 </table>
             </span>
             <span className={"main-text"}>
-                <button className={"button launch-button"} onClick={() => returnToMain()}>Return To Menu</button>
+                <button className={"button smaller-button"} onClick={() => returnToMain()}>Return To Menu</button>
             </span>
         </div>
     )

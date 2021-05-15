@@ -140,6 +140,10 @@
     box-shadow: black;
 }
 
+.button:hover {
+    cursor: pointer;
+}
+
 .button:not([disabled]):active {
     transform: translateY(2px);
 }

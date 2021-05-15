@@ -1,5 +1,17 @@
 import {authenticateSpotify, getSpotifyPlayer, spotifyStatus} from "../components/spotify";
-import {createRoom} from "../components/roomAPI";
+import {
+    createRoom,
+    nextQuestion,
+    revealQuestion,
+    answerQuestion,
+    getQuestion,
+    getScores,
+    getRoomDetails,
+    launchGame
+} from "../components/roomAPI";
+import {joinRoom} from "../components/roomAPI";
+import {playSong, stopPlaying} from "../components/spotify";
+
 
 export default class Model {
     constructor(players = 0, question = "", currentQuestion = 0, numQuestions = -1, roomCode = "") {
@@ -12,6 +24,7 @@ export default class Model {
         this.autoplay = false
         this.score = 0
         this.nickname = ""
+
     }
 
     setRoomCode(x) {
@@ -50,6 +63,7 @@ export default class Model {
         this.quizType = genre;
     }
 
+
     createRoom(numQuestions, quiz_type = "classics") {
         return createRoom(numQuestions, quiz_type)
     }
@@ -64,5 +78,49 @@ export default class Model {
 
     getAuthenticateSpotify() {
         return authenticateSpotify()
+    }
+
+    getJoinRoom(tmp_code, tmp_name) {
+        return joinRoom(tmp_code, tmp_name)
+    }
+
+    getQuestion() {
+        return getQuestion(this.roomCode)
+    }
+
+    getAnswerQuestion(arr, currentQuestionIndex) {
+        return answerQuestion(this.roomCode, arr, currentQuestionIndex)
+    }
+
+    getPlaySong(token) {
+        playSong(token)
+    }
+
+    getRevealQuestion() {
+        return revealQuestion(this.roomCode)
+    }
+
+    getStopPlaying() {
+        stopPlaying()
+    }
+
+    getNextQuestion() {
+        return nextQuestion(this.roomCode)
+    }
+
+    getScores() {
+        return getScores(this.roomCode)
+    }
+
+    getRoomDetails() {
+        return getRoomDetails(this.roomCode)
+    }
+
+    getLaunchGame() {
+        return launchGame(this.roomCode)
+    }
+
+    getRoom() {
+        return this.roomCode
     }
 }

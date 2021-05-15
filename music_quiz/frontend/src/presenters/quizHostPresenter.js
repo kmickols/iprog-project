@@ -1,15 +1,14 @@
 import HostInputQuestion from "../views/hostInputQuestion";
 import Loading from "../views/loading";
 import React from "react";
-import {getQuestion, nextQuestion, revealQuestion} from "../components/roomAPI";
 import InputAnswer from "../views/inputAnswer";
 import Error from "../views/error";
-import FinalScore from "../views/finalScore";
-import {playSong, stopPlaying} from "../components/spotify";
+
+
 
 export default function QuizHostPresenter(props) {
-    const roomCode = props.match.params.roomCode
 
+    const model = props.model
     const [question, setQuestion] = React.useState(null)
     const [questionPromise, setQuestionPromise] = React.useState(null)
     const [questionError, setQuestionError] = React.useState(null)
@@ -23,10 +22,10 @@ export default function QuizHostPresenter(props) {
                 questionPromise.then(dt => {
                     if (questionPromise === p) {
                         if (dt === -1) {
-                            props.history.push("/room/" + roomCode + "/result")
+                            props.history.push("/room/" + model.getRoom() + "/result")
                         } else {
                             setQuestion(dt)
-                            playSong(dt.spotify_token)
+                            model.getPlaySong(dt.spotify_token)
 
                         }
                     }
@@ -41,7 +40,7 @@ export default function QuizHostPresenter(props) {
     )
 
     React.useEffect(function () {
-        setQuestionPromise(getQuestion(roomCode));
+        setQuestionPromise(model.getQuestion());
     }, [])
 
     if (questionError) {
@@ -51,13 +50,13 @@ export default function QuizHostPresenter(props) {
         if (!showAnswer) {
             next = () => {
                 setShowAnswer(true)
-                revealQuestion(roomCode)
-                stopPlaying()
+                model.getRevealQuestion()
+                model.getStopPlaying()
             }
             return <HostInputQuestion question={question} next={next}/>
         } else {
             next = () => {
-                setQuestionPromise(nextQuestion(roomCode))
+                setQuestionPromise(model.getNextQuestion())
                 setShowAnswer(false)
             }
 
