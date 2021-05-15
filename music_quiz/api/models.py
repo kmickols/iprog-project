@@ -6,7 +6,7 @@ import random
 def generate_unique_code():
     while True:
         code = ''.join(random.choices(string.ascii_uppercase, k=6))
-        if Room.objects.filter(code=code).exists():
+        if not Room.objects.filter(code=code).exists():
             break
 
     return code
