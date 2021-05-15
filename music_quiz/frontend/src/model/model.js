@@ -59,8 +59,8 @@ export default class Model {
         return this.nickname
     }
 
-    createRoom(numQuestions) {
-        return createRoom(numQuestions)
+    createRoom(numQuestions, quiz_type = "classics") {
+        return createRoom(numQuestions, quiz_type)
     }
 
     getSpotifyPlayer() {
