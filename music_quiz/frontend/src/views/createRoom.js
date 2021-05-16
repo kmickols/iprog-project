@@ -28,7 +28,7 @@ export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuest
                     :
                     (<div className="authenticated"><span className={"main-text"}>Spotify Authenticated!</span> <span className={"main-text"}>Please do not use Spotify for anything else during the quiz.</span></div>)}
             </div>
-            <div>
+            <div  className="main-text">
                 <span className="createRoom">
                 Choose Genre & Number of questions:
                 </span>
