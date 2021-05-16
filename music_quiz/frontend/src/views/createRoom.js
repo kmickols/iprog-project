@@ -1,24 +1,5 @@
-import React, {Component} from "react";
-import {createRoom} from "../components/roomAPI";
-import {
-    authenticateSpotify,
-    getSpotifyPlayer,
-    getUserToken,
-    playSong,
-    spotifyStatus,
-    stopPlaying
-} from "../components/spotify";
-import {onSpotifyWebPlaybackSDKReady} from "../components/webbPlayer";
-import model from "../model/model";
+import React from "react";
 
-// Logga in med Spotify
-// Välj spellista (Richard)
-// Hur många frågor
-// (ev. Vilken typ av frågor)
-//                  <span className={"main-text"}>
-//                      <button className="button smaller-button" onClick={() => playSong("spotify:track:0VNDOpBbUYtSpCFY7HUA3D")}> play song </button>
-//                      <button className="button smaller-button" onClick={() => stopPlaying()}> Stop </button>
-//                 </span>
 export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuestions, changeNumQuestions, loginSpotify, createRoom, returnToMain, changeQuizType, quizTypes, checked}) {
     return (
 
@@ -28,7 +9,7 @@ export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuest
                     :
                     (<div className="authenticated"><span className={"main-text"}>Spotify Authenticated!</span> <span className={"main-text"}>Please do not use Spotify for anything else during the quiz.</span></div>)}
             </div>
-            <div>
+            <div className="main-text">
                 <span className="createRoom">
                 Choose Genre & Number of questions:
                 </span>

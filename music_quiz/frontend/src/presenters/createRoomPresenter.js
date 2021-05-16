@@ -5,7 +5,7 @@ import {authenticateSpotify, getSpotifyPlayer, spotifyStatus} from "../component
 
 export default function CreateRoomPresenter(props) {
     const model = props.model
-    const [numQuestions, setNumQuestions] = React.useState(10)
+    const [numQuestions, setNumQuestions] = React.useState(5)
 
     const [quizType, setQuizType] = React.useState("classics")
 
@@ -82,7 +82,7 @@ export default function CreateRoomPresenter(props) {
                            changeQuizType={x => setQuizType(x)}
                            createRoom={() => setPromise(model.createRoom(numQuestions, quizType))}
                            changeNumQuestions={x => {
-                               if (x >= 1) {
+                               if (x >= 1 && x <= 20) {
                                    model.setNumQuestions(x)
                                    setNumQuestions(x)
                                }
