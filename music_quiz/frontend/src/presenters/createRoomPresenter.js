@@ -88,6 +88,8 @@ export default function CreateRoomPresenter(props) {
                                }
                            }}
                            returnToMain={() => props.history.push("/")}
+                           quizTypes={["classics", "rock", "pop", "hiphop"]}
+                           checked={quizType}
         />
     }
 }
