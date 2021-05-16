@@ -21,6 +21,7 @@ export default function RoomInfoPresenter(props) {
     const [currentQuestion, setCurrentQuestion] = React.useState(-1)
     const [isHost, setIsHost] = React.useState(false)
     const [players, setPlayers] = React.useState([])
+    const [type, setType] = React.useState("")
 
     function refreshPlayers(){
         model.getRoomDetails()
@@ -82,6 +83,7 @@ export default function RoomInfoPresenter(props) {
                         setCurrentQuestion(dt.current_question)
                         setIsHost(dt.is_host)
                         setPlayers(dt.players)
+                        setType(dt.quiz_type)
                     }
                 }).catch(er => {
                         if (promise === p) {
@@ -135,7 +137,9 @@ export default function RoomInfoPresenter(props) {
             if (isHost) {
                 return <HostRoomInfo roomCode={roomCode} numQuestions={numQuestions} players={players}
                                      launchGame={() => setLaunchPromise(model.getLaunchGame())}
-                                     refresh={() => setPromise(model.getRoomDetails())}/>
+                                     refresh={() => setPromise(model.getRoomDetails())}
+                                     quizType={type}
+                />
             } else {
                 //Player
                 return <ClientRoomInfo roomCode={roomCode}/>
