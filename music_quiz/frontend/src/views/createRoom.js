@@ -26,7 +26,7 @@ export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuest
             <div>
                 {!loggedInToSpotify?<span className={"main-text"}><button className="button smaller-button" onClick={() => loginSpotify()}>Login with Spotify </button></span>
                     :
-                    (<div className="authenticated"><span className={"main-text"}>Spotify Authenticated!</span> <span className={"main-text"}>Please do not use spotify for anything else during the quiz.</span></div>)}
+                    (<div className="authenticated"><span className={"main-text"}>Spotify Authenticated!</span> <span className={"main-text"}>Please do not use Spotify for anything else during the quiz.</span></div>)}
             </div>
             <div>
                 <span className="createRoom">
@@ -61,7 +61,8 @@ export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuest
             </div>
 
             <div>
-                {!loggedInToSpotify?<div className={"main-text"}><div className={"authmsg"}><span><button className={"disabledbutton"}>Create Room</button></span></div>
+                {!loggedInToSpotify?<div className={"main-text"}><div className={"authmsg"}><span>
+                        <button className={"button disabled-button"}>Create Room</button></span></div>
                         <div className={"hidden"}>Please login to Spotify</div></div>
                     :
                 <span className={"main-text"}>

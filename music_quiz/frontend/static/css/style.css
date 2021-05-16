@@ -309,22 +309,18 @@
 .flex-child:nth-child(even){
     margin-right: 20%;
 }
-.disabledbutton{
-    background-color: #a9a9a9;
+.disabled-button{
     width: 230px;
     height: 80px;
     font-size: 20px;
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    padding: 0.3em 1.2em;
-    margin: 10px;
-    border-radius:0.7em;
-    font-family:'Red Hat Display',sans-serif;
-    font-weight:300;
+    background-color: #a9a9a9;
+    border-color: #a9a9a9;
+
 }
 .authmsg:hover + .hidden{
     display: block;
     color: red;
+    font-size: 20px;
+    text-align: center;
 }
 
