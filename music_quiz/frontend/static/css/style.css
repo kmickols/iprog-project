@@ -52,7 +52,7 @@
 
     font-size: 20px;
     margin: 0px;
-    color: #ff6060;
+    color: #ff7e7e;
 }
 
 .start-button {
@@ -170,7 +170,7 @@
 }
 
 .smaller-button:hover{
-    background-color: #6495ed;
+    background-color: #daeeff;
 }
 
 .mini-button {
@@ -180,7 +180,7 @@
 }
 
 .mini-button:hover{
-    background-color: #6495ed;
+    background-color: #daeeff;
 }
 
 
@@ -286,19 +286,19 @@
     box-shadow: black;
 }
 .radio-genre label:hover {
-    background-color: #6495ed;
+    background-color: #daeeff;
 }
 .radio-genre input[type="radio"]:checked + label {
-    background-color: #4D5DCA;
-    border-color: #F0F8FF;
-    color:#fff;
+    background-color: #8d9cf6;
+    color: #fff;
+    border-color: #525891;
 }
 
 .disabled-button{
     width: 230px;
     height: 80px;
     font-size: 20px;
-    background-color: #a9a9a9;
+    background-color: #c1c1c1;
     border-color: #a9a9a9;
 
 }

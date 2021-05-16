@@ -7,8 +7,7 @@ export default function CreateRoomPresenter(props) {
     const model = props.model
     const [numQuestions, setNumQuestions] = React.useState(10)
 
-    const [quizType, setQuizType] = React.useState("")
-    const [roomCode, setRoomCode] = React.useState("") //saves roomcode to model later
+    const [quizType, setQuizType] = React.useState("classics")
 
     const [data, setData] = React.useState(null)
     const [promise, setPromise] = React.useState(null)
@@ -89,6 +88,8 @@ export default function CreateRoomPresenter(props) {
                                }
                            }}
                            returnToMain={() => props.history.push("/")}
+                           quizTypes={["classics", "rock", "pop", "hiphop"]}
+                           checked={quizType}
         />
     }
 }

@@ -19,7 +19,7 @@ import model from "../model/model";
 //                      <button className="button smaller-button" onClick={() => playSong("spotify:track:0VNDOpBbUYtSpCFY7HUA3D")}> play song </button>
 //                      <button className="button smaller-button" onClick={() => stopPlaying()}> Stop </button>
 //                 </span>
-export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuestions, changeNumQuestions, loginSpotify, createRoom, returnToMain, changeQuizType}) {
+export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuestions, changeNumQuestions, loginSpotify, createRoom, returnToMain, changeQuizType, quizTypes, checked}) {
     return (
 
         <div className="main-text">
@@ -32,19 +32,17 @@ export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuest
                 <span className="createRoom">
                 Choose Genre & Number of questions:
                 </span>
-                <span className="createRoom">
-                    <div className="radio-genre">
-                        <input type="radio" id="radioRock" name="radioGenre" value="rock" onClick={() => changeQuizType("rock")}></input>
-                            <label htmlFor="radioRock">Rock</label>
-
-                        <input type="radio" id="radioPop" name="radioGenre" value="pop" onClick={() => changeQuizType("pop")}></input>
-                            <label htmlFor="radioPop">Pop</label>
-
-                        <input type="radio" id="radioDance" name="radioGenre" value="dance" onClick={() => changeQuizType("dance")}></input>
-                            <label htmlFor="radioDance">Dance</label>
-
-                        <input type="radio" id="radioHiphop" name="radioGenre" value="hiphop" onClick={() => changeQuizType("hiphop")}></input>
-                        <label htmlFor="radioHiphop">Hiphop</label>
+                    <span className="createRoom">
+                        <div className="radio-genre">
+                            {
+                                quizTypes.map(type => {
+                                return (
+                                    <span>
+                                        <input type="radio" id={"radio"+type} name="radioGenre" value={type} checked={type === checked} onClick={() => changeQuizType(type)}/>
+                                            <label htmlFor={"radio"+type}>{type.charAt(0).toUpperCase() + type.slice(1)}</label>
+                                    </span>
+                                )
+                            })}
                     </div>
                 </span>
             </div>
