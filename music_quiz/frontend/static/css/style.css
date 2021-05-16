@@ -100,6 +100,10 @@
     text-align: center;
     transition: all 0.2s;
 }
+.quiz-button:hover{
+    background-color: #daeeff;
+}
+
 
 .extra-bold-text {
     font-weight: bolder;
@@ -142,6 +146,7 @@
 
 .button:hover {
     cursor: pointer;
+    background-color: #daeeff;
 }
 
 .button:not([disabled]):active {
@@ -152,15 +157,24 @@
     width: 300px;
     height: 100px;
 }
+.quiz-button:hover{
+    background-color: #daeeff;
+}
 
 .submit-button {
     width: 150px;
     height: 80px;
 }
+.submit-button:hover{
+     background-color: #daeeff;
+ }
 
 .launch-button {
     width: 230px;
     height: 80px;
+}
+.launch-button:hover{
+    background-color: #daeeff;
 }
 
 .smaller-button {
@@ -189,7 +203,9 @@
     height: 50px;
     font-size: 15px;
 }
-
+.join-button:hover{
+    background-color: #daeeff;
+}
 .score {
     position:absolute;
     bottom:5px;
@@ -213,6 +229,7 @@
 .highscore {
     width: 600px;
     border-collapse: collapse;
+    text-shadow: 2px 2px 2px #4c4c4c;
 
 }
 
