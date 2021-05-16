@@ -353,7 +353,6 @@ class GetQuestion(APIView):
 
         code = request.GET.get('code')
         first = request.GET.get('first')
-        print(first)
         room_query = Room.objects.filter(code=code)
         if room_query.exists():
             room = room_query[0]
