@@ -30,7 +30,7 @@ export default function FinalScore({scores, returnToMain}){
                 </table>
             </span>
             <span className={"main-text"}>
-                <button className={"button launch-button"} onClick={() => returnToMain()}>Return To Menu</button>
+                <button className={"button smaller-button"} onClick={() => returnToMain()}>Return To Menu</button>
             </span>
         </div>
     )

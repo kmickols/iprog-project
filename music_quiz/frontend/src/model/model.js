@@ -59,6 +59,11 @@ export default class Model {
         return this.nickname
     }
 
+    setQuizType(genre){
+        this.quizType = genre;
+    }
+
+
     createRoom(numQuestions, quiz_type = "classics") {
         return createRoom(numQuestions, quiz_type)
     }
