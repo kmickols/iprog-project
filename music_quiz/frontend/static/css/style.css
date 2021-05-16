@@ -238,6 +238,7 @@
     border-radius: 10px 100px / 120px;
     margin-right: 20%;
     margin-left: 20%;
+    margin-bottom: 30px;
     text-align: center;
 }
 
@@ -247,7 +248,7 @@
     text-shadow: 2px 2px 2px #4c4c4c;
     font-size: 40px;
     text-align: justify;
-    margin-bottom: 30px;
+
     align-content: center;
 }
 
@@ -289,29 +290,10 @@
 }
 .radio-genre input[type="radio"]:checked + label {
     background-color: #8d9cf6;
-
     color: #fff;
     border-color: #525891;
-
 }
 
-.flex-container{
-    border: 2px solid red;
-    justify-content: center;
-    display: flex;
-}
-
-.flex-child {
-    flex: 0.5;
-    border: 2px solid yellow;
-}
-.flex-child:first-child {
-    margin-right: 20px;
-    margin-left: 20%;
-}
-.flex-child:nth-child(even){
-    margin-right: 20%;
-}
 .disabled-button{
     width: 230px;
     height: 80px;
