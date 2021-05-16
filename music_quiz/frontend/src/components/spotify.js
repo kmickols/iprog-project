@@ -26,7 +26,11 @@ export function getSpotifyPlayer() {
     return fetch("/spotify/get-user-token")
         .then((response) => response.json())
         .then((data) => {
-            return onSpotifyWebPlaybackSDKReady(data.token)
+            try {
+                return onSpotifyWebPlaybackSDKReady(data.token)
+            } catch (e){
+                return -1
+            }
         });
 }
 

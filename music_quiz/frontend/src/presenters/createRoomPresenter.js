@@ -46,10 +46,18 @@ export default function CreateRoomPresenter(props) {
                     if (spotifyStatusPromise === p) {
                         setSpotifyAuth(dt)
                         if (dt) {
-                            model.getSpotifyPlayer()
+                            return  model.getSpotifyPlayer()
+
                         }
                     }
-                }).catch(er => {
+                }).then( dt => {
+                        if (dt === -1) {
+                            model.setErrMessage("Spotify couldn't load. Try again.")
+                            props.history.push("/error")
+                        }
+                    }
+                )
+                .catch(er => {
                         if (spotifyStatusPromise === p) {
                             setError(er)
                         }

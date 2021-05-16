@@ -118,4 +118,12 @@ export default class Model {
     getRoom() {
         return this.roomCode
     }
+
+    setErrMessage(msg){
+        this.errMsg = msg;
+    }
+
+    getErrMessage(){
+        return this.errMsg;
+    }
 }

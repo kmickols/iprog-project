@@ -3,6 +3,7 @@ import {answerQuestion, getQuestion} from "../components/roomAPI";
 import Loading from "../views/loading";
 import ClientInputQuestion from "../views/clientInputQuestion";
 import Intermission from "../views/intermission";
+import GameOver from "../views/gameOver";
 
 export default function QuizClientPresenter(props) {
     const model = props.model
@@ -39,8 +40,10 @@ export default function QuizClientPresenter(props) {
     }
 
     function timeout(){
-        setAnswerMessage("Too slow, no points :( Better luck next time!")
-        setQuestionAnswered(true)
+        if (!questionAnswered) {
+            setAnswerMessage("Too slow, no points :( Better luck next time!")
+            setQuestionAnswered(true)
+        }
     }
 
     React.useEffect(
@@ -51,7 +54,7 @@ export default function QuizClientPresenter(props) {
                     timeout()
                 }
 
-                if(seconds < 0) {
+                if(seconds < 1 && !showResult) {
                     // Check if there's a new question
                     setQuestionPromise(model.getQuestion())
                 }
@@ -64,19 +67,15 @@ export default function QuizClientPresenter(props) {
 
     React.useEffect(function () {
             const prevQuestion = question
-            setQuestion(null)
             setQuestionError(null)
             if (questionPromise) {
                 const p = questionPromise
                 questionPromise.then(dt => {
-                    console.log(dt)
                     if (questionPromise === p) {
                         if (dt === -1) {
                             setShowResult(true)
                         } else {
-                            if (currentQuestionIndex === dt.index) {
-                                setQuestion(prevQuestion)
-                            } else if (dt !== prevQuestion) {
+                            if (!prevQuestion || dt.index !== prevQuestion.index) {
                                 setQuestionAnswered(false)
                                 setAnswers([])
                                 setCurrentQuestionIndex(dt.index)
@@ -99,23 +98,30 @@ export default function QuizClientPresenter(props) {
         setQuestionPromise(model.getQuestion())
     }, [])
 
-    if (showResult) {
-        return <span className={"main-text"}>The results are in!</span>
-    } else if (question) {
-        if (questionAnswered) {
-            return <Intermission message={answerMessage} answers={answers} score={model.score} player={model.nickname}/>
-        } else {
-            return <ClientInputQuestion question={question}
-                                        score={model.score}
-                                        player={model.nickname}
-                                        questionAnswered={questionAnswered}
-                                        answer={answer}
-                                        answers={answers}
-                                        remainingSeconds={seconds}
+    if(!questionError) {
+        if (showResult) {
+            return <GameOver {...props} score={model.score}/>
+        } else if (question) {
+            if (questionAnswered) {
+                return <Intermission message={answerMessage} answers={answers} score={model.score}
+                                     player={model.nickname}/>
+            } else {
+                return <ClientInputQuestion question={question}
+                                            score={model.score}
+                                            player={model.nickname}
+                                            questionAnswered={questionAnswered}
+                                            answer={answer}
+                                            answers={answers}
+                                            remainingSeconds={seconds}
 
-            />
+                />
+            }
+        } else {
+            return <Loading/>
         }
     } else {
+        model.setErrMessage("Couldn't load questions.")
+        props.history.push("/error")
         return <Loading/>
     }
 }

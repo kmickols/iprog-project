@@ -37,17 +37,20 @@ export default function RoomInfoPresenter(props) {
                 })
     }
 
-    function checkGameStarted(){model.getRoomDetails()
-            .then(dt => {
-                if (dt.current_question !== -1){
+    function checkGameStarted(){
+        if (!error) {
+            model.getRoomDetails()
+                .then(dt => {
+                    if (dt.current_question !== -1) {
                         props.history.push("/room/" + model.getRoom() + "/quiz")
                     }
                 }).catch(er => {
-                        return er
-                    }
-                ).then(er => {
-                    setError(er);
-                })
+                    return er
+                }
+            ).then(er => {
+                setError(er);
+            })
+        }
     }
 
     React.useEffect(
@@ -139,7 +142,8 @@ export default function RoomInfoPresenter(props) {
             }
         } else {
             //Game started
-            checkGameStarted()
+            props.history.push("/room/" + model.getRoom() + "/quiz")
+            return <Loading/>
         }
     } else {
         return <Loading/>

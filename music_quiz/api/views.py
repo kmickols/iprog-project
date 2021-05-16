@@ -382,10 +382,10 @@ class GetQuestion(APIView):
 
             if first == "true":
                 question = questions[0]
-            elif room.current_question < len(questions):
-                print("Here!")
+            elif room.current_question < len(questions) and room.current_question != -1:
                 question = questions[room.current_question]
             else:
+                # No more questions
                 return JsonResponse({"question": -1}, status=status.HTTP_200_OK)
 
             return JsonResponse({"question": question}, status=status.HTTP_200_OK)

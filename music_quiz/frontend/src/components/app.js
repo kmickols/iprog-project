@@ -11,6 +11,7 @@ import Model from "../model/model";
 import CreateRoom from "../views/createRoom";
 import FinalScore from "../views/finalScore";
 import ResultPresenter from "../presenters/resultPresenter";
+import ErrorPresenter from "../presenters/ErrorPresenter"
 
 const model = new Model()
 
@@ -27,7 +28,7 @@ function App({model}){
                     <Route path="/join" render={(props) => <JoinRoomPresenter {...props} model = {model}/>} />
                     <Route path="/create" render={(props) => <CreateRoomPresenter {...props} model={model}/>}/>
                     <Route path="/tutorial" component={TutorialPresenter}/>
-                    <Route path="/login"/>
+                    <Route path="/error" render={(props) => <ErrorPresenter {...props} model ={model}/>} />
                 </switch>
             </Router>
         </div>
