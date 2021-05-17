@@ -72,11 +72,3 @@ export default function CreateRoom({loggedInToSpotify, numQuestions, changeNumQu
         </div>
     );
 }
-// <span className="main-text">  <label>Genre:</label>
-//         <select name="genre" id="genre">
-//           <option value="Pop">Pop</option>
-//           <option value="Dance">Dance</option>
-//           <option value="Rock">Rock</option>
-//           <option value="Hiphop">Hiphop</option>
-//         </select>
-//     </span>
