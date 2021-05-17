@@ -138,12 +138,11 @@ def generate_questions(quiz_type, songs_query, num_questions):
     index = 0
     for i in songs:
         song = song_info[i]
-        question = {
-            "type": "field",
-            "index": index,
-            "text": "What is the name of the song and the name of the artist?",
-            "spotify_token": song["token"],
-            "body": [
+        album = False
+        year = False
+
+        text = "What is the name of the song and the artist?"
+        body = [
                 {
                     "text": "Song Name",
                     "answer": song["song_name"],
@@ -155,7 +154,35 @@ def generate_questions(quiz_type, songs_query, num_questions):
                     "score": 1
                 }
             ]
+
+        random.seed()
+        if random.randint(0, 10) == 0 and song["album_name"] != "":
+            body.append(
+                {
+                    "text": "Album Name",
+                    "answer": song["album_name"],
+                    "score": 1
+                })
+            text = "What is the name of the song, the artist and the album?"
+
+        elif random.randint(0, 10) == 0 and song["release_year"] != "":
+            body.append(
+                {
+                    "text": "Release year",
+                    "answer": str(song["release_year"]),
+                    "score": 1
+                })
+
+            text = "What is the name of the song, the artist and what year was this song released?"
+
+        question = {
+            "type": "field",
+            "index": index,
+            "text": text,
+            "spotify_token": song["token"],
+            "body": body
         }
+
         questions.append(question)
         index += 1
     return questions

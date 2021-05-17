@@ -52,17 +52,14 @@ export default function CreateRoomPresenter(props) {
                     if (spotifyStatusPromise === p) {
                         setSpotifyAuth(dt)
                         authenticated = dt
-                        console.log(dt)
                         if (dt) {
                             return model.getSpotifyPlayer().then( dt => {
-                                console.log(dt)
                                     if (dt === -1) {
                                         // try loading the player again:
                                         if (authenticated) {
                                             new Promise(resolve => setTimeout(resolve, 1000)).then( () => {
                                             model.getSpotifyPlayer()
                                                 .then(dt => {
-                                                    console.log(dt)
                                                     if (dt === -1) {
                                                         model.setErrMessage("Spotify player couldn't load. Try again.")
                                                         props.history.push("/error")
@@ -107,7 +104,7 @@ export default function CreateRoomPresenter(props) {
                                }
                            }}
                            returnToMain={() => props.history.push("/")}
-                           quizTypes={["classics", "80s", "00s", "rock", "pop", "Electronic", "hiphop", "very difficult"]}
+                           quizTypes={["classics", "70s", "80s", "svenska hits", "rock", "pop", "Electronic", "hiphop"]}
                            checked={quizType}
                            showLoading={promise && !data && !error}
         />
