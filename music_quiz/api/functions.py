@@ -127,7 +127,10 @@ def json_to_list(jsn):
 # For "multiple" type the body will contain the different choices and the correct choice
 # Answers will be evaluated depending on type.
 def generate_questions(quiz_type, songs_query, num_questions):
-    filtered_songs = list(songs_query.filter(types__contains="{"+quiz_type+"}"))
+    if quiz_type == "everything":
+        filtered_songs = list(songs_query)
+    else:
+        filtered_songs = list(songs_query.filter(types__contains="{"+quiz_type+"}"))
     song_info = []
     for i in range(0, len(filtered_songs)):
         song_info.append(SongSerializer(filtered_songs[i]).data)
