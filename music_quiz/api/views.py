@@ -45,6 +45,9 @@ class CreateSongView(generics.CreateAPIView):
             release = serializer.data.get('release_year')
             release = release if release else ""
             token = serializer.data.get('token')
+            types = serializer.data.get('types')
+            if not types:
+                return Response("Types not specified or malformed.", status=status.HTTP_400_BAD_REQUEST)
 
             queryset = Song.objects.filter(token=token)
             if queryset.exists():
@@ -55,12 +58,13 @@ class CreateSongView(generics.CreateAPIView):
                 song.artist_name = artist
                 song.trivia = trivia
                 song.release_year = release
-                song.save(update_fields=['song_name', 'album_name', 'artist_name', 'trivia', 'release_year'])
+                song.types = types
+                song.save(update_fields=['song_name', 'album_name', 'artist_name', 'trivia', 'release_year', 'types'])
                 return Response(SongSerializer(song).data, status=status.HTTP_200_OK)
             else:
                 # No song wit this token - Create new song.
                 song = Song(song_name=song_name, album_name=album, artist_name=artist, trivia=trivia,
-                            token=token, release_year=release)
+                            token=token, release_year=release, types=types)
                 song.save()
                 return Response(SongSerializer(song).data, status=status.HTTP_201_CREATED)
         return Response({'message': 'Bad Request: Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
