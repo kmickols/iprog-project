@@ -104,7 +104,7 @@ export default function CreateRoomPresenter(props) {
                                }
                            }}
                            returnToMain={() => props.history.push("/")}
-                           quizTypes={["classics", "70s", "80s", "svenska hits", "rock", "pop", "Electronic", "hiphop"]}
+                           quizTypes={["classics", "70s", "80s", "svenska hits", "rock", "pop", "electronic", "hiphop", "everything"]}
                            checked={quizType}
                            showLoading={promise && !data && !error}
         />

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuestions, changeNumQuestions, loadingLogin, loadingSpotify, loginSpotify, createRoom, returnToMain, changeQuizType, quizTypes, checked, showLoading}) {
+export default function CreateRoom({loggedInToSpotify, numQuestions, changeNumQuestions, loadingLogin, loadingSpotify, loginSpotify, createRoom, returnToMain, changeQuizType, quizTypes, checked, showLoading}) {
     let i = 0
 
     return (
@@ -24,7 +24,7 @@ export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuest
                         <div className="radio-genre">
                             {
                                 quizTypes.map(type => {
-                                    i += 1
+                                i += 1
 
                                 return (
                                     <span>
@@ -38,6 +38,7 @@ export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuest
                     </div>
                 </span>
             </div>
+            <br/>
             <div>
                 <span className="main-text">
                     <span className="main-text">
