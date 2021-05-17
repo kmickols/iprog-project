@@ -231,6 +231,13 @@
     color: white;
 }
 
+@media (max-width: 480px) {
+    .score {
+        font-size: 15px;
+    }
+
+}
+
 .player {
     position:absolute;
     bottom:5px;
@@ -239,6 +246,12 @@
     font-weight:bolder;
     font-size: 30px;
     color: white;
+}
+
+@media (max-width: 480px) {
+    .player {
+        font-size: 15px;
+    }
 }
 
 .highscore {
