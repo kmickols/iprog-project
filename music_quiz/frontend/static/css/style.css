@@ -39,6 +39,14 @@
     color: white;
 }
 
+.center {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
 .extra-big-text {
     font-size: 50px;
 }
@@ -187,6 +195,10 @@
     background-color: #daeeff;
 }
 
+.smaller-button:disabled{
+    background-color: #c6c6c6;
+}
+
 .mini-button {
     width: auto;
     height: auto;
@@ -197,6 +209,9 @@
     background-color: #daeeff;
 }
 
+.mini-button:disabled{
+    background-color: #c6c6c6;
+}
 
 .join-button {
     width: 100px;
@@ -271,6 +286,7 @@
 
 .radio-genre {
     margin: 10px;
+    text-align: center;
 }
 
 .radio-genre input[type="radio"] {

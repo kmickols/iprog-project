@@ -33,4 +33,6 @@ export function onSpotifyWebPlaybackSDKReady(token) {
 
     // Connect to the player!
     player.connect();
+
+    return 1
 }

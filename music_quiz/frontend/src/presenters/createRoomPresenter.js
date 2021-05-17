@@ -2,6 +2,7 @@ import React from "react";
 import CreateRoom from "../views/createRoom"
 
 import {authenticateSpotify, getSpotifyPlayer, spotifyStatus} from "../components/spotify";
+import Error from "../views/error";
 
 export default function CreateRoomPresenter(props) {
     const model = props.model
@@ -16,6 +17,7 @@ export default function CreateRoomPresenter(props) {
     const [spotifyAuth, setSpotifyAuth] = React.useState(false)
     const [spotifyStatusPromise, setSpotifyStatusPromise] = React.useState(null)
     const [spotifyStatusErr, setSpotifyStatusErr] = React.useState(null)
+    const [spotifyLoadingLogin, setSpotifyLoadingLogin] = React.useState(false)
 
     React.useEffect(function () {
             setData(null)
@@ -40,28 +42,40 @@ export default function CreateRoomPresenter(props) {
     )
 
     React.useEffect(function () {
-            setSpotifyAuth(false)
-            setSpotifyStatusErr(null)
             if (spotifyStatusPromise !== null) {
+                setSpotifyStatusErr(null)
+                setSpotifyAuth(false)
+                setSpotifyLoadingLogin(false)
+                let authenticated = false
                 const p = spotifyStatusPromise
                 spotifyStatusPromise.then(dt => {
                     if (spotifyStatusPromise === p) {
                         setSpotifyAuth(dt)
+                        authenticated = dt
+                        console.log(dt)
                         if (dt) {
-                            return  model.getSpotifyPlayer()
+                            return model.getSpotifyPlayer().then( dt => {
+                                console.log(dt)
+                                    if (dt === -1) {
+                                        // try loading the player again:
+                                        if (authenticated) {
+                                            new Promise(resolve => setTimeout(resolve, 1000)).then( () => {
+                                            model.getSpotifyPlayer()
+                                                .then(dt => {
+                                                    console.log(dt)
+                                                    if (dt === -1) {
+                                                        model.setErrMessage("Spotify player couldn't load. Try again.")
+                                                        props.history.push("/error")
+                            }})})}}})
+                        }
+                    }
 
-                        }
-                    }
-                }).then( dt => {
-                        if (dt === -1) {
-                            model.setErrMessage("Spotify couldn't load. Try again.")
-                            props.history.push("/error")
-                        }
-                    }
-                )
+                setSpotifyStatusPromise(null)
+                })
+
                 .catch(er => {
                         if (spotifyStatusPromise === p) {
-                            setError(er)
+                            setSpotifyStatusErr(er)
                         }
                     }
                 )
@@ -74,11 +88,16 @@ export default function CreateRoomPresenter(props) {
     }, [])
 
     if (error) {
-        return <div class="main-text"> {error + ""} </div>
+        return <Error error={error}/>
+    } else if (spotifyStatusErr) {
+        return <Error error={spotifyStatusErr} />
     } else {
         return <CreateRoom numQuestions={numQuestions}
+                           loadingSpotify={spotifyStatusPromise && !spotifyAuth && !spotifyStatusErr}
                            loggedInToSpotify={spotifyAuth}
-                           loginSpotify={() => model.getAuthenticateSpotify()}
+                           loginSpotify={() => {model.getAuthenticateSpotify()
+                                setSpotifyLoadingLogin(true)}}
+                           loadingLogin={spotifyLoadingLogin}
                            changeQuizType={x => setQuizType(x)}
                            createRoom={() => setPromise(model.createRoom(numQuestions, quizType))}
                            changeNumQuestions={x => {
@@ -90,6 +109,7 @@ export default function CreateRoomPresenter(props) {
                            returnToMain={() => props.history.push("/")}
                            quizTypes={["classics", "80s", "00s", "rock", "pop", "Electronic", "hiphop", "very difficult"]}
                            checked={quizType}
+                           showLoading={promise && !data && !error}
         />
     }
 }

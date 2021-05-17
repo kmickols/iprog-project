@@ -152,7 +152,7 @@ class CreateRoomView(generics.CreateAPIView):
 
             queryset = Room.objects.filter(host=host)
 
-            questions = functions.generate_questions(type, Song.objects.all(), num_questions)
+            questions = functions.list_to_json(functions.generate_questions(type, Song.objects.all(), num_questions))
 
             if queryset.exists():
                 # Room already exists - Update current room
@@ -160,7 +160,7 @@ class CreateRoomView(generics.CreateAPIView):
                 room.num_questions = num_questions
                 room.quiz_type = type
                 room.current_question = -1
-                room.questions = functions.list_to_json(questions)
+                room.questions = questions
                 room.player_can_join = True
                 room.save(update_fields=['num_questions', 'player_can_join', 'quiz_type', 'current_question', 'questions'])
                 self.request.session['room_code'] = room.code

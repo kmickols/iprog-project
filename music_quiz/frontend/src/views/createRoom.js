@@ -1,13 +1,18 @@
 import React from "react";
 
-export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuestions, changeNumQuestions, loginSpotify, createRoom, returnToMain, changeQuizType, quizTypes, checked}) {
+export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuestions, changeNumQuestions, loadingLogin, loadingSpotify, loginSpotify, createRoom, returnToMain, changeQuizType, quizTypes, checked, showLoading}) {
     let i = 0
 
     return (
 
         <div className="main-text">
             <div>
-                {!loggedInToSpotify?<span className={"main-text"}><button className="button smaller-button" onClick={() => loginSpotify()}>Login with Spotify </button></span>
+                {!loggedInToSpotify?
+                    <span className={"main-text"}>
+                        <button className="button smaller-button" disabled={loadingSpotify || loadingLogin} onClick={() => loginSpotify()}>Login with Spotify </button>
+                        {loadingSpotify?<div className="main-text">Authenticating...</div>:<div/>}
+                        {loadingLogin?<div className="main-text">loading...</div>:<div/>}
+                    </span>
                     :
                     (<div className="authenticated"><span className={"main-text"}>Spotify Authenticated!</span> <span className={"main-text"}>Please do not use Spotify for anything else during the quiz.</span></div>)}
             </div>
@@ -33,27 +38,32 @@ export default function CreateRoom({spotifyUsername, loggedInToSpotify, numQuest
                     </div>
                 </span>
             </div>
-            <br/>
             <div>
                 <span className="main-text">
                     <span className="main-text">
                         <button className="button mini-button"
+                                disabled={numQuestions === 20}
                                 onClick={() => changeNumQuestions(numQuestions + 1)}>+</button>
                         <span className="createRoom">{numQuestions} Questions </span>
                         <button className="button mini-button"
+                                disabled={numQuestions === 1}
                                 onClick={() => changeNumQuestions(numQuestions - 1)}>-</button>
                     </span>
                 </span>
             </div>
 
             <div>
-                {!loggedInToSpotify?<div className={"main-text"}><div className={"authmsg"}><span>
-                        <button className={"button disabled-button"}>Create Room</button></span></div>
-                        <div className={"hidden"}>Please login to Spotify</div></div>
-                    :
                 <span className={"main-text"}>
-                <button className="button smaller-button" onClick={() => createRoom()}>Create Room</button>
-                </span>}
+                <button className="button smaller-button" disabled={showLoading||!loggedInToSpotify} onClick={() => createRoom()}>Create Room</button>
+                </span>
+                <span className="main-text">
+                    {!loggedInToSpotify?<div className="authmsg">
+                        <div>Please login to Spotify</div>
+                    </div>
+                    : <div/>}
+                    {showLoading?<div className="main-text">Loading...</div>
+                    :<div/>}
+                </span>
             </div>
             <span className={"main-text"}>
                 <button className="button mini-button" onClick={() => returnToMain()}>  &#5130; Back </button>
