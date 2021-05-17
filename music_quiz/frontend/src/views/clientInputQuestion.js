@@ -5,7 +5,7 @@ export default function ClientInputQuestion({question, score, player, answer, an
     let i = -1
 
     return(
-        <div>
+        <div align={"center"}>
             <span className="main-text">
                 {question.text}
                 <table className={"main-table"} align={"center"}>
@@ -33,7 +33,7 @@ export default function ClientInputQuestion({question, score, player, answer, an
             </span>
             <span className="main-text">
                 {!questionAnswered ?
-                    <button className="button submit-button" onClick={() => {
+                    <button type={"submit"} className="button submit-button" onClick={() => {
                         let arr = []
                         for (i = 0; i < numQuestions; i++) {
                             arr.push(document.getElementById("" + i).value)
