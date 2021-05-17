@@ -2,7 +2,7 @@ import React from "react";
 
 export default function HostRoomInfo({roomCode, numQuestions, players, launchGame, quizType}) {
     return (
-        <div>
+        <div align={"center"}>
             <span className="main-text">
                 <button className="button smaller-button" onClick={() => launchGame()}>Launch Game</button>
             </span>

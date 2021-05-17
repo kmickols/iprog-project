@@ -5,7 +5,7 @@ export default function InputAnswer({question, next}){
     const numQuestions = question.body.length
 
     return(
-        <div>
+        <div align={"center"}>
             <span className="main-text">
                 {numQuestions===1?"Correct Answer:":"Correct Answers:"}
                 <table className={"main-table"} align={"center"}>

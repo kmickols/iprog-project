@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Intermission({score, player, next, message, answers}) {
     return(
-        <div>
+        <div align={"center"}>
             <span className={"main-text"}>
                 {message?message:null}
             </span>

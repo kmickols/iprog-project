@@ -2,7 +2,7 @@ import React from "react";
 
 export default function HostInputQuestion({question, remainingSeconds}) {
     return(
-        <div>
+        <div align={"center"}>
             <span className="main-text extra-big-text">
                 {question.text}
 
