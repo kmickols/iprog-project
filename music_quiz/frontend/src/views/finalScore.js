@@ -1,14 +1,5 @@
 import React from "react";
 
-// sample scores:
-/*
-    var scores = [
-        {name: 'Anty', score: 50220},
-        {name: 'Rikky', score: 250},
-        {name: 'Izzy', score:  7}
-    ];
-*/
-
 export default function FinalScore({scores, returnToMain}){
     return(
         <div>

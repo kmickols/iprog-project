@@ -238,6 +238,13 @@
 
 }
 
+@media (max-width: 480px) {
+    .main-text {
+        font-size: 20px;
+    }
+
+}
+
 .player {
     position:absolute;
     bottom:5px;
