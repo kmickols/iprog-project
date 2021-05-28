@@ -70,15 +70,18 @@ export default function QuizHostPresenter(props) {
     } else if (question) {
         if (!showAnswer) {
             return <HostInputQuestion question={question} remainingSeconds={seconds}/>
-        } else {
+        }
+
+        else {
             let next = () => {
                 setQuestionPromise(model.getNextQuestion())
                 setShowAnswer(false)
                 setSeconds(30)
             }
 
-            return <InputAnswer question={question} next={next}/>
-
+            if (question!== 1) {
+                return <InputAnswer question={question} next={next}/>
+            }
         }
     } else {
         return <Loading/>

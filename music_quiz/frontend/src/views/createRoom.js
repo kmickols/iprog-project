@@ -2,7 +2,10 @@ import React from "react";
 
 export default function CreateRoom({loggedInToSpotify, numQuestions, changeNumQuestions, loadingLogin, loadingSpotify, loginSpotify, createRoom, returnToMain, changeQuizType, quizTypes, checked, showLoading}) {
     let i = 0
-
+    let oneQuestion;
+    if (numQuestions === 1) {
+        oneQuestion = true;
+    }
     return (
 
         <div className="main-text">
@@ -18,7 +21,7 @@ export default function CreateRoom({loggedInToSpotify, numQuestions, changeNumQu
             </div>
             <div className="main-text">
                 <span className="main-text createRoom">
-                Choose Genre & Number of questions:
+                Choose Genre
                 </span>
                     <span className="createRoom">
                         <div className="radio-genre">
@@ -39,26 +42,26 @@ export default function CreateRoom({loggedInToSpotify, numQuestions, changeNumQu
                 </span>
             </div>
             <br/>
-            <div>
-                <span className="main-text">
-                    <span className="main-text">
-                        <button className="button mini-button"
+
+            <div align={"center"}>
+                    <span className="main-text createRoom dist">
+                        Number of questions </span>
+                        <button className="button num-button"
                                 disabled={numQuestions === 20}
                                 onClick={() => changeNumQuestions(numQuestions + 1)}>+</button>
-                        <span className="createRoom">{numQuestions} Questions </span>
-                        <button className="button mini-button"
-                                disabled={numQuestions === 1}
-                                onClick={() => changeNumQuestions(numQuestions - 1)}>-</button>
-                    </span>
-                </span>
-            </div>
+                {!oneQuestion?<span className="main-text createRoom">{numQuestions} Questions
+                        </span>: <span className={"main-text createRoom"}>{numQuestions} Question</span>}
 
+                <button className="button num-button"
+                        disabled={numQuestions === 1}
+                        onClick={() => changeNumQuestions(numQuestions - 1)}>-</button>
+            </div>
             <div>
                 <span className={"main-text"}>
                 <button className="button smaller-button" disabled={showLoading||!loggedInToSpotify} onClick={() => createRoom()}>Create Room</button>
                 </span>
                 <span className="main-text">
-                    {!loggedInToSpotify?<div className="authmsg">
+                    {!loggedInToSpotify?<div className="small-error-text">
                         <div>Please login to Spotify</div>
                     </div>
                     : <div/>}

@@ -220,6 +220,13 @@
     background-color: #c6c6c6;
 }
 
+.num-button {
+    width: 10px;
+    height: auto;
+    font-size: 15px;
+}
+
+
 .join-button {
     width: 100px;
     height: 50px;
@@ -377,3 +384,6 @@
     background-size: cover;"
 }
 
+.dist {
+    margin-top: 20px;
+}
