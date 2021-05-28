@@ -1,6 +1,13 @@
 import React from "react";
 
 export default function FinalScore({scores, returnToMain, playAgain}) {
+    var scoress = [
+        {name: 'Anty', score: 500},
+        {name: 'Rikky', score: 30},
+        {name: 'Izzy', score: 500},
+        {name: 'fourth', score: 327}
+    ];
+
     return(
         <div>
             <span className={"main-text"}>
@@ -10,7 +17,7 @@ export default function FinalScore({scores, returnToMain, playAgain}) {
                             <td>Player:</td>
                             <td>Score:</td>
                         </tr>
-                        {scores.sort(function(a,b){
+                        {scoress.sort(function(a,b){
                             return b.score - a.score;
                         }).map(d =>
                         <tr>

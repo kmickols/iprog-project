@@ -279,25 +279,23 @@
     width: 600px;
     border-collapse: collapse;
     text-shadow: 2px 2px 2px #4c4c4c;
+    padding-bottom: 20px;
 
 }
 
 .highscore th{
     text-align: center;
     font-size: 50px;
+    text-decoration: underline;
+    padding-bottom: 20px;
+
+}
+highscore tr,td{
+    text-align: center;
+    font-size: 35px;
 }
 
-.highscore td {
-    border: 1px solid black;
-}
 
-.highscore tr:nth-child(even) {
-    background-color: #0000ff;
-}
-
-.highscore tr:nth-child(odd) {
-    background-color: #1e90ff;
-}
 
 .authenticated{
     border: dotted 4px #000;
