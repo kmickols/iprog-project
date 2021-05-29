@@ -387,3 +387,64 @@
 .dist {
     margin-top: 20px;
 }
+
+.collapsible {
+    background-color: #fff;
+    cursor: pointer;
+    padding: 18px;
+    width: 600px;
+    border: solid;
+    border-radius:0.7em;
+    border-color: white;
+    outline: none;
+    font-size: 25px;
+    color: #4D5DCA;
+    font-family: "Red Hat Display", serif;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+    background-color: #daeeff;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+    display: none;
+    width: 580px;
+    border: none;
+    background-color: #8d9cf6;
+    font-family: "Red Hat Display", serif;
+    text-align: left;
+
+}
+
+.collapsible:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 20px;
+    color: white;
+    float: right;
+    margin-top: 5px;
+}
+
+.active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+    color: #4D5DCA;
+}
+
+@media (max-width: 480px) {
+    .collapsible {
+        width: 300px;
+
+    }
+
+}
+@media (max-width: 480px) {
+    .content {
+        width: 280px;
+        background: #8d9cf6;
+        font-size: 18px;
+    }
+
+}
