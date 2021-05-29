@@ -374,6 +374,7 @@ highscore tr,td{
     text-align: center;
 }
 
+
 .background {
     background: url(bg.png) no-repeat fixed center center;
     -webkit-background-size: cover;
@@ -386,63 +387,37 @@ highscore tr,td{
     margin-top: 20px;
 }
 
-.collapsible {
+.tutorial-button {
     background-color: #fff;
     cursor: pointer;
     padding: 18px;
     width: 600px;
     border: solid;
-    border-radius:0.7em;
+    border-radius: 0.7em;
     border-color: white;
     outline: none;
     font-size: 25px;
     color: #4D5DCA;
-    font-family: "Red Hat Display", serif;
-    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
-
+    font-family: 'Red Hat Display', sans-serif;
+    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+    font-weight: 300;
 }
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .collapsible:hover {
+.tutorial-button:hover {
     background-color: #daeeff;
-}
-
-/* Style the collapsible content. Note: hidden by default */
-.content {
-    display: none;
-    width: 580px;
-    border: none;
-    background-color: #8d9cf6;
-    font-family: "Red Hat Display", serif;
-    text-align: left;
 
 }
 
-.collapsible:after {
-    content: '\02795'; /* Unicode character for "plus" sign (+) */
+.tutorial-text {
     font-size: 20px;
-    color: white;
-    float: right;
-    margin-top: 5px;
-}
+    text-align: left;
+    width: 600px;
 
-.active:after {
-    content: "\2796"; /* Unicode character for "minus" sign (-) */
-    color: #4D5DCA;
 }
 
 @media (max-width: 480px) {
-    .collapsible {
+    .tutorial-button {
         width: 300px;
 
-    }
-
-}
-@media (max-width: 480px) {
-    .content {
-        width: 280px;
-        background: #8d9cf6;
-        font-size: 18px;
     }
 
 }

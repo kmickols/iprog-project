@@ -23,9 +23,7 @@
 </head>
 <body class="background">
 <script src="https://sdk.scdn.co/spotify-player.js"></script>
-<script>
 
-</script>
 <div>
     <header>
         <h1 class="header"> &#x266b; Music Quiz &#x266b; </h1>
@@ -36,22 +34,6 @@
 </div>
 
 <script src='{% static "frontend/main.js" %}'></script>
-<script>
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-            }
-        });
-    }
-</script>
 </body>
 
 </html>
