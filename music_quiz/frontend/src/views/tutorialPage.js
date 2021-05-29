@@ -51,7 +51,10 @@ export default function TutorialPage({returnToMain}) {
                         </details>
                 </section>
             </span>
-    </div>
+
+    <span className="main-text dist"> <button className="button mini-button" onClick={() => returnToMain()}> &#5130; Back
+         </button> </span>
+</div>
 
 )
 }
