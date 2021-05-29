@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function FinalScore({scores, returnToMain, playAgain}) {
+
     return(
         <div>
             <span className={"main-text"}>
