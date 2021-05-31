@@ -100,6 +100,7 @@ export default function CreateRoomPresenter(props) {
                            changeNumQuestions={x => {
                                if (x >= 1 && x <= 20) {
                                    model.setNumQuestions(x)
+                                   model.setCurrentQuestion(0)
                                    setNumQuestions(x)
                                }
                            }}

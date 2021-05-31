@@ -20,6 +20,7 @@ export default class Model {
         this.setRoomCode(roomCode)
         this.setNumberOfPlayers(players);
         this.setNumQuestions(numQuestions);
+        this.setCurrentQuestion(0);
         this.isHost = false
         this.autoplay = false
         this.score = 0
@@ -37,6 +38,10 @@ export default class Model {
 
     setNumQuestions(x) {
         this.numQuestions = x;
+    }
+
+    setCurrentQuestion(x) {
+        this.currentQuestion = x;
     }
 
     setIsHost(bool) {

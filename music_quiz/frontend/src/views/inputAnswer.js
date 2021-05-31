@@ -1,11 +1,15 @@
 import React from "react";
 
 
-export default function InputAnswer({question, next}){
+export default function InputAnswer({question, next, showResults, questionNum, totQuestionNum}){
     const numQuestions = question.body.length
 
     return(
         <div align={"center"}>
+            <span className="main-text">
+                Question {questionNum}/{totQuestionNum}
+            </span>
+            <br/>
             <span className="main-text">
                 {numQuestions===1?"Correct Answer:":"Correct Answers:"}
                 <table className={"main-table"} align={"center"}>
@@ -25,7 +29,7 @@ export default function InputAnswer({question, next}){
                                      </tr>
                                  </div>)})}
                 </table>
-                <button className={"button smaller-button"} onClick={() => next()}> Next Question </button>
+                <button className={"button smaller-button"} onClick={() => next()}> {showResults?"Show Results!":"Next Question"} </button>
             </span>
         </div>
     )

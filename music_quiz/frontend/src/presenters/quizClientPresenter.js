@@ -73,7 +73,7 @@ export default function QuizClientPresenter(props) {
                 questionPromise.then(dt => {
                     if (questionPromise === p) {
                         if (dt === -1) {
-                            setShowResult(true)
+                            props.history.push("/room/" + model.getRoom() + "/result")
                         } else {
                             if (!prevQuestion || dt.index !== prevQuestion.index) {
                                 setQuestionAnswered(false)

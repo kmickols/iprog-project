@@ -46,6 +46,7 @@ export default function QuizHostPresenter(props) {
                         if (dt === -1) {
                             props.history.push("/room/" + model.getRoom() + "/result")
                         } else {
+                            model.setCurrentQuestion(model.currentQuestion + 1)
                             setQuestion(dt)
                             model.getPlaySong(dt.spotify_token)
 
@@ -69,7 +70,7 @@ export default function QuizHostPresenter(props) {
         return <Error error={questionError}/>
     } else if (question) {
         if (!showAnswer) {
-            return <HostInputQuestion question={question} remainingSeconds={seconds}/>
+            return <HostInputQuestion question={question} remainingSeconds={seconds} questionNum={model.currentQuestion} totQuestionNum={model.numQuestions}/>
         }
 
         else {
@@ -80,7 +81,7 @@ export default function QuizHostPresenter(props) {
             }
 
             if (question!== 1) {
-                return <InputAnswer question={question} next={next}/>
+                return <InputAnswer question={question} next={next} showResults={model.currentQuestion === model.numQuestions} questionNum={model.currentQuestion} totQuestionNum={model.numQuestions}/>
             }
         }
     } else {
