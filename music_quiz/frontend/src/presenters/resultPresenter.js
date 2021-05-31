@@ -38,6 +38,12 @@ export default function ResultPresenter(props) {
 
      React.useEffect(function () { setPromise( model.getScores() )}, [])
 
+    let playAgain
+    if(model.isHost){
+        playAgain = () => props.history.push("/create")
+    } else {
+        playAgain = () => props.history.push("/join")
+    }
 
-    return scoreErr?<Error error={scoreErr}/>:(score?<FinalScore scores={score} returnToMain={() => props.history.push("/")}/>:<Loading/>)
+    return scoreErr?<Error error={scoreErr}/>:(score?<FinalScore scores={score} returnToMain={() => props.history.push("/")} playAgain={playAgain} />:<Loading/>)
 }
