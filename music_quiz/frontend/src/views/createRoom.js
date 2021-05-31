@@ -2,10 +2,7 @@ import React from "react";
 
 export default function CreateRoom({loggedInToSpotify, numQuestions, changeNumQuestions, loadingLogin, loadingSpotify, loginSpotify, createRoom, returnToMain, changeQuizType, quizTypes, checked, showLoading}) {
     let i = 0
-    let oneQuestion;
-    if (numQuestions === 1) {
-        oneQuestion = true;
-    }
+
     return (
 
         <div className="main-text">
@@ -47,14 +44,13 @@ export default function CreateRoom({loggedInToSpotify, numQuestions, changeNumQu
                     <span className="main-text createRoom dist">
                         Number of questions </span>
                         <button className="button num-button"
-                                disabled={numQuestions === 20}
-                                onClick={() => changeNumQuestions(numQuestions + 1)}>+</button>
-                {!oneQuestion?<span className="main-text createRoom">{numQuestions} Questions
-                        </span>: <span className={"main-text createRoom"}>{numQuestions} Question</span>}
+                                onClick={() => changeNumQuestions(numQuestions + 1)} disabled={numQuestions===20}>+</button>
+                <span className="main-text createRoom">{numQuestions} Questions
+                        </span>
 
                 <button className="button num-button"
-                        disabled={numQuestions === 1}
-                        onClick={() => changeNumQuestions(numQuestions - 1)}>-</button>
+
+                        onClick={() => changeNumQuestions(numQuestions - 1)} disabled={numQuestions === 2}>-</button>
             </div>
             <div>
                 <span className={"main-text"}>
